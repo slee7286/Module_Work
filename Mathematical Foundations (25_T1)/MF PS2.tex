@@ -1,0 +1,224 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[a4paper, left=2cm, right=2cm, top=3cm, bottom=3cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+
+\title{Mathematical Foundations PS1}
+\author{Siheon Lee}
+\date{October 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{2.3 Exercises on Relations and Logic}
+\begin{itemize}
+    \item 1
+    \begin{itemize}
+        \item $2*2=4$, $2.6*2.6=6.76$, $2.64*2.64=6.9696$, $2.645*2.645=6.996025$
+    \end{itemize}
+    \item 2
+    \begin{itemize}
+        \item print('Enter your natural number:')
+number = int(input())
+if number < 1:
+    raise Exception("Sorry, only natural numbers")
+
+print('Enter your number of decimal places (>=1):')
+decimal = int(input())
+if decimal < 1:
+    raise Exception("Sorry, only decimal places greater than 0")
+
+sqrt = 0
+
+for i in range(number // 2 + 1):
+    if i ** 2 > number:
+        sqrt = i - 1
+        break
+    elif i ** 2 == number:
+        sqrt = i
+        break
+else:
+    sqrt = number // 2
+
+for i in range(1, decimal + 1):
+    for j in range(10):
+        if (sqrt + j * 10**(-i))**2 > number:
+            sqrt = sqrt + (j - 1) * 10**(-i)
+            break
+    else:
+        sqrt = sqrt + 9 * 10**(-i)
+print(f"\textbackslash nApproximate sqrt({number}) $\approx$ {round(sqrt, decimal)}")
+    \end{itemize}
+    \item 3 
+    \begin{itemize}
+        \item Proof by contradiction
+        \begin{itemize}
+            \item Proposition: $\sqrt{3} \notin \mathbb{Q}$
+            \item Assume $\sqrt{3}$ is rational
+            \begin{itemize}
+                \item $(\exists p,q \in \mathbb{N})\left( HCF(p,q)=1 \wedge \sqrt{3} = \frac{p}{q} \right)$
+            \end{itemize}
+            \item We can see that $(\exists p,q \in \mathbb{N})\left( HCF(p,q)=1 \wedge 3q^2 = p^2 \right)$
+            \item Then $p^2 \mid 3$ so $p \mid 3$
+            \begin{itemize}
+                \item $(\exists r \in \mathbb{N}) (3r=p)$
+            \end{itemize}
+            \item But $3q^2=p^2$, and so
+            \begin{itemize}
+                \item $3q^2 = 9r^2 \Rightarrow q^2 = 3r^2$
+            \end{itemize}
+            \item We see that $q^2 \mid 3$, which implies $q \mid 3$.
+            \item Therefore, $p,q \mid 3$, which violates our initial assumption
+            \item Therefore, our initial assumption is false and $\sqrt{3}$ is not a rational number
+        \end{itemize}
+    \end{itemize}
+    \item 4
+    \begin{itemize}
+        \item Proof by contradiction
+        \begin{itemize}
+            \item Proposition: For all primes $p, \sqrt{p} \notin \mathbb{Q}$
+            \item Assume $\sqrt{p}$ is rational
+            \begin{itemize}
+                \item $(\exists h,q \in \mathbb{N})\left( HCF(h,q)=1 \wedge \sqrt{p} = \frac{h}{q} \right)$
+            \end{itemize}
+            \item We can see that $(\exists h,q \in \mathbb{N})\left( HCF(h,q)=1 \wedge pq^2 = h^2 \right)$
+            \item Then $h^2 \mid p$ so $h \mid p$
+            \begin{itemize}
+                \item $(\exists r \in \mathbb{N}) (pr=h)$
+            \end{itemize}
+            \item But $pq^2=h^2$, and so
+            \begin{itemize}
+                \item $pq^2 = p^2r^2 \Rightarrow q^2 = pr^2$
+            \end{itemize}
+            \item We see that $q^2 \mid p$, which implies $q \mid p$.
+            \item Therefore, $h,q \mid p$, which violates our initial assumption
+            \item Therefore, our initial assumption is false and $\sqrt{p}$ is not a rational number
+        \end{itemize}
+    \end{itemize}
+    \item 5a
+    \begin{itemize}
+        \item $\varphi =  \frac{\frac{b}{a}(a+b)}{\frac{b}{a} a} = \frac{b+\frac{b^2}{a}}{b}= 1+\frac{b}{a}=1+\frac{1}{\varphi}$
+        \item $\varphi^2 = \varphi^2 = (1+\frac{1}{\varphi})\varphi = \varphi + 1$
+        \item $\varphi = \frac{-1 \pm \sqrt{1-4(-1)(1)}}{-2}=\frac{-1\pm\sqrt{5}}{-2}=\frac{1+\sqrt{5}}{2}$
+    \end{itemize}
+    \item 5b
+    \begin{itemize}
+        \item Proposition: $\varphi \notin \mathbb{Q}$
+            \item Assume $\varphi$ is rational
+            \begin{itemize}
+                \item $(\exists p,q \in \mathbb{N}, p>q>0)\left( HCF(p,q)=1 \wedge \varphi = \frac{p}{q} = \frac{p+q}{p} \right)$
+            \end{itemize}
+            \item We can see that $(\exists p,q \in \mathbb{N})\left( HCF(p,q)=1 \wedge p^2 = q^2+pq = q(p+q \right)$
+            \item Then $p^2 \mid q$ so $p \mid q$
+            \item Therefore, $p \mid q$, which violates our initial assumption
+            \item Therefore, our initial assumption is false and $\varphi$ is not a rational number
+    \end{itemize}
+    \item 5c
+    \begin{itemize}
+        \item $\varphi = 1+\frac{1}{\varphi} = 1+\frac{1}{1+\frac{1}{\varphi}} = 1+\frac{1}{1+\frac{1}{\varphi}} = 1+\frac{1}{1+\frac{1}{1+\frac{1}{\varphi}}} = \dots = 1+ \frac{1}{1+\frac{1}{1+\frac{1}{1+\ddots}}}$
+    \end{itemize}
+    \item 6
+    \begin{itemize}
+        \item We have quantities $a,b$ with $a>b$. The two numbers are in the silver ratio if $\frac{b}{a}=\frac{a}{b+2a}$
+        \item
+        \begin{flalign*}
+            &\phi = \frac{b}{a} = \frac{a}{b+2a} \\
+            &b = a\phi \\
+            &\phi = \frac{a}{a\phi+2a} = \frac{1}{\phi+2} \\
+            &\phi^2 +2\phi -1 =0 \\
+            &\phi = \frac{-2 \pm \sqrt{4-4(-1)(1)}}{2} =\frac{-2+2\sqrt{2}}{2} = 1+\sqrt{2}
+        \end{flalign*}
+    \end{itemize}
+    \item 7
+    \begin{itemize}
+        \item Reverse Triangle Inequality - $\forall u,v \in \mathbb{R}, \vert u-v \vert \ge \vert \vert u \vert - \vert v \vert \vert$
+        \item Triangle Inequality - $\forall u,v \in \mathbb{R}, \vert u+v \vert \le \vert u \vert + \vert v \vert$
+        \item Proof for Triangle Inequality:
+        \begin{flalign*}
+            &- \vert x \vert \le x \le \vert x \vert \wedge - \vert y \vert \le y \le \vert y \vert \\
+            \Rightarrow &- \vert x \vert - \vert y \vert \le x+y \le \vert x \vert + \vert y \vert \\
+            \Longleftrightarrow &-(\vert x \vert + \vert y \vert) \le x+y \le \vert x \vert + \vert y \vert \\
+            \Longleftrightarrow &\vert x + y \vert \le \vert x \vert + \vert y \vert
+        \end{flalign*}
+        \item Proof for Reverse Triangle Inequality:
+        \begin{flalign*}
+            &\vert x + y \vert \le \vert x \vert + \vert y \vert \qquad \text{Triangle Inequality} \\
+            & \vert u \vert = \vert (u-v) + v \vert \le \vert u-v \vert + \vert v \vert \qquad \text{Substitute in } x=u-v, y=v \\
+            &\vert u \vert - \vert v \vert \le \vert u -v \vert  \qquad \text{Subtraction preserves inequality} \\ 
+            & \vert v \vert = \vert (v-u) + u \vert \le \vert v-u \vert + \vert u \vert \qquad \text{Substitute in } x=v-u, y=v \\
+            &\vert v \vert - \vert u \vert \le \vert v-u \vert = \vert u-v \vert \qquad \text{Subtraction preserves inequality} \\
+            &-\vert u-v \vert \le -(\vert v \vert - \vert u \vert) = \vert u \vert - \vert v \vert \qquad \text{Multiplication by negative number flips inequality, Distributive law of multiplication} \\
+            &- \vert u-v\vert \le \vert u \vert - \vert v \vert \le \vert u-v \vert \qquad \text{Put equations (3) and (6) together} \\
+            &\vert \vert u \vert - \vert v \vert \vert \le \vert u-v \vert \qquad \text{Definition of AVF}
+        \end{flalign*}
+    \end{itemize}
+
+    \item 8a
+    \begin{itemize}
+        \item Let $a,b \in \mathbb{R}^+$ and $QM = \sqrt{\frac{a^2+b^2}{2}}, \quad AM = \frac{a+b}{2}, \quad GM =\sqrt{ab}, \quad HM = \left( \frac{a^{-1}+b^{-1}}{2} \right)^{-1}$
+        \item $HM=\frac{2}{\frac{1}{a}+\frac{1}{b}}=\frac{2ab}{a+b} = \frac{2GM^2}{a+b} \Rightarrow GM^2 = \frac{a+b}{2}HM = AM \cdot HM$
+        \item $\log(AM) = \log(\frac{a+b}{2})$
+        \item $\log(GM) = \log(\sqrt{ab}) = \frac{1}{2}(\log{a} + \log{b})$
+        \item By Jensen's Inequality, if $x \in \mathbb{R}^+$, since if $f(x)=\log(x)$, $f''(x)=-\frac{1}{x^2} \le 0$ (i.e., log is a concave function for $x \in \mathbb{R}^+$), $\log(E[x]) \ge E[\log(x)]$
+        \begin{itemize}
+            \item Therefore, in $x \in \mathbb{R}^+$, $\log(\frac{a+b}{2}) \ge \frac{1}{2} (\log(a) + \log(b))$
+            \item Because the $\exp(x)$ function is a monotonically increasingly function in $x \in \mathbb{R}$, raising $e$ to the power of both sides preserves the inequality and we get $\frac{a+b}{2} \ge \sqrt{ab} \Rightarrow AM \ge GM$
+        \end{itemize}
+    \end{itemize}
+    \item 8b
+    \begin{itemize}
+        \item Since $AM \ge GM$, $0 < \frac{AM}{GM} \le 1$. Dividing both sides by $GM$ in the equation that we derived for before, $GM^2 \frac{1}{GM} = GM = AM \cdot HM \frac{1}{GM} = \frac{AM}{GM} HM$, since $0 < \frac{AM}{GM} \le 1$, $GM \ge HM$
+    \end{itemize}
+    \item 8c
+    \begin{itemize}
+        \item Finally, we have $QM = \sqrt{\frac{a^2+b^2}{2}}$
+        \item $QM^2 = \frac{a^2+b^2}{2}$
+        \item $AM^2=\frac{(a+b)^2}{4}=\frac{a^2+b^2+2ab}{4}$
+        \item Proposition: $QM(a,b)^2 \ge AM(a,b)^2$ for $a,b \in \mathbb{R}^+$
+        \begin{itemize}
+            \item Proof by Contradiction: Assume $AM^2 \ge QM^2$
+            \item $\frac{a^2+b^2+2ab}{4} \ge \frac{a^2+b^2}{2}$
+            \item $a^2+b^2+2ab \ge 2(a^2+b^2)$
+            \item $2ab \ge a^2+b^2$
+            \item $0 \ge a^2+b^2-2ab$
+            \item $0 \ge (a-b)^2$
+            \item But since $a,b \in \mathbb{R}^+$, $(a-b) \in \mathbb{R}$ and any real number squared is always greater than or equal to zero
+            \item Therefore, our initial assumption is false and $QM^2 \ge AM^2$
+        \end{itemize}
+        \item Since $AM, QM \in \mathbb{R}^+$ for $a,b \in \mathbb{R}^+$, $QM^2 \ge AM^2 \Rightarrow QM \ge AM$
+        \item Finally, putting everything together, we get $QM \ge AM \ge GM \ge HM$
+    \end{itemize}
+    \item 8d
+    \begin{itemize}
+        \item Proposition: For $a,b \in \mathbb{R}^+$, $QM=AM=GM=HM \Longleftrightarrow a=b$
+        \begin{itemize}
+            \item $a=b \Rightarrow QM=AM=GM=HM$
+            \begin{itemize}
+                \item $QM=\sqrt{\frac{a^2+b^2}{2}}=\sqrt{\frac{a^2+a^2}{2}}=\sqrt{\frac{2a^2}{2}}=\sqrt{a^2}=a=\frac{2a}{2}=\frac{a+a}{2}=\frac{a+b}{2}=AM$
+                \item $QM=\sqrt{\frac{a^2+b^2}{2}}=\sqrt{\frac{a^2+a^2}{2}}=\sqrt{\frac{2a^2}{2}}=\sqrt{a^2}=\sqrt{ab}=GM$
+                \item $AM=\frac{a+b}{2} = \frac{a+a}{2}=\frac{(a+a)\frac{1}{a}}{2\frac{1}{a}}=\frac{2}{\frac{2}{a}}=\left(\frac{\frac{2}{a}}{2} \right)^{-1}=\left(\frac{\frac{1}{a}+\frac{1}{a}}{2} \right)^{-1}=\left(\frac{a^{-1}+a^{-1}}{2} \right)^{-1}=\left(\frac{a^{-1}+b^{-1}}{2} \right)^{-1}=HM$
+                \item $QM=AM=GM=HM$
+            \end{itemize}
+            \item $QM=AM=GM=HM \Rightarrow a=b$
+            \begin{itemize}
+                \item
+                \begin{flalign*}
+                    QM=AM &\Rightarrow \sqrt{\frac{a^2+b^2}{2}}=\frac{a+b}{2} \\
+                    &\Rightarrow \frac{a^2+b^2}{2} = \left( \frac{a+b}{2} \right)^2 = \frac{a^2+b^2+2ab}{4} \\
+                    &\Rightarrow 2(a^2+b^2) = a^2+b^2+2ab \\
+                    &\Rightarrow a^2+b^2 = 2ab \\
+                    &\Rightarrow a^2+b^2-2ab=0 \\
+                    &\Rightarrow (a-b)^2 = 0 \\
+                    &\Rightarrow a-b = 0 \\
+                    &\Rightarrow a=b
+                \end{flalign*}
+            \item We have proven $a=b \Rightarrow QM=AM=GM=HM$ and $QM=AM=GM=HM \Rightarrow a=b$, so we have proven $QM=AM=GM=HM \Longleftrightarrow a=b$
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\end{document}
