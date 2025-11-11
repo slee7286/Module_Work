@@ -1,0 +1,149 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[a4paper, left=2cm, right=2cm, top=3cm, bottom=3cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{xcolor}
+\lstset{
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  stringstyle=\color{red},
+  commentstyle=\color{gray},
+  showstringspaces=false,
+  frame=single
+}
+
+
+\title{Mathematical Foundations 23/24 Practice Midterm}
+\author{Siheon Lee}
+\date{November 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Section B -- Question 1}
+\begin{itemize}
+    \item By definition of primes, $p \ge 1$, so we restrict our rational numbers to positive rational numbers
+    \item We will do a proof by contradiction, assuming that $\sqrt{p}$ is rational
+    \item Without loss of generality, we can always express $\frac{a}{b}$ in terms of $a,b$ such that $GCF(a,b)=1$ since we can divide the factor out
+    \begin{flalign*}
+    &(\forall p \in \{\text{primes}\})(\exists a,b \in \mathbb{N})(\sqrt{p} = \frac{a}{b} \wedge GCF(a,b) = 1) \\
+    &p = \frac{a^2}{b^2} \wedge GCF(a,b) = 1 \\
+    &b^2 = \frac{a^2}{p} \wedge GCF(a,b) = 1 \\
+    &\text{Since } p \text{ is prime and } GCF(a,b) = 1, \text{ if } \frac{a^2}{p} \in \mathbb{N} \Rightarrow p \mid a^2 \Rightarrow p \mid a \Rightarrow a = pk, k \in \mathbb{N} \\
+    &p = \frac{(pk)^2}{b^2} \wedge GCF(a,b) = 1 \\
+    &b^2 = \frac{p^2k^2}{p} = pk^2 \wedge GCF(a,b) = 1 \\
+    &\frac{b^2}{p} = k^2  \wedge GCF(a,b) = 1 \\
+    &\text{Since } p \text{ is prime and } GCF(a,b) = 1, \text{ if } \frac{b^2}{p} \in \mathbb{N} \Rightarrow p \mid b^2 \Rightarrow p \mid b \\
+    &\text{This means that both } p \mid a,b, \text{ which contradicts our initial assumption that } GCF(a,b)=1 \\
+    \end{flalign*}
+    \item The key insight is that because $p$ is prime, if $p \mid k^2 \Rightarrow p \mid k$
+    \item Hence, by proof by contradiction, it must be that our original assumption was false and $\sqrt{p}$ is irrational
+\end{itemize}
+
+\section{Section B -- Question 2ai}
+\begin{itemize}
+    \item The supremum of $S$ is the element $\sigma \in \mathbb{R}$ that satisfies the following properties:
+    \begin{flalign*}
+        &(\forall s \in S)\ \sigma \succeq s \qquad \text{Upper Bound} \\
+        &(\forall \gamma \in \mathbb{R}: \gamma \prec \sigma)(\exists s \in S) \ s \succ \gamma \qquad \text{Least Upper Bound/Supremum}
+    \end{flalign*}
+\end{itemize}
+
+\section{Section B -- Question 2aii}
+\begin{itemize}
+    \item The infimum of $S$ is the element $\sigma \in \mathbb{R}$ that satisfies the following properties:
+    \begin{flalign*}
+        &(\forall s \in S)\ \sigma \preceq s \qquad \text{Lower Bound} \\
+        &(\forall \gamma \in \mathbb{R}: \gamma \succ \sigma)(\exists s \in S) \ s \prec \gamma \qquad \text{Greatest Lower Bound/Supremum}
+    \end{flalign*}
+\end{itemize}
+
+\section{Section B -- Question 2aiii}
+\begin{itemize}
+    \item If a totally ordered set $X$ has the Least Upper Bound property, that means that every non-empty subset of $X$ that is bounded above has a least upper bound/supremum
+\end{itemize}
+
+\section{Section B -- Question 2b}
+\begin{itemize}
+    \item The real numbers are a totally ordered field with the least upper bound property
+\end{itemize}
+
+\section{Section B -- Question 2ci}
+\begin{itemize}
+    \item The sequence $(a_n)$ is monotone increasing if $a_{n+1} \ge a_n, \forall n \in \mathbb{N}$
+\end{itemize}
+
+\section{Section B -- Question 2cii}
+\begin{itemize}
+    \item A sequence $(a_n)$ converges to $L \in \mathbb{R}$ if the following is true:
+    \[ (\forall \epsilon > 0)(\exists N \in \mathbb{N})(\forall n \ge N) \ \vert a_n - L \vert < \epsilon \]
+\end{itemize}
+
+\section{Section B -- Question 2ciii}
+\begin{itemize}
+    \item We are given that the sequence $(a_n)$ is monotone increasing and bounded. This means that the sequence has a least upper bound, which we define as 
+    \[ s = \sup \{ a_n : n \in \mathbb{N} \} \]
+    \item Using the definition of the supremum, we know that $s - \epsilon$ is not a supremum of $(a_n)$. Therefore, there exists $N \in \mathbb{N}$ such that $a_N > s - \epsilon$
+    \item In symbols: $(\exists s \in \mathbb{R}) s = \sup \{ a_n : n \in \mathbb{N} \} \Rightarrow (\forall \epsilon > 0)(\exists N \in \mathbb{N}) \ s - \epsilon < a_N$
+    \item We can conclude that $a_N \le a_n \le s < s + \epsilon$ since the sequence is monotone increasing
+    \begin{flalign*}
+        &(\forall \epsilon > 0)(\exists N \in \mathbb{N})(\forall n \ge N) \ s - \epsilon < a_N \le a_n \le s < s + \epsilon \\
+        &(\forall \epsilon > 0)(\exists N \in \mathbb{N})(\forall n \ge N) \ s - \epsilon < a_n < s + \epsilon \\
+        &(\forall \epsilon > 0)(\exists N \in \mathbb{N})(\forall n \ge N) \ \vert a_n - s \vert < \epsilon
+    \end{flalign*}
+    \item This tells us that $\lim a_n = s$, or in other words, that $(a_n)$ converges to $s$
+\end{itemize}
+
+\section{Section B -- Question 3a}
+\begin{itemize}
+    \item We are given that $(\exists k \in \mathbb{N})(k < n)\ k \mid n \Rightarrow (\exists q,k \in \mathbb{N}) \ n = qk$ and that $(\forall n \in \mathbb{N}) \ a_n > 0$
+    \begin{flalign*}
+        &a_{n} = a_{qk} = a_{k+(q-1)k} \\
+        &a_{n} \le a_{k} + a_{(q-1)k} \\
+        &a_{(q-1)k} \le a_k + a_{(q-2)k} \Rightarrow a_n \le a_k + a_k + a_{(q-2)k}\\
+        \Rightarrow &a_n \le \sum_{i=1}^q a_k = q a_k = \frac{n}{k} a_k \qquad q=\frac{n}{k}
+    \end{flalign*}
+\end{itemize}
+
+\section{Section B -- Question 3b}
+\begin{itemize}
+    \item We are given that $(\exists k \in \mathbb{N})(k < n)\ k \nmid n \Rightarrow (\exists q,k \in \mathbb{N})(\exists r \in \{1, \dots, k-1 \}) \ n = qk + r$ and that $(\forall n \in \mathbb{N}) \ a_n > 0$
+    \begin{flalign*}
+        &a_{n} = a_{qk+r} = a_{k+(q-1)k+r} \\
+        &a_{n} \le a_{k} + a_{(q-1)k+r} \\
+        &a_{(q-1)k+r} \le a_k + a_{(q-2)k+r} \Rightarrow a_n \le a_k + a_k + a_{(q-2)k+r}\\
+        &a_{k+r} \le a_k + a_r \\
+        \Rightarrow &a_n \le \sum_{i=1}^q a_k + a_r= q a_k + a_r = \frac{n-r}{k} a_k + a_r \qquad q = \frac{n-r}{k} \\
+        &\frac{n-r}{k} a_k + a_r \le \frac{n}{k} a_k + a_r \qquad n-r \le n \\
+        &a_n \le \frac{n}{k} a_k + a_r \qquad \text{Transitivity of Inequalities}
+    \end{flalign*}
+\end{itemize}
+
+\section{Section B -- Question 3c}
+\begin{itemize}
+    \item We have already proved the two cases we need. We just need to equate the two to the general equation.
+    \item Case 1. $k \mid n$
+    \begin{flalign*}
+        &(\forall m \in \{1, \dots, k\}) \ a_m > 0 \qquad \text{Given} \\
+        \Rightarrow &\frac{n}{k} a_k < \frac{n}{k} a_k + \underset{m \in \{1, \dots, k\}}{\max} a_m \qquad \text{Adding positive number} \\
+        &a_n \le \frac{n}{k} a_k < \frac{n}{k} a_k + \underset{m \in \{1, \dots, k\}}{\max} a_m \qquad \text{Substitute result from 3a} \\
+        &(\forall n, k \in \mathbb{N} : k < n \wedge k \mid n) \ a_n \le \frac{n}{k} a_k + \underset{m \in \{1, \dots, k\}}{\max} a_m \qquad \text{Transitivity of Inequalities} \\
+    \end{flalign*}
+    \item Case 2. $k \nmid n$
+    \begin{flalign*}
+        &(\forall r \in \{1, \dots, k-1\})(\exists m \in \{1, \dots, k\}) \ a_m \ge a_r \qquad r \text{ is a subset of } m \\
+        \Rightarrow &\underset{m \in \{1, \dots, k\}}{\max} a_m \ge a_r\\
+        \Rightarrow &\frac{n}{k} a_k + a_r \le \frac{n}{k} a_k + \underset{m \in \{1, \dots, k\}}{\max} a_m \qquad \text{Adding positive number} \\
+        &a_n \le \frac{n}{k} a_k + a_r \le \frac{n}{k} a_k + \underset{m \in \{1, \dots, k\}}{\max} a_m \qquad \text{Substitute result from 3b} \\
+        &(\forall n, k \in \mathbb{N} : k < n \wedge k \nmid n) \ a_n \le \frac{n}{k} a_k + \underset{m \in \{1, \dots, k\}}{\max} a_m \qquad \text{Transitivity of Inequalities} \\
+    \end{flalign*}
+    \item Since we've proven it for $k \mid n$ and $k \nmid n$, we can conclude in general that 
+    \begin{flalign*}
+        (\forall n, k \in \mathbb{N} : k < n) \ a_n \le \frac{n}{k} a_k + \underset{m \in \{1, \dots, k\}}{\max} a_m
+    \end{flalign*}
+\end{itemize}
+
+\end{document}
