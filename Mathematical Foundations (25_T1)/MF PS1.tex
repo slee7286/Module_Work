@@ -1,0 +1,133 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[a4paper, left=2cm, right=2cm, top=3cm, bottom=3cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+
+\title{Mathematical Foundations PS1}
+\author{Siheon Lee}
+\date{October 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{2.3 Exercises on Relations and Logic}
+\begin{itemize}
+    \item 1
+    \begin{itemize}
+        \item Let's define a relation $\preceq \equiv \subseteq$ (subset) and the set $A=\{\emptyset,\{1\},\{2\},\{1,2\}\}$. The greatest element in the set is $\{1,2\}$ since $\emptyset \subseteq \{1,2\}$, $\{1\} \subseteq \{1,2\}$, and $\{2\} \subseteq \{1,2\}$. However, it is not a totally ordered set since $\{1\} \nsubseteq \{2\}$ and $\{2\} \nsubseteq \{1\}$.
+    \end{itemize}
+    \item 2
+    \begin{itemize}
+        \item Let's define a relation $\preceq \equiv \subseteq$ (subset) and the set $A=\{\emptyset,\{1\},\{2\},\{3\},\{1,2\}\}$. There is no greatest element in the set since $\{3\} \nsubseteq \{1,2\}$. However, $\{1,2\}$ is the maximal element since $\forall s \in A, \{1,2\} \nsubseteq s$ is true.
+    \end{itemize}
+    \item 3
+    \begin{itemize}
+        \item Let's assume that $\forall s \in S$, $s$ isn't a maximal element. That means that there is always $s^1, s^2 \in S: s^1 \preceq s^2$. However, since there isn't a maximal element, $s^2 \preceq s^3, s^3 \in S$. If we iterate this, we can always find $s^m \preceq s^n$ and construct an infinte chain of $s^1 \preceq s^2 \preceq s^3 \dots$, which contradicts our initial condition that $S$ is a finite poset. Therefore, by proof of contradiction, every nonempty finite poset has at least one maximal element.
+    \end{itemize}
+    \item 4 \& 5
+    \begin{itemize}
+        \item $(P \wedge Q) \Rightarrow \neg R$
+        \item $P \Rightarrow Q$
+        \item $P \Rightarrow Q$
+    \end{itemize}
+    \item 6
+    \begin{itemize}
+        \item \[
+        \begin{array}{c c | c | c | c}
+        F & G & F \vee G & F \wedge G & (F \vee G) \wedge \neg(F \wedge G)\\ 
+        \hline
+        T & T & T & T & F \\ 
+        T & F & T & F & T \\ 
+        F & T & T & F & T \\ 
+        F & F & F & F & F \\ 
+        \end{array}
+        \]
+    \end{itemize}
+    \item 7
+    \begin{itemize}
+        \item \[
+        \begin{array}{c c | c | c | c}
+        A & B & A \vee B & A \wedge B & A \wedge (A \vee B) \\ 
+        \hline
+        T & T & T & T & T \\ 
+        T & F & T & F & T \\ 
+        F & T & T & F & F \\ 
+        F & F & F & F & F \\ 
+        \end{array} 
+        \]
+        \[ A \wedge (A \vee B) = A\]
+    \end{itemize}
+    \item 8
+    \begin{itemize}
+        \item \[
+        \begin{array}{c c | c | c | c | c}
+        \neg A & \neg B & \neg(A \vee B) & \neg A \wedge \neg B & \neg(A \wedge B) & \neg A \vee \neg B \\ 
+        \hline
+        T & T & F & F & F & F \\ 
+        T & F & F & F & T & T \\ 
+        F & T & F & F & T & T \\ 
+        F & F & T & T & T & T \\ 
+        \end{array} 
+        \]
+        \begin{flalign*}
+            \neg (A \vee B) = \neg A \wedge \neg B \\
+            \neg(A \wedge B) = \neg A \vee \neg B
+        \end{flalign*}
+    \end{itemize}
+    \item 9
+    \begin{itemize}
+        \item \[
+        \begin{array}{c c | c}
+        \text{Trunk } A & \text{Trunk } B & \text{Treasure Trunk} \\ 
+        \hline
+        T \text{ and Treasure} & T \text{ and Treasure} & \text{Logical contradiction since there is treasure in Trunk } A \\
+        & & \text{ but Trunk } B \text{ is true} \\ 
+        T \text{ and Trap} & T \text{ and Treasure} & \text{This is the only logically true option, so the treasure is in Trunk } B \\ 
+        T \text{ and Treasure} & T \text{ and Trap} & \text{Logical contradiction since there is treasure in Trunk } A \\
+        & & \text{ but Trunk } B \text{ is true} \\ 
+        T \text{ and Trap} & T \text{ and Trap} & \text{Logical contradiction since there isn't treasure but Trunk } A \text{ is true} \\
+        F \text{ and Treasure} & F \text{ and Treasure} & \text{Logical contradiction since there is treasure but Trunk } A \text{ is false} \\ 
+        F \text{ and Trap} & F \text{ and Treasure} & \text{Logical contradiction since there is treasure but Trunk } A \text{ is false} \\ 
+        F \text{ and Treasure} & F \text{ and Trap} & \text{Logical contradiction since there is treasure but Trunk } A \text{ is false} \\ 
+        F \text{ and Trap} & F \text{ and Trap} & \text{Logical contradiction since there is a fatal trap in Trunk } A \\ & & \text{ but Trunk } B \text{ is false} \\
+        \end{array} 
+        \]
+    \end{itemize}
+    \item 10
+    \begin{itemize}
+        \item (a) Pam only has knowledge of the rule $1 \le x \le y$ and the product $x \times y$. The only way he would be certain what $x$ and $y$ would be would be if $x=1, y= \text{any prime}, x \times y= \text{any prime}$, because that's the only product that gives the values of $x$ and $y$ with certainty.
+        \item (b) Since Pam did not know the answer, we know that $x \neq 1$ and $y \neq 3$ since he would've known the answer in that case. Therefore, the only other way to make $x+y=4$ while adhering to the rule is if $x=2$ and $y=2$.
+        \item (c) If the product is $4$, there are two options: $x=2,y=2$ or $x=1,y=4$. However, since Sam doesn't know what the $x$ and $y$ are after that hint, it is definitely not $2$ and $2$ since we already considered that case in (b). Therefore, the only option left is $x=1,y=4$.
+        \item (d) The choices here are $(x=1,y=8),(x=2,y=4)$. If $x+y=6$ (meaning $x=2,y=4$), there is the possibility of the product being $x \times y = 5$ and Pam knowing the answer right away ($x=1,y=5$). Since Sam said he already knew that Pam didn't know what $x$ and $y$ are, Sam's sum must have been $x+y=9$. Therefore, Pam deduced that $x=1,y=8$.
+        \item (e) If $x+y=5$, then the possibilities are $(x=1,y=4),(x=2,y=3)$. The possibilities for multiplication would be $x \times y=4$ or $x \times y = 6$. Pam said he doesn't know and Sam also said he doesn't know.
+        
+        Assuming for Pam $x \times y = 4$, then the sum could be $x+y=5$ $(x=1,y=4)$ or $x+y=4$ $(x=2,y=2)$. For $x+y=4$, there are two choices for Sam: $(x=1,y=3),(x=2,y=2)$. If Pam had $x \times y = 3$, he would've gotten it immediately. However, since Pam didn't know, Sam would've gotten $x=2, y=2$. However, since Sam didn't know, that means $x+y \neq 4$. If Pam now had this knowledge, he would've been able to deduce that $x=1,y=4$. However, since Pam still didn't know what $x$ and $y$ are, $x\neq 1, y \neq 4$. Therefore, our only option left is $(x=2,y=3)$ and Sam knew this.
+    \end{itemize}
+    \item 11
+    \begin{itemize}
+        \item (i) \[
+        \begin{array}{c c c | c}
+        A & 
+        B & C \\ 
+        \hline
+        T & T & T & \text{Logical Contradiction} \\ 
+        T & T & F & \text{Logical Consistency} \\ 
+        T & F & F & \text{Logical Contradiction} \\ 
+        F & T & T & \text{Logical Consistency} \\ 
+        F & T & F & \text{Logical Contradiction} \\ 
+        F & F & T & \text{Logical Contradiction} \\ 
+        T & F & T & \text{Logical Consistency} \\
+        F & F & F & \text{Logical Contradiction} \\ 
+        \end{array}
+        \]
+        \item (ii) For $n \le 2$, then the statement "At least one of my two neighbours is a liar." is a vacuous truth. However, for $n \ge 3$, if all $n$ people are truth-tellers, the statement that "At least one of my two neighbours is a liar." is false, which is a logical contradiction to the fact that everyone is telling the truth.
+        \item (iii) For $n \le 2$, then the negation of the statement "At least one of my two neighbours is a liar." is a vacuous truth. However, for $n \ge 3$, if all $n$ people are liars, the statement that "At least one of my two neighbours is a liar." is true, which is a logical contradiction to the fact that everyone is telling the lie.
+        \item (iv) If $n \text{ mod } 2 = 0$, we have $\frac{n}{2}$ copies of the sequence $(T,F)$. If we make a sequence with $\frac{n}{2}$ copies of the sequence $(T,F)$, we get $(T,F,T,F,T,F, \dots, T, F)$. This means that the start of the sequence is always a truth-teller and the end of a sequence is always a liar. Therefore, in a circular arrangement, the end of the sequence will be next to the start of the sequence and we will have a consistent arrangement where truth-tellers and liars alternate around the table.
+        \item (v) If $n \text{ mod } 2 = 1$, we have $\frac{n-1}{2}$ copies of the sequence $(T,F)$ and one $T$ or $F$ left over. If we make a sequence with $\frac{n}{2}$ copies of the sequence  $(T,F)$ with the extra left over $T/F$, we get $(T,F,T,F,T,F, \dots, T, F, T/F)$. This means that either there are two $F$s in a row, or both the start and end of the sequence is a $T$, in which case in a circular arrangement, the end of the sequence will be next to the start of the sequence and we will have two $T$s in a row. Therefore, no  alternating arrangement exists. One consistent arrangement for odd $n$ would be where we have all $T$s in a sequence and all $F$s in a sequence and connect the two. The arrange would be so that all $T$s and $F$s have at least one neighboring person that is the same as them.
+    \end{itemize}
+\end{itemize}
+
+\end{document}
