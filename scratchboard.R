@@ -10,6 +10,8 @@ install.packages("ggrepel")
 install.packages("ggpubr")
 install.packages("dslabs")
 install.packages("readr")
+install.packages("english")
+install.packages("quantmod")
 library(tidyverse)
 library(palmerpenguins)
 library(nycflights13)
@@ -19,6 +21,9 @@ library(ggplot2)
 library(ggthemes)
 library(dslabs)
 library(readr)
+library(stringr)
+library(english)
+library(quantmod)
 View(penguins)
 
 1 / 200 * 30
@@ -65,6 +70,7 @@ ggsave(filename = "mpg-plot.png", plot = my_bar_plot)
 getwd()
 
 library(nycflights13)
+aS
 
 View(flights)
 
@@ -751,3 +757,288 @@ new_tidy_data %>% ggplot(aes(year, fertility, color=country)) +
   ) +
   scale_color_discrete(name = " ") +
   theme_economist()
+
+# Lecture 7
+head(diamonds)
+# Carat is a measure of diamond weight; one carat is equivalent to 0.2 grams
+# Clarity refers to how clear a diamond is. Diamonds often contain imperfections like cracks or mineral deposits. The fewer and less noticeable a diamond’s imperfections, the better its clarity. Clarity contains 8 ordered levels, from “I1” (the worst) to “IF” (the best).
+# Color refers to the color of the diamond. Colorless diamonds are considered better than diamonds with a tint. The data set contains diamonds of 7 different colors, represented by different letters. D, E, F diamonds are considered colorless, while G, H, I, J diamonds have a very faint color
+# Cut refers to how a rough diamond is shaped into a finished diamond. Better cuts create more symmetrical and luminous diamonds. cut has 5 ordered levels: “Fair,” “Good,” “Very Good,” “Premium,” “Ideal.”
+# x, y, z, depth, and table are various measures of a diamond’s size, in millimeters.
+
+ggplot(diamonds, aes(x=carat)) +
+  geom_histogram(binwidth = 0.5)
+smaller <- diamonds %>% filter(carat < 3)
+ggplot(smaller, aes(x = carat)) +
+  geom_histogram(binwidth = 0.01)
+
+ggplot(diamonds, aes(x=y)) +
+  geom_histogram(binwidth = 0.5) +
+  coord_cartesian(ylim = c(0,50))
+unusual <- diamonds %>%
+  filter(y < 3 | y > 20) %>%
+  select(price, x, y, z) %>%
+  arrange(y)
+unusual
+
+# Drop the entire row with the strange values:
+diamonds2 <- diamonds %>% filter(between(y,3,20))
+
+# Replacing unusual values with missing values
+diamonds2 <- diamonds %>% mutate(y =if_else(y < 2 | y > 20, NA, y))
+
+ggplot(diamonds2, aes(x=x,y=y)) +
+  geom_point()
+
+new <- nycflights::flights %>%
+  mutate(
+    cancelled = is.na(dep_time),
+    sched_hour = sched_dep_time %>% 100,
+    sched_min = sched_dep_time %% 100,
+    sched_dep_time = sched_hour + (sched_min / 60))
+
+new %>%
+  ggplot(aes(x = sched_dep_time, after_state(density))) +
+  geom_freqpoly(aes(color = cancelled), binwidth = 1/4)
+
+ggplot(diamonds2, aes(x = price, y = after_stat(density))) +
+  geom_freqpoly(aes(color = cut), binwidth = 500, linewidth = 0.75)
+
+ggplot(diamonds2, aes(x = cut, y = price)) +
+  geom_boxplot()
+
+# Flip 90 degrees
+ggplot(diamonds2, aes(x = price, y = cut)) +
+  geom_boxplot()*
+
+ggplot(diamonds2, aes(x = cut, y = color)) +
+  geom_count()
+
+diamonds2 %>% count(color, cut) %>% ggplot(aes(x = cut, y = color)) + 
+  geom_tile(aes(fill = n))
+
+ggplot(smaller, aes(x = carat, y = price)) +
+  geom_point()
+
+ggplot(smaller, aes(x = carat, y =price)) +
+  geom_point(alpha = 1/100)
+
+ggplot(smaller, aes(x = carat, y = price)) +
+  geom_boxplot(aes(group = cut_width(carat, 0.1)))
+
+ggplot(smaller, aes(x = carat, y = price)) +
+  geom_boxplot(aes(group = cut_width(carat, 0.1)), varwidth = TRUE)
+
+# Correlation between price and weight
+# Fair diamonds are bigger so more pricier?
+
+new_tidy_data <- gather(wide_data, year, fertility, `1960`:`2015`)
+head(new_tidy_data)
+
+new_tidy_data <- wide_data %>% gather(year, fertility, -country)
+
+# Tutorial 7 (20/11/2025)
+
+setwd('C:/Users/slee7/OneDrive - Imperial College London/Introduction to Data Science/Week 7')
+
+Eng_population <- read.csv("./data2/ONS-England_population.csv",
+                           stringsAsFactors = F)
+Wales_population <- read.csv("./data2/ONS-Wales_population.csv",
+                             stringsAsFactors = F)
+Eng_Wales_GDP_GR <- read.csv("./data2/ONS-England-Wales_GDP_GrowthRate.csv",
+                             stringsAsFactors = F)
+
+Eng_population <- Eng_population[8:58, ]
+colnames(Eng_population) <- c("Year", "Population")
+Eng_population <- Eng_population %>%
+  mutate(Year = as.numeric(Year), Population = as.numeric(Population),
+         Region = "England")
+Wales_population <- Wales_population[8:58, ]
+colnames(Wales_population) <- c("Year", "Population")
+Wales_population <- Wales_population %>%
+  mutate(Year = as.numeric(Year), Population = as.numeric(Population),
+         Region = "Wales")
+
+Eng_Wales_population <- rbind(Eng_population, Wales_population)
+head(Eng_Wales_population)
+
+inner_join_data1 <- Eng_Wales_GDP_GR %>%
+  inner_join(Eng_Wales_population,
+             by = c("calendar.years" = "Year", "Geography" = "Region"))
+head(inner_join_data1)
+
+left_join_data1 <- Eng_Wales_GDP_GR %>%
+  left_join(Eng_Wales_population,
+            by = c("calendar.years" = "Year", "Geography" = "Region"))
+head(left_join_data1)
+
+right_join_data1 <- Eng_Wales_GDP_GR %>%
+  right_join(Eng_Wales_population,
+             by = c("calendar.years" = "Year", "Geography" = "Region"))
+head(right_join_data1)
+
+full_join_data1 <- Eng_Wales_GDP_GR %>%
+  full_join(Eng_Wales_population,
+            by = c("calendar.years" = "Year", "Geography" = "Region"))
+head(full_join_data1)
+
+inner_join_data1 %>% ggplot(aes(x=calendar.years, y=GrowthRate, color=Geography, label=Geography)) +
+  geom_point(aes(color = Geography, shape = Geography), size = 3) +
+  geom_smooth(method = lm, aes(color = Geography, fill = Geography, lty = Geography)) +
+  labs(
+    x = "Years",
+    y = "Growth Rate",
+    title = "England and Wales Growth Rate by Year"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.title = element_text(size=12, face = "bold"),
+    axis.text = element_text(size = 10),
+    plot.title = element_text(hjust = 0.5, size = 15, face = "bold"),
+    legend.title = element_text(size = 12, face = "bold")
+  ) +
+  scale_x_continuous(breaks = 2013:2021,
+                     limits = c(2013,2021)) +
+  scale_color_manual(values = c("England" = "darkorange", "Wales" = "darkgreen")) +
+  scale_shape_manual(values = c("England" = 16, "Wales" = 17)) +
+  scale_(values = c("England" = "darkorange", "Wales" = "darkgreen"))
+
+# Tutorial 8 (26/11/2025)
+
+str_replace(string = "5ft8", pattern = "ft", replacement = "'")
+str_replace_all(string = "between 5ft8 and 5ft10", pattern = "ft", replacement = "'")
+str_detect(string = "5'11", pattern = "^[4-7]'[0-9]{1,2}$")
+# ˆ means start of the string
+# [4-7] matches one digit between 4 and 7
+# ' matches the literal apostrophe
+# [0-9]{1,2} matches one or two digits from 0 to 9
+# $ means end of the string
+
+str_trim(" 5'11 ")
+str_to_lower("Five Feet Eight Inches")
+# Regez patterns
+# Digits: \d (any digit), \d{1,2} (one or two digits)
+# Character classes: [4-7] (any number 4,5,6,7)
+# Optional whitespace: \s* (zero or more spaces)
+# Anchors: ^ (start of string) and $ (end of string)
+
+not_inches <- function(x, smallest = 50, tallest = 84){
+  inches <- suppressWarnings(as.numeric(x))
+  is.na(inches) | inches < smallest | inches > tallest
+}
+
+not_inches_or_cm <- function(x, smallest = 50, tallest = 84){
+  inches <- suppressWarnings(as.numeric(x))
+  ind <- !is.na(inches) & ((inches >= smallest & inches <= tallest) |
+                             (inches/2.54 >= smallest & inches <= tallest))
+  !ind
+}
+
+words_to_numbers <- function(s){
+  s <- str_to_lower(s)
+  for(i in 0:11){
+    s <- str_replace_all(s, words(i), as.character(i))
+  }
+  s
+}
+
+convert_format <- function(s){
+  s %>%
+    str_replace("feet|foot|ft", "'") %>%
+    str_replace_all("inches|in|''|\"|cm|and", "") %>%
+    str_replace("^([4-7])\\s*[,\\.\\s+]\\s*(\\d*)$", "\\1'\\2") %>%
+    str_replace("^([56])'?$", "\\1'0") %>%
+    str_replace("^([12])\\s*,\\s*(\\d*)$", "\\1\\.\\2") %>%
+    str_trim()
+}
+
+# Exercise 1: Identify valid vs invalid heights
+vec <- c("5'11","174","5'72","six foot one","200","4'12")
+vec[str_detect(vec, "^[4-6]\\s*'\\s*\\d{1,2}")]
+
+# Exercise 2: Clean Formats
+raw <- c("Five foot eight inches", "5 ft 10", "6, 2", "170cm")
+raw %>% words_to_numbers %>% convert_format()
+
+# Exercise 3: Extract feet and inches
+h <- c("5'10", "6'1\"", "5'8 inches")
+data.frame(h) %>% extract(h, c("feet", "inches"), regex="(\\d)'(\\d{1,2})")
+
+# Tutorial 9 (04/12/2025)
+
+getSymbols("AAPL", src = "yahoo", from = "2021-01-01", to = "2021-12-31")
+
+aapl_data <- data.frame(date = index(AAPL), coredata(AAPL))
+
+aapl_data <- aapl_data %>%
+  arrange(date) %>%
+  mutate(
+    "Daily Return" = (AAPL.Close - lag(AAPL.Close)) / lag(AAPL.Close)
+  )
+head(aapl_data, 6)
+
+# aapl_data <- aapl_data %>%
+#   mutate(
+#     Month = str_replace(str_replace(date, "2021-", ""), "-\\d\\d", "")
+#   )
+
+aapl_data$Month <- format(aapl_data$date, "%b")
+aapl_data$Month <- factor(aapl_data$Month, levels = month.abb)
+
+aapl_data %>% ggplot(aes(x=date, y=`Daily Return`*100, color=Month)) +
+  geom_line(size = 0.7) +
+  labs(
+    x = "Date",
+    y = "Daily Return (%)",
+    title = "Apple Stock Daily Return in 2021"
+  )
+
+return_summary <- aapl_data %>%
+  summarize(mean = mean(`Daily Return`, na.rm = TRUE),
+            median = median(`Daily Return`, na.rm = TRUE),
+            standard_deviation = sd(`Daily Return`, na.rm = TRUE),
+            min = min(`Daily Return`, na.rm = TRUE),
+            max = max(`Daily Return`, na.rm = TRUE))
+
+aapl_data <- aapl_data %>%
+  mutate(
+    Volatility = abs(`Daily Return`)
+  )
+
+volatility_summary <- aapl_data %>%
+  group_by(Month) %>%
+  summarize(avg_volatility = mean(Volatility, na.rm = TRUE))
+
+volatility_summary %>% ggplot(aes(x=Month, y=avg_volatility*100)) +
+  geom_col() +
+  labs(
+    x = "Month",
+    y = "Average Volatility Per Month (%)",
+    title = "Apple Stock Monthly Volatility"
+  ) +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 14)
+  )
+
+aapl_data %>% ggplot(aes(x=Month, y=avg_volatility*100)) +
+  geom_col() +
+  labs(
+    x = "Month",
+    y = "Average Volatility Per Month (%)",
+    title = "Apple Stock Monthly Volatility"
+  ) +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 14)
+  )
+
+aapl_data %>% ggplot(aes(x=AAPL.Volume, y=Volatility)) +
+  geom_point() +
+  geom_smooth() +
+  labs(
+    x = "Trading Volume",
+    y = "Volatility",
+    title = "Apple Stock Volatility Against Trading Volume"
+  ) +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 14)
+  )
