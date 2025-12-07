@@ -1,0 +1,107 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[a4paper, left=2cm, right=2cm, top=3cm, bottom=3cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+
+\title{Mathematical Foundations PS3}
+\author{Siheon Lee}
+\date{October 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Chapter 3 Problem 9 (pg. 41)}
+\begin{itemize}
+    \item a
+    \begin{itemize}
+        \item We need to maximize and minimize the value of $n \in \mathbb{N}$ in $n^2<10$.
+        \begin{flalign*}
+            &n^2<10 \\
+            &n < \pm \sqrt{10} \\
+            &\vert n \vert < \sqrt{10} \approx 3.16 \\
+            &\vert n \vert < 3 \qquad \text{Since n } \in \mathbb{N} \\
+            &\text{Suprema/Maximum: } 3 \\
+            &\text{Infima/Minimum: } 1
+        \end{flalign*}
+    \end{itemize}
+    \item b
+    \begin{itemize}
+        \item We need to maximize and minimize the value of $\frac{n}{m+n}$ with $n,m \in \mathbb{N}$.
+        \begin{flalign*}
+            &\lim_{n \rightarrow \infty} \frac{n}{m+n}=1 \\
+            &\lim_{m \rightarrow \infty} \frac{n}{m+n}=0 \\
+            &\text{Suprema/Maximum: } 1 \\
+            &\text{Infima/Minimum: } 0 \\
+            &\text{Note: } \frac{n}{m+n} = 1-\frac{m}{n+m}
+        \end{flalign*}
+    \end{itemize}
+    \item c
+    \begin{itemize}
+        \item We need to maximize and minimize the value of $\frac{n}{2n+1}$ with $n \in \mathbb{N}$.
+        \begin{flalign*}
+            &\lim_{n \rightarrow \infty} \frac{n}{2n+1}=\frac{1}{2} \\
+            &\frac{1}{2 \cdot 1 +1} = \frac{1}{3} \\
+            &\text{Suprema: } \frac{1}{2} \\
+            &\text{Infima: } \frac{1}{3}
+        \end{flalign*}
+    \end{itemize}
+    \item d
+    \begin{itemize}
+        \item We need to maximize and minimize the value of $\frac{n}{m}$ with $n,m \in \mathbb{N}$ and $m+n \le 10$. To maximize, the numerator should be the largest as possible while the denominator should be the smallest as possible. To minimize, vice versa.
+        \begin{flalign*}
+            &\text{Suprema: } 9 \\
+            &\text{Infima: } \frac{1}{9}
+        \end{flalign*}
+    \end{itemize}
+\end{itemize}
+
+\section{Chapter 4 Problem 2 (pg.62)}
+\begin{flalign*}
+    &\text{Claim: } (a,a,a, \dots,) \text{ converges to } a \\
+    &(\forall N \in \mathbb{N}) a_N = a \qquad \text{Definition of sequence given} \\
+    &(\forall \varepsilon > 0)(\exists N \in \mathbb{N}) a_N - a = \vert a_N - a \vert = a-a = 0 < \varepsilon \qquad \text{Substitute in } a_N \text{ and property that sum of additive inverse is zero} \\
+    &\text{Therefore, } (\forall \varepsilon > 0)(\exists N \in \mathbb{N})(\forall n \ge N) \vert n - a \vert < \varepsilon
+\end{flalign*}
+
+\section{Chapter 4 Problem 3a (pg.62)}
+\begin{flalign*}
+    &\text{Claim: If } (x_n) \rightarrow 0, (\sqrt{x_n}) \rightarrow 0, (\forall n \in \mathbb{N}) x_n \ge 0 \\
+    &(\forall \delta > 0)(\exists \varepsilon > 0)(\exists N \in \mathbb{N})(\forall n \ge N) \vert x_n - 0 \vert = x_n < \delta = \varepsilon^2 \ \qquad \text{Given, set } \delta=\varepsilon^2 \\
+    &(\forall \delta > 0)(\exists \varepsilon > 0)(\exists N \in \mathbb{N})(\forall n \ge N) \sqrt{x_n} < \sqrt{\delta} = \varepsilon \qquad \text{Square root preserves inequality} \\
+    &\text{Therefore, } (\forall \varepsilon > 0)(\exists N \in \mathbb{N})(\forall n \ge N) \sqrt{x_n} = \vert \sqrt{x_n} - 0 \vert < \varepsilon
+\end{flalign*}
+
+\section{Chapter 4 Problem 3b (pg.62)}
+\begin{flalign*}
+    &\text{Lemma: } (a,b \ge 0) \sqrt{\vert a-b \vert} > \vert \sqrt{a} - \sqrt{b} \vert \\
+    &(\sqrt{\vert a-b \vert})^2 \stackrel{?}{>} (\vert \sqrt{a}-\sqrt{b} \vert)^2 \qquad \text{Squaring positive numbers preserves inequality} \\
+    &\vert \sqrt{a}-\sqrt{b} \vert = \frac{\vert a-b\vert}{\sqrt{a}+\sqrt{b}} \qquad \text{Difference of squares in absolute value} \\
+    &\vert a-b \vert \stackrel{?}{>} \frac{(\vert a-b \vert)^2}{a+b+2\sqrt{a}\sqrt{b}} \qquad \text{Expand} \\
+    &\vert a-b \vert < a+b+2\sqrt{a}\sqrt{b} \qquad \text{True, since } a,b \ge 0\\
+    &\text{Therefore, our original statement is true}
+\end{flalign*}
+
+\begin{flalign*}
+    &\text{Claim: If } (x_n) \rightarrow x, (\sqrt{x_n}) \rightarrow \sqrt{x}, (\forall n \in \mathbb{N}) x_n \ge 0  \\
+    &(\forall \delta > 0)(\exists \varepsilon > 0)(\exists N \in \mathbb{N})(\forall n \ge N) \vert x_n - x \vert < \delta = \varepsilon^2 \ \qquad \text{Given, set } \delta=\varepsilon^2 \\
+    &(\forall \delta > 0)(\exists \varepsilon > 0)(\exists N \in \mathbb{N})(\forall n \ge N) \sqrt{\vert x_n - x \vert} < \sqrt{\delta} = \varepsilon \ \qquad \text{Square root preserves inequality} \\
+    &(\exists N \in \mathbb{N})(\forall n \ge N) \vert \sqrt{x_n} - \sqrt{x} \vert < \sqrt{\vert x_n - x \vert} \qquad \text{Lemma} \\
+    &\text{Therefore, } (\forall \delta > 0)(\exists \varepsilon > 0)(\exists N \in \mathbb{N})(\forall n \ge N) \vert \sqrt{x_n} - \sqrt{x} \vert < \varepsilon \ \qquad \text{Transitivity of strict inequality} \\
+\end{flalign*}
+
+\section{Chapter 4 Problem 5 (pg.62)}
+\begin{flalign*}
+    &\text{Claim: If } \lim a_n \rightarrow l_1, \lim a_n \rightarrow l_2, l_1=l_2 \\
+    &\text{Proof By Contradiction: Assume } l_1 \neq l_2 \\
+    &(\forall \varepsilon > 0)(\exists N \in \mathbb{N})(\forall n \ge N) \vert a_n - l_1 \vert < \varepsilon \ \qquad \text{Given} \\
+    &(\forall \varepsilon > 0)(\exists N \in \mathbb{N})(\forall n \ge N) \vert a_n - l_2 \vert < \varepsilon \ \qquad \text{Given} \\
+    &(\forall \varepsilon > 0)(\exists N \in \mathbb{N})(\forall n \ge N) \vert a_n - l_1 \vert - \vert a_n - l_2 \vert < \varepsilon - \varepsilon \qquad \text{Subtraction preserves inequality} \\
+    &(\forall \varepsilon > 0)(\exists N \in \mathbb{N})(\forall n \ge N) \vert a_n - l_1 \vert - \vert a_n - l_2 \vert < 0 \qquad \text{Additive Inverses} \\
+    &\text{Contradiction: Positive number minus positive number cannot be negative} \\
+    &\text{Therefore, our original assumption is false and } l_1=l_2
+\end{flalign*}
+
+\end{document}
