@@ -1,0 +1,117 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[a4paper, left=2cm, right=2cm, top=3cm, bottom=3cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{xcolor}
+\lstset{
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  stringstyle=\color{red},
+  commentstyle=\color{gray},
+  showstringspaces=false,
+  frame=single
+}
+
+
+\title{Mathematical Foundations PS5}
+\author{Siheon Lee}
+\date{November 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Chapter 4 Problem 6 (pg. 62)}
+\begin{flalign*}
+    &(\forall \delta > 0)(\exists N_a \in \mathbb{N})(\forall n \ge N_a) \ \vert a_n - a \vert < \delta \Rightarrow a - \delta < a_n < a + \delta \\
+    &(\forall \delta > 0)(\exists N_b \in \mathbb{N})(\forall n \ge N_b) \ \vert b_n - b \vert < \delta \Rightarrow b - \delta < b_n < b + \delta \qquad \because \text{Definition of Convergence} \\
+    &\text{Set } N = \max\{N_a,N_b\} \\
+    &(\forall \delta > 0)(\exists N \in \mathbb{N})(\forall n \ge N) \ (a+b) - 2\delta < a_n + b_n < (a + b) + 2\delta \qquad \because \text{Adding Inequalities} \\
+    &\text{Set } \epsilon = 2\delta \\
+    &(\forall \delta > 0)(\exists N \in \mathbb{N})(\forall n \ge N) \ (a+b) - \epsilon < a_n + b_n < (a + b) + \epsilon \Rightarrow \vert (a_n + b_n) - (a + b) \vert < \epsilon \qquad \because \text{Substituting Epsilon In} \\
+\end{flalign*}
+
+\section{Chapter 4 Problem 7 (pg. 62)}
+\begin{flalign*}
+    \sum_{n=1}^\infty \frac{1}{n} &= \frac{1}{1} + \frac{1}{2} + \frac{1}{3} + \cdots \\
+    &= 1 + \frac{1}{2} + \left( \frac{1}{3} + \frac{1}{4} \right) + \left( \frac{1}{5} + \frac{1}{6} + \frac{1}{7} + \frac{1}{8} \right) \\
+    &\text{Since the sequence is monotonically decreasing,} \sum_{i=0}^{2^{n-1}-1} a_{2^n - i} = \frac{1}{2^n} + \frac{1}{2^n - 1} + \cdots + \frac{1}{2^n - (2^{n-1} - 1)} \ge \frac{2^{n-1}}{2^n} = \frac{1}{2} \\
+    &\text{Using the Archimedian Property of Natural Numbers, we can say that we have an infinite sum of } \frac{1}{2}, \text{which diverges}
+\end{flalign*}
+
+\section{Chapter 4 Problem 8 (pg. 62)}
+\begin{flalign*}
+    &\text{Prove } p > 1 \Rightarrow \sum_{n=1}^\infty \frac{1}{n^p} \text{ converges } \\
+    &\frac{1}{k^p} \le \int_{k-1}^{k} \frac{1}{n^p} dn, k \ge 2 \\
+    &\sum_{k=2}^N \frac{1}{k^p} \le \int_1^N \frac{1}{n^p}dn = \left[ \frac{1}{1-p} \frac{1}{n^{p-1}} \right]_1^N = \frac{1}{1-p} \left[N^{1-p} - 1 \right] = \frac{1-N^{1-p}}{p-1} \le \frac{1}{p-1}, N \ge 2 \\
+    &\forall N \ge 2, 0 \le \sum_{k=2}^N \frac{1}{k^p} \le \frac{1}{p-1} \Rightarrow \text{Partial sums are bounded} \\
+    &\forall p > 1, k \ge 1, \frac{1}{k^p} > 0 \Rightarrow \text{Partial sums are monotone increasing since every term added is positive} \\
+    \Rightarrow &\sum_{k=2}^\infty \frac{1}{k^p} \text{ converges for } p > 1 \Rightarrow \sum_{n=1}^\infty \frac{1}{n^p} = \frac{1}{1^p} + \sum_{k=2}^\infty \frac{1}{k^p} \text{ converges for } p > 1 
+\end{flalign*}
+
+
+\section{Chapter 4 Problem 9 (pg.62)}
+\begin{lstlisting}[language=Python]
+import math
+import matplotlib.pyplot as plt
+
+# Compute the sequence a_{n+1} = sqrt(2 + a_n)
+terms = [0]  # Start with a0 = 0
+for _ in range(20):
+    terms.append(math.sqrt(2 + terms[-1]))
+
+# Display the terms
+for i, value in enumerate(terms):
+    print(f"a_{i} = {value}")
+
+# Plot the terms to visualize convergence
+plt.figure()
+plt.plot(range(len(terms)), terms, marker='o')
+plt.xlabel("n")
+plt.ylabel("a_n")
+plt.title("Convergence of a_{n+1} = sqrt(2 + a_n)")
+plt.show()
+\end{lstlisting}
+\begin{flalign*}
+    a_0 &=\sqrt{2}, a_n = \sqrt{2 + a_{n-1}} \\
+    &\text{Every term is nonnegative.} \\
+    a_0 &= \sqrt{2} \ge 0, a_n \ge 0 \Rightarrow a_{n+1} = \sqrt{2 + a_n} \ge 0 \\
+    &\text{Monotonic Increasing.} \\
+    a_1 &= \sqrt{2 + a_0} = \sqrt{2} \ge 0 = a_n, \\
+    a_{n+1} &= \sqrt{2 + a_n} \ge a_n \Rightarrow a_{n+2} = \sqrt{2 + a_{n+1}} \ge a_{n+1} \\
+    &\because f(x)=\sqrt{2+x} \text{ is monotonic increasing for } x \in [0,\infty) \text{ and } a_{n+1} \in [0, \infty) \\
+    a &= \sqrt{2+\sqrt{2+\sqrt{2+\dots}}} \\
+    a^2 &= 2 + \sqrt{2 + \sqrt{2+\sqrt{2+\dots}}} = 2 + a \\
+    (a-2)(a+1) &= 0 \\
+    a &= 2 \qquad \text{Since } a \in \mathbb{R}^+
+\end{flalign*}
+
+\section{Chapter 4 Problem 10 (pg. 62)}
+\begin{lstlisting}[language=Python]
+import math
+import matplotlib.pyplot as plt
+
+terms = [math.sqrt(2)]  # Start with a0 = sqrt(2)
+for _ in range(20):
+    terms.append(math.sqrt(2 * math.sqrt(terms[-1])))
+
+# Display the terms
+for i, value in enumerate(terms):
+    print(f"a_{i} = {value}")
+
+# Plot the terms to visualize convergence
+plt.figure()
+plt.plot(range(len(terms)), terms, marker='o')
+plt.xlabel("n")
+plt.ylabel("a_n")
+plt.title("Convergence of a_{n+1} = sqrt(2 * a_n)")
+plt.show()
+\end{lstlisting}
+\begin{flalign*}
+    a_0 &= \sqrt{2}, a_n = \sqrt{2 \cdot a_{n-1}} \\
+    
+\end{flalign*}
+
+\end{document}
