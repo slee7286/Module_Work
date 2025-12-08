@@ -1,0 +1,105 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[a4paper, left=2cm, right=2cm, top=3cm, bottom=3cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+
+\title{Mathematical Foundations PS4}
+\author{Siheon Lee}
+\date{October 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Chapter 4 Problem 1a (pg. 62)}
+\begin{itemize}
+    \item We will do a proof by induction.
+    \begin{flalign*}
+        &P(n=1) = x_1^2 = 4 > 2 \\
+        &\text{Assume that } P(n=k) \text{ is true} \\
+        &P(n=k+1) \\
+        &x_{k+1} = \frac{1}{2} \left( x_k + \frac{2}{x_k} \right) \\
+        \Rightarrow &x_{k+1} = \frac{1}{2} \left( \frac{x_k^2 + 2}{x_k} \right) \\
+        &x_{k+1}^2 = \frac{1}{4} \left( \frac{x_k^2 + 2}{x_k} \right)^2 \\
+        & x_{k+1}^2 > 2 \text{ if } \left( \frac{x_k^2 + 2}{x_k} \right)^2 > 8 \Rightarrow \frac{x_k^4 + 4x_k^2 + 4}{x_k^2} > 8 \\
+        &\frac{x_k^4 + 4x_k^2 + 4}{x_k^2} \overset{?}{>} 8 \\ 
+        &x_k^4 + 4x_k^2 + 4 \overset{?}{>} 8x_k^2 \qquad x_k^2 > 0 \\ 
+        &x_k^4 - 4x_k^2 +4 \overset{?}{>} 0 \\ 
+        &\text{If the inequality is an equality,} \\
+        &x_n^4 - 4x_n^2 + 4 = 0 \Rightarrow x_n^2 = \frac{4 \pm \sqrt{16 - 4\cdot 1 \cdot 4}}{2} = 2 \\
+        &\frac{d}{d(x_n^2)} (x_n^4 - 4x_n^2 + 4) = 2x_n^2 - 4 > 0 \text{ for } x_n^2 > 2
+    \end{flalign*}
+    \item Since $x_n^4 - 4x_n^2 + 4$ equals $0$ at $x_n^2 = 2$ and the derivative is positive for $x_n^2 > 2$, using the fact proven above that $x_n^2 > 2, \forall x_n$, we can conclude that the inequality is true and that the proof by induction is complete:
+    \[ x_k^4 - 4x_k^2 +4 > 0 \Rightarrow x_n^2 > 2 \]
+    \item We then need to prove that $x_n - x_{n+1} \ge 0$
+    \begin{flalign*}
+        x_n - x_{n+1} &= x_n - \frac{1}{2} \left(x_n + \frac{2}{x_n} \right) \\
+        &= \frac{1}{2}x_n -\frac{1}{x_n} \\
+        &= \frac{x_n^2 - 2}{2x_n}
+    \end{flalign*}
+    \item Since $x_n^2 -2 > 0$ and $2x_n > 0$, $x_n - x_{n+1} \ge 0$
+    \item Finally, we try to prove that $\lim x_n = \sqrt{2}$.
+    \item We know that $(\forall n \in \mathbb{N}) x_n > 0 \text{ since } x_1 = 2$ and division by positive number and addition cannot turn a positive number negative
+    \[ (\forall n \in \mathbb{N}) x_n^2 > 2 \Rightarrow x_n > \sqrt{2} \Rightarrow x_n - \sqrt{2} > 0 \]
+    \item Since $x_n -x_{n+1} \ge 0$, $ x_n - \sqrt{2} \ge x_{n+1} - \sqrt{2}$. Using the Archimedian Property of natural numbers, we can conclude that 
+    \[ (\forall \epsilon > 0)(\exists N \in \mathbb{N})(\forall n \ge N) \ x_n - \sqrt{2} < \epsilon \Rightarrow \vert x_n - \sqrt{2} \vert < \epsilon \]
+    or in other words, no matter how small $\epsilon$ is, a sufficiently big $N$ will lead to $x_n - \sqrt{2}$ being less than $\epsilon$.
+\end{itemize}
+
+\section{Chapter 4 Problem 1b (pg. 62)}
+\begin{itemize}
+    \item For $(x_n) \rightarrow \sqrt{c}$, we need $x_n -x_{n+1} \ge 0$ and $x_n^2 > c$. We can then do the same proof as before of the limit of $x_n$. We can modify the sequence as such to achieve both:
+    \begin{flalign*}
+        &x_1 = c, x_{n+1} = \frac{1}{2} \left(x_n + \frac{c}{x_n} \right) \\
+        &\text{Property 1: } x_n^2 > c, \forall x_n \\
+        &P(n=1) = x_1^2 = c^2 > c \\
+        &\text{Assume that } P(n=k) \text{ is true} \\
+        &P(n=k+1) \\
+        &x_{k+1} = \frac{1}{2} \left( x_k + \frac{c}{x_k} \right) \\
+        \Rightarrow &x_{k+1} = \frac{1}{2} \left( \frac{x_k^2 + c}{x_k} \right) \\
+        &x_{k+1}^2 = \frac{1}{4} \left( \frac{x_k^2 + c}{x_k} \right)^2 \\
+        & x_{k+1}^2 > c \text{ if } \left( \frac{x_k^2 + c}{x_k} \right)^2 > 4c \Rightarrow \frac{x_k^4 + 2cx_k^2 + c^2}{x_k^2} > 4c \\
+        &\frac{x_k^4 + 2cx_k^2 + c^2}{x_k^2} \overset{?}{>} 4c \\ 
+        &x_k^4 - 2cx_k^2 + c^2 = (x_k^2 - c)^2 \overset{?}{>} 0 \qquad x_k^2 > 0 \\ 
+    \end{flalign*}
+    \item Since $x_k^2 - c > 0$, we can conclude that the inequality is true and that the proof by induction is complete:
+    \[ x_k^4 - 2cx_k^2 + c^2 > 0 \Rightarrow x_n^2 > c \]
+    \item We then need to prove that $x_n - x_{n+1} \ge 0$
+    \begin{flalign*}
+        x_n - x_{n+1} &= x_n - \frac{1}{2} \left(x_n + \frac{c}{x_n} \right) \\
+        &= \frac{1}{2}x_n -\frac{c}{2x_n} \\
+        &= \frac{x_n^2 - c}{2x_n} > 0 \qquad \because x_n^2 > c, \forall x_n
+    \end{flalign*}
+\end{itemize}
+
+\section{Chapter 4 Problem 4 (pg.62)}
+\begin{flalign*}
+    &\text{Claim: If } (\forall n \in \mathbb{N}) x_n \le y_n \le z_n \wedge \lim x_n = \lim z_n = l \Rightarrow \lim y_n = l \\
+    &(\forall \epsilon > 0)(\exists N_x \in \mathbb{N})(\forall n \ge N_x) \vert x_n - l \vert < \epsilon \\
+    &(\forall \epsilon > 0)(\exists N_z \in \mathbb{N})(\forall n \ge N_z) \vert z_n - l \vert < \epsilon \\
+    \Longleftrightarrow &(\forall \epsilon > 0)(\exists N_x \in \mathbb{N})(\forall n \ge N_x) l - \epsilon < x_n < l + \epsilon \\
+    &(\forall \epsilon > 0)(\exists N_z \in \mathbb{N})(\forall n \ge N_z) l - \epsilon < z_n < l + \epsilon \\
+    &\text{We set } N = \max \{N_x,N_z\} \text{ and notice that } (\forall n \in \mathbb{N}) x_n \le y_n \le z_n \\
+    \Rightarrow &(\forall \epsilon > 0)(\exists N \in \mathbb{N})(\forall n \ge N) l - \epsilon < x_n \le y_n \le z_n < l + \epsilon \\
+    \Rightarrow &(\forall \epsilon > 0)(\exists N \in \mathbb{N})(\forall n \ge N) l - \epsilon < y_n < l + \epsilon \\
+    \Longleftrightarrow &(\forall \epsilon > 0)(\exists N \in \mathbb{N})(\forall n \ge N) \ \vert y_n - l \vert < \epsilon \\
+    \Longleftrightarrow &\lim y_n = l
+\end{flalign*}
+
+\section{Chapter 4 Problem 6 (pg.62)}
+\begin{itemize}
+    \item We are given $\lim a_n = a$ and $\lim b_n = b$. This means that 
+    \begin{flalign*}
+        &(\forall \epsilon_a > 0)(\exists N_a \in \mathbb{N})(\forall n \ge N_a) \ \vert a_n - a \vert < \epsilon_a \\
+        \wedge &(\forall \epsilon_b > 0)(\exists N_b \in \mathbb{N})(\forall n \ge N_b) \ \vert b_n - b \vert < \epsilon_b \\
+        &\vert (a_n + b_n) - (a + b) \vert = \vert (a_n - a) + (b_n - b) \vert \le \vert a_n - a \vert + \vert b_n - b \vert \qquad \text{By the Triangle Inequality} \\
+        &\text{Set } \epsilon_a = \frac{1}{2} \epsilon \text{ and } \epsilon_b = \frac{1}{2}\epsilon \text{ and } N = \max \{N_a,N_b\} \\
+        \Rightarrow &(\forall \epsilon_a, \epsilon_b,\epsilon > 0)(\exists N \in \mathbb{N})(\forall n \ge N) \ \vert (a_n - a) + (b_n - b) \vert \le \vert a_n - a \vert + \vert b_n - b \vert < \epsilon_a + \epsilon_b = 2 \cdot \frac{1}{2} \epsilon = \epsilon \\
+        &(\forall \epsilon_a, \epsilon_b,\epsilon > 0)(\exists N \in \mathbb{N})(\forall n \ge N) \ \vert (a_n - a) + (b_n - b) \vert < \epsilon \qquad \text{By Transitivity of Inequalities} \\
+        \Longleftrightarrow &\lim (a_n + b_n) = a + b \Longleftrightarrow a_n + b_n \rightarrow a + b
+    \end{flalign*}
+\end{itemize}
+
+\end{document}
