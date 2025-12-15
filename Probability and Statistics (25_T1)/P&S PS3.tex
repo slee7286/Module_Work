@@ -1,0 +1,85 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[a4paper, left=2cm, right=2cm, top=3cm, bottom=3cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+
+\title{Probability and Statistics PS3}
+\author{Siheon Lee}
+\date{October 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Question 1}
+\begin{flalign*}
+    &\text{Without Replacement, Order Does Not Matter} \\
+    &\text{Number of Events of exactly } k \text{ red chips being included in } n \text{ draws: } \binom{r}{k} \binom{w}{n-k} = \frac{r!}{k!(r-k)!} \frac{w!}{(n-k)!(w-n+k)!} \\
+    &Pr(\text{Event})=\frac{\binom{r}{k} \binom{w}{n-k}}{\binom{r+w}{n}} = \frac{(r+w)!}{n! (r+w-n)!} \frac{\frac{r!}{k! (r-k)!} \frac{w!}{(n-k)!(w-n+k)!}}{\frac{(r+w)!}{n!(r+w-n)!}} = \frac{r!}{k! (r-k)!} \frac{w!}{(n-k)!(w-n+k)!} \cdot \frac{n!(r+w-n)!}{(r+w)!} \\
+    &\text{For } k = [\max\{0,n-w\}, \dots, \min \{r,n\}], k \in \mathbb{N}+\{0\}
+\end{flalign*}
+
+
+\section{Question 2a}
+\begin{itemize}
+    \item Let us assume that we are taking order into account. Then we have $n^k=6^2=36$ possible events. For each maximum, we also have $x^k=x^2$ number of events. This is because the random variable $X$ of the larger of the two faces showing is equivalent to limiting the sample space of the fair dice to $\{1, \dots, x\}$. Therefore, the cumulative distribution function is
+\begin{flalign*}
+    F(x) = \frac{x^2}{36}
+\end{flalign*}
+\end{itemize}
+
+\section{Question 2b}
+\begin{itemize}
+    \item Even though the cdf is discrete, we can define for $x \in [0,6], x \in \mathbb{R}$ that $F(x)=F(\lfloor x\rfloor)$. Therefore, $F(2.5)=F(\lfloor 2.5 \rfloor) = F(2) = \frac{2^2}{6^2} = \frac{4}{36} = \frac{1}{9}$
+\end{itemize}
+
+\section{Question 3}
+\begin{flalign*}
+    &F(y) = \left\{ \begin{array}{cl}
+        0 & \text{if } y < 0  \\
+        y^2 & \text{if } 0 \le y \le 1 \\
+        1 & \text{if } y \ge 1
+    \end{array} \right. \\
+    &\text{First Method: CDF} \\
+    &P(\frac{1}{2} < Y \le \frac{3}{4}) = F(y=\frac{3}{4})-F(y=\frac{1}{2})=\left( \frac{3}{4} \right)^2 - \left( \frac{1}{2} \right)^2 = \frac{9}{16} - \frac{1}{4} = \frac{5}{16} \\
+    &\text{Second Method: PDF} \\
+    &f(y)=F'(y) = \left\{ \begin{array}{cl}
+        0 & \text{if } y < 0  \\
+        2y & \text{if } 0 \le y \le 1 \\
+        0 & \text{if } y \ge 1
+    \end{array} \right. \\
+    &P(\frac{1}{2} < Y \le \frac{3}{4}) = \int_{\frac{1}{2}}^{\frac{3}{4}} f(y)dy = \int_{\frac{1}{2}}^{\frac{3}{4}} 2y dy = y^2 \vert_{\frac{1}{2}}^{\frac{3}{4}} = \left( \frac{3}{4} \right)^2 - \left( \frac{1}{2} \right)^2 = \frac{9}{16} - \frac{1}{4} = \frac{5}{16}
+\end{flalign*}
+
+\section{Question 4a}
+\begin{itemize}
+    \item There are two conditions for a function to be a probability distribution function. Number one is that $p(x) \ge 0, \forall x$ and $\int_{-\infty}^\infty p(x)dx = 1$.
+    \item Property 1
+    \begin{itemize}
+        \item Since $F(x) \ge 0, \forall x$ and $f(x) \ge 0, \forall x$ and the multiplication of nonnegative numbers result in nonnegative numbers, so $g(x)=2F(x)f(x) \ge 0$
+    \end{itemize}
+    \item Property 2
+    \begin{flalign*}
+        &2 \int_{-\infty}^\infty F(x)f(x) dx = 2 \left[ F^2(x) \vert_{-\infty}^\infty - \int_{-\infty}^\infty F(x)f(x)dx \right] \qquad u = F(x), dv = f(x)dx, du = f(x)dx, v = F(x) \\
+        &4 \int_{-\infty}^\infty F(x)f(x) dx = 2 F^2(x) \vert_{-\infty}^\infty = 2 \\
+        &\Rightarrow \int_{-\infty}^\infty 2F(x)f(x) dx = 1
+    \end{flalign*}
+\end{itemize}
+
+\section{Question 4b}
+\begin{itemize}
+    \item Property 1
+    \begin{itemize}
+        \item Since $f(x) \ge 0, \forall x$, inputting the negative just reflects the distribution across the y-axis: $f(-x) \ge 0, \forall x$
+        \item Multiplication of nonnegative numbers equal nonnegative numbers and addition of nonnegative numbers equal nonnegative numbers, so $\frac{1}{2} f(-x) + \frac{1}{2} f(x) \ge 0, \forall x$
+    \end{itemize}
+    \item Property 2
+    \begin{flalign*}
+        &\int_{-\infty}^\infty f(-x)dx = \int_{-\infty}^\infty f(x)dx \\
+        &\Rightarrow \int_{-\infty}^\infty h(x) = \int_{-\infty}^\infty \frac{1}{2} f(-x) + \frac{1}{2} f(x) dx = \int_{-\infty}^\infty \frac{1}{2} f(x) + \frac{1}{2} f(x) dx = \int_{-\infty}^\infty f(x)dx = 1
+    \end{flalign*}
+\end{itemize}
+
+\end{document}
