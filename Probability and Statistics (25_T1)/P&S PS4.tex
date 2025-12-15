@@ -1,0 +1,107 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[a4paper, left=2cm, right=2cm, top=3cm, bottom=3cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+
+\title{Probability and Statistics PS4}
+\author{Siheon Lee}
+\date{October 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Question 1a}
+\begin{itemize}
+    \item We can calculate this using the expectation of the cost of a possible accident:
+    \begin{flalign*}
+        E[X] = (0.1)(1100) + (0.9)(0) =110 \text{ pounds}
+    \end{flalign*}
+    \item The expected cost of the random variable of repairing the motherboard is 110 pounds, which is less than 115 pounds. Based on this, you should not buy this additional service plan if you only care about monetary value
+\end{itemize}
+
+\section{Question 1b}
+\begin{itemize}
+    \item Expectation of utility when you don't buy the additional insurance:
+    \begin{flalign*}
+        E[U_{\text{no insurance}}] = (0.1)\sqrt{4800-1100} + (0.9)\sqrt{4800-0} \approx 68.44
+    \end{flalign*}
+    \item Expectation of utility when you buy the additional insurance:
+    \begin{flalign*}
+        E[U_{\text{insurance}}] = (1)\sqrt{4800-115} \approx 68.45
+    \end{flalign*}
+    \item Since $E[U_{\text{insurance}}] > E[U_{\text{no insurance}}]$, based on the expected value of the utility, you should buy the additional insurance.
+\end{itemize}
+
+\section{Question 2a}
+\begin{itemize}
+    \item $k^\alpha > 0$ since a positive number raised to another positive number is positive
+    \item $\alpha k^\alpha > 0$ since a positive number multiplied by a positive number is positive
+    \item Since $x \ge k$ and $k >0$, by transitivity, $x > 0$
+    \item $x^{\alpha +1} > 0$ since a positive number raised to a positive number is positive
+   \item $\frac{\alpha k^\alpha}{x^{\alpha+1}} > 0$ since a positive number divided by a positive number is positive
+   \item $f(x) > 0 \text{ for } x \ge k$, $f(x) = 0 \text{ for } x < k$, and therefore $f(x) \ge 0, \forall x$
+   \begin{flalign*}
+       \int_{-\infty}^\infty f(x)dx &= \int_k^\infty \frac{\alpha k^\alpha}{x^{\alpha+1}} dx \\
+       &= \alpha k^\alpha \int_k^\infty \frac{1}{x^{\alpha+1}} dx \\
+       &= \alpha k^\alpha [\frac{1}{-\alpha}x^{-\alpha}]_k^\infty \\
+       &=-k^\alpha (0 - k^{-\alpha}) = 1
+   \end{flalign*}
+\end{itemize}
+
+\section{Question 2b}
+\begin{itemize}
+    \item $F(x) = \int_{-\infty}^x f(x)dx = \int_k^x f(x)dx$ since $f(x)=0$ for $x< k, k >0$
+    \begin{flalign*}
+        F(x) &= \int_k^x f(x)dx = \int_k^x \frac{\alpha k^\alpha}{x^{\alpha+1}} dx = \alpha k^\alpha \int_k^x x^{-(\alpha+1)} dx \\
+        &= \alpha k^\alpha [-\frac{1}{\alpha}x^{-\alpha}]_k^x = -k^\alpha [x^{-\alpha} - k^{-\alpha}] = 1 -k^\alpha x^{-\alpha} = 1 - \left( \frac{k}{x} \right)^\alpha, x \ge k
+    \end{flalign*}
+    \item $F(x)=0, x < k$
+\end{itemize}
+
+\section{Question 2c}
+\begin{flalign*}
+    &E[X] = \int_k^\infty x \cdot \frac{\alpha k^\alpha}{x^{\alpha+1}} dx = \int_k^\infty \frac{\alpha k^\alpha}{x^{\alpha}} dx = \alpha k^\alpha [\frac{1}{1-\alpha} x^{1-\alpha}]_k^\infty = \frac{\alpha k^\alpha}{1-\alpha} [ x^{1-\alpha}]_k^\infty \\
+    &\text{Case 1} (0 < \alpha < 1): \lim_{x \rightarrow +\infty} x^{1-\alpha} \text{ diverges} \\ 
+    &\text{Case 2} (\alpha > 1): \lim_{x \rightarrow +\infty} x^{1-\alpha} = \lim_{x \rightarrow +\infty} x^{c} = 0, (c<0) \Rightarrow E[X] = \frac{\alpha k^\alpha}{1 - \alpha} [0 - k^{1-\alpha}] = \frac{\alpha k}{\alpha - 1} \\
+    &E[X^2] = \int_k^\infty x^2 f(x) dx = \int_k^\infty x^2 \cdot \frac{\alpha k^\alpha}{x^{\alpha+1}} dx = \int_k^\infty \frac{\alpha k^\alpha}{x^{\alpha-1}} dx = \alpha k^\alpha [\frac{1}{2-\alpha} x^{2-\alpha}]_k^\infty = \frac{\alpha k^\alpha}{2-\alpha} [ x^{2-\alpha}]_k^\infty \\
+    &\text{Case 1} (0 < \alpha < 2): \lim_{x \rightarrow +\infty} x^{2-\alpha} \text{ diverges} \\ 
+    &\text{Case 2} (\alpha > 2): \lim_{x \rightarrow +\infty} x^{2-\alpha} = \lim_{x \rightarrow +\infty} x^{c} = 0, (c<0) \Rightarrow E[X^2] = \frac{\alpha k^\alpha}{2 - \alpha} [0-k^{2-\alpha}] = \frac{\alpha k^2}{\alpha - 2} \\
+    &Var(X) = E[X^2] - E[X] = \frac{\alpha k^2}{\alpha - 2} - \left(\frac{\alpha k}{\alpha - 1}\right)^2 = \frac{\alpha k^2}{(\alpha - 1)^2(\alpha - 2)}, \alpha > 2 \\
+    &Var(X) = \infty, 0 < \alpha \le 2
+\end{flalign*}
+
+\section{Question 3a}
+\begin{flalign*}
+    &\text{Using the law of total probability: } \\
+    P(W) &= P(W \mid D_1) P(D_1) + P(W \mid D_2) P(D_2) + P(W \mid D_3) P(D_3) \\
+    &= 0 \cdot \frac{1}{3} + 1 \cdot \frac{1}{3} + 1 \cdot \frac{1}{3} = \frac{2}{3}
+\end{flalign*}
+
+\section{Question 3b}
+\begin{flalign*}
+    P(D_3 \mid M_2) &= \frac{P(M_2 \mid D_3)P(D_3)}{P(M_2)} = \frac{P(M_2 \mid D_3)P(D_3)}{P(M_2 \mid D_1)P(D_1)+P(M_2 \mid D_2)P(D_2)+P(M_2 \mid D_3)P(D_3)} \\
+    &= \frac{1 \cdot \frac{1}{3}}{p \cdot \frac{1}{3} + 0 \cdot \frac{1}{3} + 1 \cdot \frac{1}{3}} = \frac{1}{1+p}
+\end{flalign*}
+
+\section{Question 3c}
+\begin{flalign*}
+    P(D_2 \mid M_3) &= \frac{P(M_3 \mid D_2)P(D_2)}{P(M_3)} = \frac{P(M_3 \mid D_2)P(D_2)}{P(M_3 \mid D_1)P(D_1)+P(M_3 \mid D_2)P(D_2)+P(M_3 \mid D_3)P(D_3)} \\
+    &= \frac{1 \cdot \frac{1}{3}}{(1-p) \cdot \frac{1}{3} + 1 \cdot \frac{1}{3} + 0 \cdot \frac{1}{3}} = \frac{1}{2-p}
+\end{flalign*}
+
+\section{Question 4}
+\begin{flalign*}
+    \frac{\binom{4}{1} \binom{48}{12}}{\binom{52}{13}} \cdot \frac{\binom{3}{1} \binom{36}{12}}{\binom{39}{13}} \cdot \frac{\binom{2}{1} \binom{24}{12}}{\binom{26}{13}} \cdot \frac{\binom{1}{1} \binom{12}{12}}{\binom{13}{13}} &= \frac{4 \cdot \frac{48!}{12! \cdot 36!} \cdot 3 \cdot \frac{36!}{12! \cdot 24!} \cdot 2 \cdot \frac{24!}{12! \cdot 12!} \cdot 1 \cdot 1}{\frac{52!}{13! \cdot 39!} \cdot \frac{39!}{26! \cdot 13!} \cdot \frac{26!}{13! \cdot 13!} \cdot 1} \\
+    &= \frac{\frac{48!}{12!^4} \cdot 24}{\frac{52!}{13!^4}} = \frac{48!}{52!} \frac{13!^4}{12!^4} \cdot 24 = \frac{1}{52 \cdot 51 \cdot 50 \cdot 49} \cdot 13^4 \cdot 24 = \frac{685,464}{6,497,400} \approx 0.1055
+\end{flalign*}
+
+\section{Question 5}
+\begin{flalign*}
+    P(\text{at least 2 F}) &= 1 - P(\text{no more than 1 F}) \\
+    &= 1-\frac{\binom{9}{4}+\binom{6}{1}\binom{9}{3}}{\binom{15}{4}} = 1 - \frac{\frac{9!}{4! \cdot 5!} + \frac{6! \cdot 9!}{1! \cdot 5! \cdot 3! \cdot 6!}}{\frac{15!}{4! \cdot 11!}} = 1 - \frac{126+504}{1365} = \frac{735}{1365} = \frac{7}{13}
+\end{flalign*}
+
+\end{document}
