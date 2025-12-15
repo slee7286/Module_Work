@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[a4paper, left=2cm, right=2cm, top=3cm, bottom=3cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+
+\title{Probability and Statistics PS2}
+\author{Siheon Lee}
+\date{October 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Question 1}
+\begin{itemize}
+    \item $P(A \cap B^c)  =  0.2$
+    \item $P(B \cap A^c) = 0.1$
+    \item $P(A^c \cap B^c)=P((A \cup B)^c) = 0.6 \Rightarrow P(A \cup B) = 1-0.6=0.4$
+    \item $P(A \cap B^c) + P(B \cap A^c) + P(A^c \cap B^c) + P(A \cap B) = 0.9 + P(A \cap B) = 1 \Rightarrow P(A \cap B) = 0.1$
+    \item $P(B) = P(B \mid A^c)P(A^c) + P(B \mid A)P(A) = P(A^c \cap B) + P(A \cap B) = 0.1 + 0.1 = 0.2$
+    \item $P(A \mid B) = \frac{P(A \cap B)}{P(B)} = \frac{0.1}{0.2} = \frac{1}{2}$
+\end{itemize}
+
+\section{Question 2}
+\begin{itemize}
+    \item a
+    \begin{flalign*}
+        &P(A \cap B) = P(A)P(B) \\
+        &P(A)=P(A \mid B)=P(A \mid B^c) \\
+        &P(B) = P(B \mid A) = P(B \mid A^c)\\
+        &P(A \cap B^c) = P(A \mid B^c)P(B^c) = P(A)P(B^c) \quad \text{Independence proven}
+    \end{flalign*}
+    \item b
+    \begin{flalign*}
+        P(A^c \cap B) = P(A^c \mid B) P(B) = P(B \mid A^c) P(A^c) = P(B)P(A^c) \quad \text{Independence proven}
+    \end{flalign*}
+    \item c
+    \begin{flalign*}
+        &P(A^c)= P(A^c \mid B) \\
+        &P(A^c \cap B^c) = P((A \cup B)^c) = 1- P(A \cup B) = 1-(P(A)+P(B)-P(A \cap B)) = 1 + P(A \cap B) -P(A) - P(B) \\
+        &= 1+P(A)P(B)-P(A)-P(B) = P(A)(P(B)-1) + 1 - P(B) = P(B^c)  -P(A)(1- P(B)) = \\
+        &P(B^c) - P(A)P(B^c) = P(B^c) (1-P(A)) = P(A^c)P(B^c) \quad \text{Independence proven}
+    \end{flalign*}
+\end{itemize}
+
+\section{Question 3}
+\begin{itemize}
+    \item $T$ positive test result, $F$ positive test result, $P$ positive for condition, $N$ negative for condition
+    \item $P(P) = 0.01$
+    \item $P(N)=0.99$
+    \item $P(\text{True Positive})=P(T \cap P)= P(T \mid P)P(P)=0.95 \cdot 0.01 = 0.0095$
+    \item $P(\text{True Negative})=P(F \cap N)= P(F \mid N)P(N)=0.95 \cdot 0.99 = 0.9405$
+    \item $P(\text{False Positive})=P(T \cap N)= P(T \mid N)P(N)=0.05 \cdot 0.99 = 0.0495$
+    \item $P(\text{False Negative})=P(T \cap P)= P(F \mid P)P(P)=0.05 \cdot 0.01 = 0.0005$
+    \item $P(P \mid T)= \frac{P(P \cap T)}{P(T)}=\frac{P(P \cap T)}{P(T \cap P) + P(T \cap N)} = \frac{0.0095}{0.0095+0.0495} \approx 0.1610 = 16.10\%$
+\end{itemize}
+
+\end{document}
