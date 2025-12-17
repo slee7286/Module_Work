@@ -5,16 +5,18 @@
 \usepackage{amssymb}
 \usepackage{centernot}
 \allowdisplaybreaks
+\newcommand{\indep}{\perp\!\!\!\perp}
 
 \title{Probability and Statistics Notes}
 \author{Siheon Lee}
-\date{October 2025}
+\date{October-December 2025}
 
 \begin{document}
 
 \maketitle
 
 \section{Lecture 1 (6/10/2025)}
+\subsection{Slide 1}
 \begin{itemize}
     \item Dr Fanyin Zheng
     \begin{itemize}
@@ -30,8 +32,8 @@
     \end{itemize}
     \item Textbooks
     \begin{itemize}
-        \item o	Larsen, R., and M. Marx. Introduction to Mathematical Statistics and Its Applications. (LM in lecture slides)
-        \item o	Stock, J. H., and M. W. Watson. Introduction to Econometrics. (SW in lecture slides)
+        \item Larsen, R., and M. Marx. Introduction to Mathematical Statistics and Its Applications. (LM in lecture slides)
+        \item Stock, J. H., and M. W. Watson. Introduction to Econometrics. (SW in lecture slides)
     \end{itemize}
     \item 	Experiment – repeatable procedure and set of well-defined possible outcomes
 	\item Sample space S – set of all possible outcomes
@@ -58,17 +60,28 @@
     \item Intersection - $A \cap B$ is event whose outcomes belong to both A and B
     \item Union - $A \cup B$ is event whose outcomes belong to either A or B or both
     \item Mutually exclusive – no events in common $A \cap B=\emptyset$
-    \item Compliment – $A^c$ is event consisting of all the outcomes in $S$ which are not in $A$
+    \item Complement – $A^c$ is event consisting of all the outcomes in $S$ which are not in $A$
     \item Partition - if $\bigcup_{i=1}^n A_i=S$ and $\forall i\neq j, i,j \in \{ 1,2, \dots , n \} A_i \cap A_j = \emptyset$
-    \item Commutative - $A \cap B = B \cap A, A \cup B = B \cup A$
-    \item Associative - $(A \cap B)\cap C = A \cap (B \cap C), (A \cup B) \cup C = A \cup (B \cup C)$
-    \item Distributive - $A \cup (B \cap C) = (A \cup B) \cap (A \cup C), A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$
-    \item De Morgan's theorem - $(A \cap B)^c = A^c \cup B^c, (A \cup B)^c = A^c \cap B^c$
+    \item Properties of Set Operator
+    \begin{itemize}
+        \item Commutative - $A \cap B = B \cap A, A \cup B = B \cup A$
+        \item Associative - $(A \cap B)\cap C = A \cap (B \cap C), (A \cup B) \cup C = A \cup (B \cup C)$
+        \item Distributive - $A \cup (B \cap C) = (A \cup B) \cap (A \cup C), A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$
+        \item De Morgan's theorem - $(A \cap B)^c = A^c \cup B^c, (A \cup B)^c = A^c \cap B^c$
+    \end{itemize}
+    \item There are two events, $A$ and $B$ in sample space $S$
+    \begin{itemize}
+        \item What are the expressions for the following events?
+        \begin{itemize}
+            \item Exactly one of the two occurs: $E = (A \cap B^c) \cup (B \cap A^c)$
+            \item At most one of the two occurs: $E = (A \cup B)^c \cup (A \cap B^c) \cup (B \cap A^c) = (A \cap B)^c$
+        \end{itemize}
+    \end{itemize}
     \item Probability function - $P$ function from events to real numbers
     \begin{itemize}
         \item Probability of event $A$ is $P(A)$
         \item Axiom 1 - $P(a) \ge 0$ for any event $A$
-        \item Axiom 2 - $P(S)=1$
+        \item Axiom 2 - $P(S)=1$ ($S$ is sample space)
         \item Axiom 3 - If $A$ and $B$ are mutually exclusive ($A_i \cap A_j = \emptyset$ for $i \neq j$), $P(A \cup B) = P(A) + P(B)$
         \begin{itemize}
             \item If $A_i$ and $A_j$ are pairwise mutually exclusive, $P(\bigcup_{i \ge 1} A_i) = \sum_{i \ge 1} P(A_i), i=1,2,\dots$
@@ -76,53 +89,61 @@
         \end{itemize}
         \item $P(\emptyset)=0$
         \begin{itemize}
-            \item $\emptyset = S^c$
-            \item $\emptyset \cap S = 0$
-            \item $P(\emptyset)+P(S)=P(\emptyset)+1=1 \Rightarrow P(\emptyset)=0$
+            \item $\emptyset = S^c$ (definition of sample space and empty set)
+            \item $S^c \cap S = \emptyset \cap S = \emptyset$ (definition of complement)
+            \item $P(\emptyset) = P(S^c) = 1-P(S) = 1-1 = 0$ (Definition of probability of complement and Axiom 2)
         \end{itemize}
         \item $P(A^c)=1-P(A)$
         \begin{itemize}
-            \item $P(S) = P(A \cup A^c) = 1$
-            \item Since $A \cap A^c = 0$, $P(A \cup A^c) = P(A) + P(A^c) = 1$ and $P(A^c) = 1 - P(A)$
+            \item $A \cup A^c = S$ (definition of complement)
+            \item $P(S) = P(A \cup A^c) = 1$ (Axiom 2)
+            \item Since $A \cap A^c = 0$ (mutually exclusive), $P(A \cup A^c) = P(A) + P(A^c) = 1$ (Axiom 3)
+            \item $\Rightarrow P(A^c) = 1 - P(A)$
         \end{itemize}
         \item $P(A) \le 1$
         \begin{itemize}
-            \item $P(S) = 1 = P(A) + P(A^c)$
-            \item $P(A^c) \ge 0$ by Axiom 1, meaning $P(A) = 1 - P(A^c) \le 1$
+            \item $P(A^c) = 1 - P(A)$ (conculsion from above)
+            \item $P(A^c) \ge 0$ (Axiom 1)
+            \item $0 \le 1 - P(A) \Rightarrow P(A) \le 1$
         \end{itemize}
         \item $P(A \cup B) = P(A) + P(B) - P(A \cap B)$
         \begin{itemize}
             \item $P(A) = P(A \cap B) + P(A \cap B^c)$
             \item $P(B) = P(A \cap B) + P(A^c \cap B)$
-            \item $P(A) + P(B) = P(A \cap B) + P(A \cap B^c) + P(A^c \cap B) + P(A \cap B) = P(A \cup B) + P(A \cap B)$
+            \item $P(A) + P(B) = \underset{P(A \cup B)}{\underbrace{[P(A \cap B) + P(A \cap B^c) + P(A^c \cap B)]}} + P(A \cap B) = P(A \cup B) + P(A \cap B)$
             \item $P(A \cup B) = P(A) + P(B) - P(A \cap B)$
         \end{itemize}
     \end{itemize}
-    \item $P(A) = \frac{\text{number of outcomes in } A}{\text{total number of outcomes in } S}$
-    \item $m \times n$ outcomes if first part has $m$ possible outcomes and second part has $n$ possible outcomes
+    \item If the sample space $S$ contains finite number of equally likely outcomes: $P(A) = \frac{\text{number of outcomes in } A}{\text{total number of outcomes in } S}$
+    \item If an experiment has 2 parts, the experiment has $m \times n$ outcomes if first part has $m$ possible outcomes and second part has $n$ possible outcomes
     \item If a password is required to have 8 characters (letters or numbers) and is case-sensitive, how many possible outcomes are there?
     \begin{itemize}
-        \item $(26 \cdot 2 + 10)^8$
+        \item $(26 \cdot 2 + 10)^8 = 62^8 \approx 218$ trillion
     \end{itemize}
     \item 10 runners compete in a race. Assume ties are not possible. All 10 completes the race. How many possible outcomes are there for the first, second, and third winners?
     \begin{itemize}
         \item ${}_{10}P_3 = \frac{10!}{(10-3)!} = 10 \cdot 9 \cdot 8$
     \end{itemize}
-    \item Sampling With Replacement - take $k$ draws from group of size $n$ options
+    \item Sampling With Replacement - take $k$ draws from group of size $n$ options $(n \ge k)$
     \begin{itemize}
         \item $n \times n \times \cdots = n^k$
     \end{itemize}
     \item Sampling Without Replacement - take $k$ draws from a group of size $n$ options
     \begin{itemize}
-        \item $n \times (n-1) \times (n-2) \times \cdots \times (n - (k-1)) = \frac{n!}{(n-k)!}$
+        \item $n \times (n-1) \times (n-2) \times \cdots \times (n - (k-1)) = \frac{n(n-1)(n-2) \cdots 3 \cdot 2 \cdot 1}{(n-k)(n-k-1) \cdots 3 \cdot 2 \cdot 1} = \frac{n!}{(n-k)!}$
+        \item If $n=k$, we have $n!$ - the number of permutations of $n$ objects
+        \item Note $0! = 1$
     \end{itemize}
     \item Consider our runners example. Suppose we only care about which 3 runners won the top 3 places, but not which one of the three is first, second, or third
     \begin{itemize}
-        \item $\binom{10}{3} = \frac{10!}{(10-3)!3!} = \frac{10 \cdot 9 \cdot 8}{3 \cdot 2} = 10 \cdot 3 \cdot 4$
+        \item $\binom{10}{3} = \frac{10!}{(10-3)!3!} = \frac{10!}{7! \cdot 3!} = \frac{10 \cdot 9 \cdot 8}{3 \cdot 2} = 10 \cdot 3 \cdot 4 = 120$
     \end{itemize}
     \item Combination - Unordered collection of $k$ elements
     \begin{itemize}
-        \item $\binom{n}{k} = \frac{n!}{k!(n-k)!}$
+        \item Recall the number of ordered collection is $_nP_k = \frac{n!}{(n-k)!}$
+        \item Each combination of $k$ distinct elements shows up $k!$ times
+        \item So the number of unordered combinations is $\binom{n}{k} = \frac{n!}{k!(n-k)!}$
+        \item Note $0 \le k \le n, \binom{n}{0} = \binom{n}{n}=1$
     \end{itemize}
 \end{itemize}
 
@@ -133,14 +154,23 @@
     \item $A \cap B = \emptyset \Rightarrow $ mutually exclusive (ME)
     \item $A \cup B = S \Rightarrow $ collectively exhaustive (CE)
     \item If $A$ and $B$ are ME and CE, $A$ and $B$ form a partition of $S$
-    \item Theorem 1 - $P(A^c)=1-P(A)$
+    \item Property 1 - $P(A^c)=1-P(A)$
     \begin{itemize}
-        \item Since $A \cap A^c = \emptyset$, it holds by Axiom 3. Further, since $A \cup A^c = S$, it holds by Axiom 3. Putting these two results together, 
+        \item Since $A \cap A^c = \emptyset$, it holds by Axiom 3 that $P(A \cup A^c) = P(A) + P(A^c)$. Further, since $A \cup A^c = S$, it holds by Axiom 2 that $P(A \cup A^c) = P(S) = 1$. Putting these two results together, the required result follows.
+    \end{itemize}
+    \item Property 2 - $P(\emptyset) = 0$
+    \begin{itemize}
+        \item Let $A$ be $S$ and $A^c$ be $\emptyset$ in the proof of Property 1. The required result follows.
+    \end{itemize}
+    \item Property 3 - $P(A) \le 1$ for any event $A$
+    \begin{itemize}
+        \item If $P(A) > 1$, then Property 1 implies that $P(A^c) < 0$ but this is in violation of Axiom 1. The required result is thus proved by contradiction
     \end{itemize}
     \item Theorem 4 - $P(A \cup B)=P(A)+P(B)-P(A \cap B)$
     \begin{itemize}
         \item Note that $A=(A \cap B) \cup (A \cap B^c)$ and $B=(A \cap B) \cup (A^c \cap B)$
         \item Also note that $(A \cup B)=(A \cap B^c) \cup (A \cap B) \cup (A^c \cap B)$
+        \item Note that all bracketed objects are mutually exclusive events in their respective equations
         \item So by Axiom 3, we have $P(A \cap B^c) = P(A) - P
         (A \cap B)$, $P(A^c \cap B) = P(B) - P
         (A \cap B)$, and $P(A \cup B) = P(A \cap B^c) + P(A \cap B) + P(A^c \cap B) = P(A) - P
@@ -150,25 +180,47 @@
     \item Integration by Parts
     \begin{itemize}
         \item $\int udv = uv - \int vdu$
+        \item Choose $u$ as the function that comes first on this list:
+        \begin{itemize}
+            \item \textbf{L}ogarithmic
+            \item \textbf{A}lgebraic
+            \item \textbf{T}rigonometric
+            \item \textbf{E}xponential
+        \end{itemize}
     \end{itemize}
-    \item Find $\int_0^\infty x \lambda e^{-\lambda x} dx$
+    \item Example 1. Find $\int_0^\infty x \lambda e^{-\lambda x} dx$
     \begin{itemize}
-        \item $\int_0^\infty x \lambda e^{-\lambda x} dx = -x e^{-\lambda x} \vert_0^\infty - \int_0^\infty e^{-\lambda x} dx = 0 + \frac{e^{-\lambda x}}{-\lambda} \vert_0^\infty = \frac{1}{\lambda}$
+        \item $u=x$ and $v=-e^{-\lambda x}$
+        \item $du=dx$ and $dv = \lambda e^{-\lambda x} dx$
+        \item $\int_0^\infty x \lambda e^{-\lambda x} dx = -x e^{-\lambda x} \vert_0^\infty + \int_0^\infty e^{-\lambda x} dx = 0 + \frac{e^{-\lambda x}}{-\lambda} \vert_0^\infty = \frac{1}{\lambda}$
+        \begin{itemize}
+            \item Helps obtain the first moment of an exponentially distributed random variable
+        \end{itemize}
+    \end{itemize}
+    \item Example 2. Find $\int_0^\infty x^2 \lambda e^{-\lambda x} dx$
+    \begin{itemize}
+        \item $u=x^2$ and $v=-e^{-\lambda x}$
+        \item $du=2xdx$ and $dv = \lambda e^{-\lambda x} dx$
+        \item $\int_0^\infty x^2 \lambda e^{-\lambda x} dx = -x^2 e^{-\lambda x} \vert_0^\infty + \int_0^\infty 2x e^{-\lambda x} dx = 0 + \frac{2}{\lambda} \int_0^\infty x \lambda e^{-\lambda x} dx = \frac{2}{\lambda^2}$
+        \begin{itemize}
+            \item Helps obtain the second moment of an exponentially distributed random variable
+        \end{itemize}
     \end{itemize}
     \item Double Integrals
     \begin{itemize}
         \item
         \begin{flalign*}
-            f(x,y)= \left\{ \begin{array}{rcl}
-            x+y \quad , 0<x<1 \ \& \ 0<y<1 \\
-            0 \quad , \text{ otherwise.}
-            \end{array} \right.
+            &f(x,y) = \left\{ \begin{array}{rcl}
+            x+y \quad &, &0<x<1 \ \& \ 0<y<1 \\
+            0 \quad &, &\text{ otherwise.}
+            \end{array} \right. \\
+            &0<x<1 \ \& \ 0<y<1 \text{ is support of function}
         \end{flalign*}
         \item
         \begin{flalign*}
             &\int_{-\infty}^\infty f_{X,Y}(x,y)dxdy \\
             &= \int_0^1 \int_0^1 (x+y)dxdy = \int_0^1 [\frac{x^2}{2} + xy]_0^1 dy \\
-            &= \int_0^1 (\frac{1}{2} + y)dy = [\frac{1}{2}y+y^2]_0^1 = 1
+            &= \int_0^1 (\frac{1}{2} + y)dy = [\frac{1}{2}y+\frac{y^2}{2}]_0^1 = 1
         \end{flalign*}
         \item Suppose we only want to integrate over the triangular region given by $\{(x,y): 0<x<1, 0<y<1, y>2x\}$
         \begin{flalign*}
@@ -186,47 +238,52 @@
     \item Combination with replacement - $\binom{n+k-1}{k} = \frac{(n+k-1)!}{k!(n-1)!}$
     \item An urn contains eight chips, numbered 1 through 8. Three chips are drawn without replacement. What is the probability that the largest chip in the sample is a 5?
     \begin{itemize}
+        \item 3 chips are not ordered, draws are taken without replacement
+        \item Chip \#5 must be selected: $\binom{1}{1}$
+        \item 2 chips drawn from \#1, \#2, \#3, \#4: $\binom{4}{2}$
         \item $\frac{\binom{1}{1}\binom{4}{2}}{\binom{8}{3}}$
-    \end{itemize}
-    \item An urn contains eight chips, numbered 1 through 8. Three chips are drawn without replacement. What is the probability that the largest chip in the sample is a 5?
-    \begin{itemize}
-        \item $\frac{\binom{1}{1} \binom{4}{2}}{\binom{8}{3}} = \frac{4 \cdot 3 \cdot 3! \cdot 5!}{8! c\dot 2} = \frac{4 \cdot 2 \cdot 3 \cdot 3}{8 \cdot 7 \cdot 6 \cdot 2} = \frac{3}{28}$
+        \item $P(A)=\frac{\binom{1}{1} \binom{4}{2}}{\binom{8}{3}} = \frac{4 \cdot 3 \cdot 3! \cdot 5!}{8! c\dot 2} = \frac{4 \cdot 2 \cdot 3 \cdot 3}{8 \cdot 7 \cdot 6 \cdot 2} = \frac{3}{28} = 0.11$
     \end{itemize}
     \item  An urn contains n red chips numbered 1 to n, n white chips numbered 1 to n, and n blue chips numbered 1 to n. Two are drawn at random and without replacement. What is the probability that the two drawn are either the same color or the same number?
     \begin{itemize}
+        \item unordered, without replacement
         \item $P(\text{same color or same number}) = P(\text{same color}) + P(\text{same number}) + P(\text{same color and number}) = P(\text{same color}) + P(\text{same number})$ since you can't choose the same color and number chip twice
-        \item $P(\text{same color}) = \frac{n - 1}{3n - 1}$
-        \item $P(\text{same number}) = \frac{2}{3n - 1}$
+        \item Note the total number of ways to draw 2 chips from $3n$ chips is $\binom{3n}{2}$
+        \item $P(\text{same color}) = P(\text{2 reds}) + P(\text{2 whites}) + P(\text{2 blues}) = 3 \cdot \frac{\binom{n}{2}}{\binom{3n}{2}} = \frac{3 \cdot n!(3n-2)!2!}{3n!(n-2)!2!} = \frac{n - 1}{3n - 1}$
+        \item $P(\text{same number}) = P(\text{2 chips of \#1}) + \cdots + P(\text{2 chips of \#n}) = n \cdot \frac{\binom{3}{2}}{\binom{3n}{2}} = \frac{n \cdot 3! (3n-2)! 2!}{2! 1! 3n!} = \frac{2}{3n - 1}$
         \item $P(\text{same color or same number}) = \frac{2+n-1}{3n-1} = \frac{n+1}{3n-1}$
-        \item Second Way:
-        \begin{itemize}
-            \item Total number of ways to draw 2 chips from $3n$ chips is $\binom{3n}{2}$
-            \item $P(\text{same color}) = P(\text{2 reds}) + P(\text{2 whites}) + P(\text{2 blues}) = 3 \times \frac{\binom{n}{2}}{\binom{3n}{2}}$
-            \item $P(\text{same number}) = n \times P(\text{2 chips of number}) = n \times \frac{\binom{3}{2}}{\binom{3n}{2}}$
-            \item $P(\text{same color or same number}) = \frac{3 \times \binom{n}{2} +  n \times \binom{3}{2}}{\binom{3n}{2}}$
-        \end{itemize}
     \end{itemize}
     \item What is the probability that at least two people in this room were born on the same day?
     \begin{itemize}
+        \item Consider $k$ people in the room
+        \item Line them up $1,2,\dots, k$, each has 365 possible birthdays
+        \item So in total there are $365^k$ possible birthdays
+        \item $A =$ at least 3 share the same birthday
+        \item $A^c =$ all $k$ people have different birthdays
+        \item Take (ordered) $k$ draws from 365 without replacement $=365 \times 364 \times \cdots \times (365-(k-1))$
         \item $P(\text{Born on same day}) = 1 - P^c = 1 - \frac{365 \times 364 \times \cdots \times (365 - k +1)}{365^k}$
+        \item When $k=70, P(A)=.99$
     \end{itemize}
-    \item
-    \item Slide 2
-    \item
-    \item Conditional Probability - $P(A \mid B) = \frac{P(A \cap B)}{P(B)}$
+\subsection{Slide 2}
+    \item Conditional Probability - for events $A,B$ and $P(B) > 0$, $P(A \mid B) = \frac{P(A \cap B)}{P(B)}$
     \item A family has two children. What is the probability that both are girl given that at least one is girl?
     \begin{itemize}
         \item $P(\text{both girls} \mid \text{at least one girl}) = \frac{P(A \cap B)}{P(B)} = \frac{\frac{1}{4}}{\frac{3}{4}} =\frac{1}{3}$
-        \item $\frac{\frac{1}{4}}{\frac{3}{4}} = \frac{1}{3}$
     \end{itemize}
-    \item $P(A \cap B) = P(A \mid B) P(B) = P(B \mid A) P(A)$
-    \item Law of Total Probability - $P(B) = P(B \mid A_1)P(A_1)+ \cdots + P(B \mid A_n)P(A_n) = \sum_{i=1}^n P(B \mid A_i) P(A_i)$
-    \item Bayes' Rule - A set of evens $A_1,A_2, \dots, A_n$ form a partition of the sample space. For any event $B$ where $P(B)>0$,
-    $P(A_j \mid B) = \frac{P(B \mid A_j) P(A_j)}{\sum_{i=1}^n P(B \mid A_i) P(A_i)} = \frac{P(A_j \cap B)}{P(B)}$
-    \item  A student is applying for a summer internship. If their interview goes well, they have a 70\% chance of getting an offer. If not, their chance drops to 20\%. The student estimates the likelihood of their interview going well is 10\%. What is the probability the student gets an offer?
+    \item We can rewrite the conditional probability formula to calculate $P(A \cap B) = P(A \mid B) P(B) = P(B \mid A) P(A)$
+    \item Law of Total Probability - for a set of events $A_1,A_2,\dots,A_n$ which form a partition of the sample space, $P(B) = P(B \mid A_1)P(A_1)+ \cdots + P(B \mid A_n)P(A_n) = \sum_{i=1}^n P(B \mid A_i) P(A_i)$
     \begin{itemize}
-        \item $P(\text{offer})=P(\text{offer} \mid \text{good interview})P(\text{good interview}) + P(\text{offer} \mid \text{bad interview})P(\text{bad interview}) = 0.7 \cdot 0.1 + 0.2 \cdot 0.9 = 0.07 + 0.18 = 0.25$
+        \item Since $A_1,\dots,A_n$ form a partition of $S$, $B = (B \cap A_1) \cup (B \cap A_2) \cup \dots \cup (B \cap A_n)$
+        \item $P(B) = P(B \cap A_1) + \dots + P(B \cap A_n)$
+        \item Each $P(B \cap A_i) = P(B \mid A_i)P(A_i)$
+        \item Thus $P(B) = \sum_{i=1}^n P(B \mid A_i)P(A_i)$
     \end{itemize}
+    \item A student is applying for a summer internship. If their interview goes well, they have a 70\% chance of getting an offer. If not, their chance drops to 20\%. The student estimates the likelihood of their interview going well is 10\%. What is the probability the student gets an offer?
+    \begin{itemize}
+        \item Using LOTP: $P(\text{offer})=P(\text{offer} \mid \text{good interview})P(\text{good interview}) + P(\text{offer} \mid \text{bad interview})P(\text{bad interview}) = 0.7 \cdot 0.1 + 0.2 \cdot 0.9 = 0.07 + 0.18 = 0.25$
+    \end{itemize}
+    \item Bayes' Rule - A set of events $A_1,A_2, \dots, A_n$ form a partition of the sample space. For any event $B$ where $P(B)>0$,
+    $P(A_j \mid B) = \frac{P(B \mid A_j) P(A_j)}{\sum_{i=1}^n P(B \mid A_i) P(A_i)} = \frac{P(A_j \cap B)}{P(B)}$
     \item $P(A_j \mid B) = \frac{P(A_j \cap B)}{P(B)} = \frac{P(B \mid A_j)P(A_j)}{P(B)}$
     \begin{itemize}
         \item By Law of Total Probability, $P(B) = \sum_{i=1}^n P(B \mid A_i)P(A_i)$
@@ -248,13 +305,81 @@
         \item By Axiom 3, $A = (A \cap B_1) \cup (A \cap B_2) \cup (A \cap B_3)$
         \item By the definition of conditional probability, we have $P(A) = P(A \mid B_1)P(B_1) + P(A \mid B_2)P(B_2) + P(A \mid B_3)P(B_3)$
     \end{itemize}
+    \item Suppose we have 3 students: $A,B,C$ and 2 tasks: cooking and cleaning
+    \begin{itemize}
+        \item In how many ways can we assign the 3 students to the 2 tasks?
+        \begin{itemize}
+            \item Order matters and we allow replacement: $3^2 = 9$
+            \item Order matters but we do not replacement: $_3P_2 = \frac{3!}{1!} = 6$
+            \item Order does not matter but we allow replacement: $\binom{3+2-1}{2}=\binom{4}{2} = \frac{4!}{2!2!} = 6$
+            \begin{itemize}
+                \item Ignore for first-year course in statistics
+            \end{itemize}
+            \item Order does not matter and we do not allow replacement: $\binom{3}{2} = \frac{3!}{2!1!} = 3$
+        \end{itemize}
+    \end{itemize}
+\subsection{Problem Set 1}
+    \item 2. Let $A$ and $B$ be two events defined on a sample space $S$ such that $P(A)=0.3, P(B)=0.5, P(A \cup B)=0.7$
+    \begin{itemize}
+        \item (a) $P(A \cap B) = P(A) + P(B) - P(A \cup B) = 0.3+0.5-0.7 = 0.1$
+        \item (b) $P(A^c \cup B^c) = P((A \cap B)^c)$ by DeMorgan's Law
+        \begin{itemize}
+            \item $= 1 - P(A \cap B)$ by "Property 1"
+            \item $= 1 - 0.1 = 0.9$
+        \end{itemize}
+        \item (c) Note that $B$ may be partitioned as $B = (B \cap A) \cup (B \cap A^c)$
+        \begin{itemize}
+            \item $P(B) = P(B \cap A) + P(B \cap A^c)$ by Axiom 3
+            \item $P(B \cap A^c) = P(B) - P(B \cap A) = 0.5-0.1 = 0.4$
+        \end{itemize}
+    \end{itemize}
+    \item 3a. How many ways are there to split a dozen people into 3 teams, where one team has 2 people, and the other two teams have 5 people each?
+    \begin{itemize}
+        \item No replacement and order is irrelevant
+        \item $\binom{12}{2}$ ways of picking a team of 2 from 12 people, $\binom{10}{5}$ ways of picking a team of 5 from 10 remaining people, and $\binom{5}{5}$ ways of picking the last team of 5
+        \item $\frac{\binom{12}{2}\binom{10}{5}\binom{5}{5}}{2} = 8316$ accounting for the double counting due to the two teams of 5 being indistinguishable
+    \end{itemize}
+    \item How many ways are there to split a dozen people into 3 teams, where each team has 4 people?
+    \begin{itemize}
+        \item Using the same logic as 3a, we get $\frac{\binom{12}{4}\binom{8}{4}\binom{4}{4}}{3!} = 5775$
+    \end{itemize}
+    \item 4. In the seventeenth century, Italian gamblers used to bet on the total number of spots rolled with three dice. They believed that the chance of rolling a total of 9 ought to equal the chance of rolling a total of 10. They noted that altogether there are six combinations to make 9: (1,2,6), (1,3,5), (1,4,4), (2,3,4), (2,2,5), and (3,3,3). Similarly, there are six combinations for 10: (1,4,5), (1,3,6), (2,2,6), (2,3,5), (2,4,4), (3,3,4). Thus, argued the gamblers, 9 and 10 should have the same chance. Empirically, they found this not to be true, however. Galileo solved the gamblers’ problem.
+    \begin{itemize}
+        \item (a) How many permutations of three dice are there that sum to 10?
+        \begin{itemize}
+            \item $\binom{3}{1}\binom{2}{1}\binom{1}{1} = 6$ ways to obtain: (1,2,6), (1,3,5), (2,3,4)
+            \item $\frac{1}{2!}\binom{3}{1}\binom{2}{1}\binom{1}{1} = 3$ ways to obtain: (2,2,5) and (1,4,4)
+            \item $\frac{1}{3!} \binom{3}{1}\binom{2}{1}\binom{1}{1} = 1$ way to obtain: (3,3,3)
+            \item There are 25 possible equally likely ways to obtain 9
+        \end{itemize}
+        \item (b) How many permutations of three dice are there that sum to 10?
+        \begin{itemize}
+            \item $\binom{3}{1}\binom{2}{1}\binom{1}{1} = 6$ ways to obtain: (1,4,5), (1,3,6), (2,3,5)
+            \item $\frac{1}{2!}\binom{3}{1}\binom{2}{1}\binom{1}{1} = 3$ ways to obtain: (2,2,6), (2,4,4), (3,3,4)
+            \item There are 27 possible equally likely ways to obtain 10
+        \end{itemize}
+        \item (c) How many total permutations of three dice are there? What was Galileo's solution?
+        \begin{itemize}
+            \item There are $6^3=216$ total equally likely ways to roll 3 dice. Hence, the solution would have been: $P(\text{roll a sum of 9})=\frac{25}{216}$ and $P(\text{roll a sum of 10})=\frac{27}{216}$
+        \end{itemize}
+    \end{itemize}
+    \item You and your friends just rented a car from Enterprise for an 8,000 mile cross-country road trip in the U.S. to see all of the sights from from Boston Harbor to the Golden Gate Bridge. Your rental car may be of three different types: brand new (and not a lemon), nearly 1 year old, or a lemon (bound to break down). That many miles can be demanding on a rental car. If the car you receive is brand new (New), it will break down with probability 0.05. If it is one year old (One), it will break down with probability 0.1. If it is just a lemon (Lemon), it will break down with probability 0.9. The probability that the car Enterprise gives you is New, One, or Lemon is 0.8, 0.1, and 0.1, respectively. Compute the probability that your car is going to break down on your road trip.
+    \begin{itemize}
+        \item $P(\text{New}) = 0.8$
+        \item $P(\text{Break} \mid \text{New}) = 0.05$
+        \item $P(\text{One}) = 0.1$
+        \item $P(\text{Break} \mid \text{One}) = 0.1$
+        \item $P(\text{Lemon}) = 0.1$
+        \item $P(\text{Break} \mid \text{Lemon}) = 0.9$
+        \item Using LOTP, $P(\text{Break}) = P(\text{Break} \mid \text{New})P(\text{New}) + P(\text{Break} \mid \text{One})P(\text{One}) + P(\text{Break} \mid \text{Lemon})P(\text{Lemon}) = (0.05)(0.8)+(0.1)(0.1)+(0.9)(0.1) = 0.14$
+    \end{itemize}
 \end{itemize}
 
 \section{Lecture 3 (20/10/2025)}
 \begin{itemize}
-    \item Tests: As detailed as I can under limited amount of time
+    \item Tests: Write as much details as I can under limited amount of time
     \begin{itemize}
-        \item Lecture/Tutorial good benchmarks
+        \item Lecture/Tutorials are good benchmarks (work through problem sets)
         \item Partial credit awarded
     \end{itemize}
     \item Independence
@@ -267,10 +392,17 @@
     \begin{itemize}
         \item $A$ and $A^c$ are mutually exclusive, but one happening tells us the other
     \end{itemize}
-    \item Independence of Multiple Events: $P(A \cap B) = P(A)(B), P(B \cap C) = P(B)(C), P(A \cap C) = P(A)(C), P(A \cap B \cap C) = P(A)P(B)P(C)$
+    \item Independence of Multiple Events: happens only if all four equations hold
+    \begin{itemize}
+        \item $P(A \cap B) = P(A)(B)$
+        \item $P(B \cap C) = P(B)(C)$
+        \item $P(A \cap C) = P(A)(C)$
+        \item $P(A \cap B \cap C) = P(A)P(B)P(C)$
+    \end{itemize}
     \item A fair coin is tossed twice. Let event A be tail on first toss and event B be head on second toss. Are events A and B independent?
     \begin{itemize}
         \item $P(A) = \frac{1}{2}$, $P(B) = \frac{1}{2}$, $P(A \cap B) = \frac{1}{2} \cdot \frac{1}{2} = P(A) \cdot P(B)$
+        \item Another way: $P(A \mid B) = P(\text{head on 2nd toss} \mid \text{tail on 1st toss}) = P(\text{head on 2nd toss}) = \frac{1}{2} = P(A)$
     \end{itemize}
     \item We roll a fair die once, event $A = \{2, 4, 6\}$, event $B = \{1, 2, 3, 4\}$, are $A$ and $B$ independent?
     \begin{itemize}
@@ -288,48 +420,68 @@
     \item If $P(A) = 0, P(A \cap B \cap C)=P(A)P(B)P(C)$ holds, but the pairwise independence of $B$ and $C$ is not confirmed
     \item Suppose you are decorating the lobby for an event with a string of lights which has 1000 light bulbs. Each bulb functions independently and has a 99.9\% probability of working. The whole string fails when at least one bulb fails because of the way the bulbs are connected on the string. What is the probability that the string fails?
     \begin{itemize}
-        \item $P(\text{fail}) = 1 - P(A \cap B \cap C \dots) = 1 - P(\text{bulb working})^{1000} = 1 - 0.99^{1000} - 0.6$
+        \item $P(\text{fail}) = 1 - P(A \cap B \cap C \dots) = 1 - P(\text{bulb working})^{1000} = 1 - 0.99^{1000} \approx 0.63$
     \end{itemize}
     \item Monty Hall Paradox
-    \begin{flalign*}
-        &P(C_1) = P(C_2) = P(C_3) = \frac{1}{3} \\
-        &P(M_2 \mid C_1) = \frac{1}{2} \\
-        &P(M_2 \mid C_2) = 0 \\
-        &P(M_2 \mid C_3) = 1 \\
-        &P(C_1 \mid M_2) = \frac{P(M_2 \mid C_1)P(C_1)}{P(M_2 \mid C_1)P(C_1) + P(M_2 \mid C_2) P(C_2) + P(M_2 \mid C_3) P (C_3)} = \frac{\frac{1}{2} \times \frac{1}{3}}{\frac{1}{2} \times \frac{1}{3} + 0 \times \frac{1}{3} + 1 \times \frac{1}{3}} = \frac{1}{3} \\
-        &P(C_3 \mid M_2) = 1 - P(C_1 \mid M_2) = \frac{2}{3}
-    \end{flalign*}
-    \item
-    \item Slides 3
-    \item
-    \item $P(\text{having } k \text{ heads}) = \binom{n}{k} \cdot p^k \cdot (1-p)^{n-k}$
-    \item Binomial Theorem - $\binom{n}{k} \cdot p^k \cdot (1-p)^{n-k}$
-    \item Discrete Random Variable - variable with a discrete number of possible events (countable number of values)
+    \begin{itemize}
+        \item 3 doors behind one of which is a prize
+        \item Contestant chooses a door first
+        \item Host, Monty Hall, opens one of the remaining doors that doesn't have the prize
+        \item If both remaining doors have no prize, he opens each with probability $1/2$
+        \item After Monty opens the door, the contestant is given the opportunity to switch their choice. Should the contestant switch?
+        \item $C_i$ represents the car (prize) being behind door $i$
+        \item $M_i$ represents Monty opening door $i$
+        \item We assume the contestant opens door 1 and Monty opens door 2 without loss of generality
+        \begin{flalign*}
+            &P(C_1) = P(C_2) = P(C_3) = \frac{1}{3} \\
+            &P(M_2 \mid C_1) = \frac{1}{2} \\
+            &P(M_2 \mid C_2) = 0 \\
+            &P(M_2 \mid C_3) = 1 \\
+            &P(C_1 \mid M_2) = \frac{P(M_2 \mid C_1)P(C_1)}{P(M_2 \mid C_1)P(C_1) + P(M_2 \mid C_2) P(C_2) + P(M_2 \mid C_3) P (C_3)} = \frac{\frac{1}{2} \times \frac{1}{3}}{\frac{1}{2} \times \frac{1}{3} + 0 \times \frac{1}{3} + 1 \times \frac{1}{3}} = \frac{1}{3} \\
+            &P(C_3 \mid M_2) = 1 - P(C_1 \mid M_2) = \frac{2}{3}
+        \end{flalign*}
+        \item We see that switching doubles the probability of winning
+    \end{itemize}
+\subsection{Slide 3}
+    \item For a coin toss, suppose we know the probability of heads is $p$. We are interested in the probability of having $k$ heads
+    \begin{itemize}
+        \item $P(\text{having } k \text{ heads}) = \binom{n}{k} \cdot p^k \cdot (1-p)^{n-k}$
+    \end{itemize}
+    \item Binomial Theorem - let $p$ be the probability of the success of a given trial and let us have $n$ independent trials. Then $P(k \text{ successes}) = \binom{n}{k} \cdot p^k \cdot (1-p)^{n-k}, k = 0,1,\dots,n$
+    \begin{itemize}
+        \item We say $k$ follows a binomial distribution
+    \end{itemize}
     \item Random Variable - function that assigns numbers to outcomes $s \in S \rightarrow X(s)$
     \begin{itemize}
         \item Random variables allow us to speak about a particular aspect of possible outcomes and potentially redefining the sample space 
         \item In the previous example, reduced sample space from $2^n$ to $n+1$ by limiting question to number of heads
     \end{itemize}
-    \item Probability Density (Mass) Function - the likelihood of different outcomes for a random variable
+    \item Capital letters denote random variables $X,Y$, etc.
     \begin{itemize}
-        \item $p_X(x)=P(\{s \in S: X(s) = x\})$
+        \item Lower-case letters used to denote specific or realized values of random variable
     \end{itemize}
-    \item Lower-case letters used to denote specific or relatized values of random variable
-    \item Probability distribution for $X$ is $P(X \in A) = P(\{s \in S : X(s) \in A \})$ for any event $A$ which is a subset of real numbers in the range of $X$
+    \item The probability function $P$ on the sample space $S$ induces a probability distribution for $X$ via $X$ is $P(X \in A) = P(\{s \in S : X(s) \in A \})$ for any event $A$ which is a subset of real numbers in the range of $X$
     \begin{itemize}
         \item Random variable $X$ maps each outcome $s \in S$ to $X(s)$
     \end{itemize} 
+    \item Discrete Random Variable - variable with a discrete number of possible events (countable number of values $x_1,x_2,\dots,x_n$)
+    \item Probability Density (Mass) Function (pdf/pmf) - the likelihood of different outcomes for a random variable
+    \begin{itemize}
+        \item  $p_X(x)=P(\{s \in S: X(s) = x\})$
+        \item Note $p(x)=0$ for any $x$ not in the range of $X$
+    \end{itemize}
     \item PDF Properties
     \begin{itemize}
         \item $0 \le p(x) \quad \forall x \in \mathbb{R}$
         \item $\sum_i p(x_i)=1,$ i.e., the sum of the probabilities of all possible values of $X$ (i.e., $X$ takes on values $x_1,x_2, \dots ,x_i$) is 1
         \item Mutually exclusive property given by the definition of pdf
+        \item Note $p(x)$ is defined for all $x \in \mathbb{R}$ but $p(x)=0$ for $x$ not in the range of $X$
     \end{itemize}
     \item Cumulative Distribution Function - the probability that $X$ takes on a value $\le x$
     \begin{itemize}
         \item $F(x)=P(\{s \in S \mid X(s) \le x\})$
     \end{itemize}
-    \item CDF Properties
+    \item CDF Properties of a discrete random variable $X$
     \begin{itemize}
         \item $F(x)$ is a step function, remaining constant in all intervals between possible values of $X$
         \item At a possible value $x_i$ of $X$, $F(x)$ jumps up by the amount $p(x_i)=P(X=x_i)$
@@ -339,15 +491,98 @@
     \begin{itemize}
         \item Can take more than countably many values, and therefore PDF becomes a little bit more involved
         \item Probability of any particular value typically has to be zero ($P(X=x)=0$)
-        \item Discretize the distribution by putting the possible values the random variable can take into "bins" ($P(x_1 \le X \le x_2$)
+        \item General idea: discretize the distribution by putting the possible values the random variable can take into "bins" ($P(x_1 \le X \le x_2$)
     \end{itemize}
-    \item Probability Density Function - non-negative function $f_X(x)$ defined as $[a,b] \subset S, P(X \in [a,b]) = \int_a^b f(x)dx$
+    \item Probability Density Function (pdf) - non-negative function $f_X(x)$ defined as $[a,b] \subset S, P(X \in [a,b]) = \int_a^b f(x)dx$
     \item Histogram approximations to derive PDF is often used to estimate probability distribution in practice
-    \item CDF PDF Properties
+    \item PDF Properties for continuous random variables
     \begin{itemize}
         \item $f(x) \ge 0 \quad \forall x \in \mathbb{R}$
         \item $\int_{-\infty}^\infty f(x)=1$
     \end{itemize}
+\end{itemize}
+
+\section{Tutorial 3 (24/10/2025)}
+\begin{itemize}
+\subsection{Problem Set 2}
+    \item 1.  Two events $A$ and $B$ satisfy the following conditions: (1) the probability that $A$ occurs but $B$ does not occur is 0.2, (2) the probability that $B$ occurs but $A$ does not occur is 0.1, and (3) the probability that neither occurs is 0.6. What is $P(A \mid B)$?
+    \begin{itemize}
+        \item We are given $P(A \cap B^c) = 0.2, P(B \cap A^c) = 0.1, P(A^c \cap B^c) = 0.6$
+        \item We want $P(A \mid B) = \frac{P(A \cap B)}{P(B)}$
+        \item Consider $P(A \cap B)$: we know that $P(A \cup B) = 1- P((A \cup B)^c) = 1 - P(A^c \cap B^c) = 1-0.6 = 0.4$ where we use De Morgan's Law and "Property 1"
+        \begin{itemize}
+            \item Further $P(A \cup B) = P(A \cap B^c) + P(A \cap B) + (B \cap A^c)$ due to Axiom 3 since $(A \cap B^c), (A \cap B), (B \cap A^c)$ form a partition of $(A \cup B)$
+            \item It follows that $P(A \cap B) = 0.4-0.2-0.1=0.1$
+        \end{itemize}
+        \item Now consider $P(B)$: we know that $P(B) = P(B \cap A) + P(B \cap A^c)$ by Axiom 3 since $(B \cap A)$ and $(B \cap A^c)$ form a partition of $B$. It follows that $P(B) = 0.1+0.1 = 0.2$
+        \item We thereby obtain $P(A \mid B) = \frac{P(A \cap B)}{P(B)} = \frac{0.1}{0.2} = 0.5$
+    \end{itemize}
+    \item 2. Two events A and B are independent. Show the following pairs of events are also independent:
+    \begin{itemize}
+        \item (a) $A$ and $B^c$
+        \begin{itemize}
+            \item $P(A \cap B^c) = P(A) - P(A \cap B) = P(A) [1 - P(B)] = P(A)P(B^c)$ since $A \indep B$
+            \item Thus $A \indep B^c$
+        \end{itemize}
+        \item (b) $A^c$ and $B$
+        \begin{itemize}
+            \item The proof of $A^c \indep B$ is obtained as the proof of $A \indep B^c$ given in part (a) with the notation for $A$ and $B$ interchanged
+        \end{itemize}
+        \item (c) $A^c$ and $B^c$
+        \begin{itemize}
+            \item $P(A^c \cap B^c) = P((A \cup B)^c)$ by De Morgan's Law
+            \item $= 1- P(A \cup B)$ by "Property 1"
+            \item $= 1 - P(A) - P(B) + P(A \cap B)$ by "Property 4"
+            \item $= 1 - P(A) - P(B) + P(A)P(B)$ since $A \indep B$
+            \item $= [1 - P(A)][1 - P(B)]$
+            \item $= P(A^c)P(B^c)$ by "Property 1"
+            \item Thus $A^c \indep B^c$
+        \end{itemize}
+    \end{itemize}
+    \item 3. Mr. Patiente is testing for a rare medical condition which is known to affect 1\% of the population. The test is 95\% accurate which means two things in this particular case: 1) with probability 0.95 the test result is positive for someone with the condition; 2) with probability 0.95 the test result is negative for someone without the condition. What is the probability Mr. Patiente actually has the condition if his test result is positive?
+    \begin{itemize}
+        \item $D$ represents having the rare medical condition
+        \item $+/-$ represents a positive/negative test result
+        \item $P(D) = 0.01, P(D^c) = 0.99$
+        \item $P(+ \mid D) = 0.95, P(+ \mid D^c) = 0.05$
+        \item $P(- \mid D) = 0.05, P(- \mid D^c) = 0.95$
+        \item We want to find $P(D \mid +) = \frac{P(+ \mid D) P(D)}{P(+)} = \frac{P(+ \mid D) P(D)}{P(+ \mid D)P(D) + P(+ \mid D^c)P(D^c)} = \frac{0.95 \cdot 0.01}{0.95 \cdot 0.01 + 0.05 \cdot 0.99} = \frac{95}{95 + (5 \times 99)} \approx 0.16$
+    \end{itemize}
+    \item Ragvir's Extra Practice Questions:
+    \begin{itemize}
+        \item 1. Establish whether the following claims are TRUE or FALSE:
+        \begin{itemize}
+            \item (a) "An event cannot be independent of itself"
+            \begin{itemize}
+                \item False since if $A \indep A$, $P(A \cap A) = P(A)P(A) = [P(A)]^2=P(A)$
+                \item If $P(A)=0$ or $P(A)=1$, then $A \indep A$
+            \end{itemize}
+            \item "Mutually exclusive events are necessarily independent of each other"
+            \begin{itemize}
+                \item False since $0 = P(A \cap B) = P(A)P(B)$ which is only true if $P(A) = 0$ or $P(B) = 0$ or both
+                \item In words, events $A$ and $B$ are mutually exclusive and independent only when either or both of the events occurring have a probability of $0$
+            \end{itemize}
+        \end{itemize}
+        \item 2. Consider two coins, one fair and one biased. The fair coin shows heads with probability a half when tossed. The biased coin shows heads with probability 1/10 when tossed. Suppose two coins have equal probabilities of being picked. After one coin is picked, it was tossed twice.
+        \begin{itemize}
+            \item (a) What is the probability of heads on first toss?
+            \begin{itemize}
+                \item $P(H_1) = P(H_1 \mid F) P(F) + P(H_2 \mid B) P(B) = \frac{1}{2} \cdot \frac{1}{2} + \frac{1}{10} \cdot \frac{1}{2} = \frac{3}{10}$
+            \end{itemize}
+            \item (b) What is the probability of heads on both tosses?
+            \begin{itemize}
+                \item $P(H_1H_2) = P(H_1H_2 \mid F)P(F) + P(H_1H_2 \mid B)P(B) = \left(\frac{1}{2}\right)^2 \cdot \frac{1}{2} + \left(\frac{1}{10}\right)^2 \cdot \frac{1}{2} = \frac{13}{100}$
+            \end{itemize}
+            \item (c) What is the probability that the coin is the fair one given heads on both tosses?
+            \begin{itemize}
+                \item $P(F \mid H_1H_2) = \frac{P(H_1H_2 \mid F)P(F)}{P(H_1H_2)} = \frac{\left(\frac{1}{2}\right)^2 \cdot \frac{1}{2}}{\frac{13}{100}} = \frac{25}{26}$
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\section{Lecture 4 (27/10/2025)}
+\begin{itemize}
     \item Uniform Distribution - distributed over $[a,b], a < b, f(x)= \left\{ \begin{array}{cc}
         \frac{1}{b-a} & \text{if } a \le x \le b  \\
         0 & \text{otherwise}
@@ -355,10 +590,6 @@
     \begin{itemize}
         \item Write as $X \sim U(a,b)$
     \end{itemize}
-\end{itemize}
-
-\section{Lecture 4 (27/10/2025)}
-\begin{itemize}
     \item Suppose $X$ has pdf
     \[ f(x) = \left\{ \begin{array}{cc}
         ax^2 & \text{if } 0 < x < 3 \\
@@ -366,10 +597,12 @@
     \end{array} \right. \]
     What is $a$?
     \begin{flalign*}
-        \int_{-\infty}^{\infty} f(x)dx = \int_0^3 ax^2 dx = a \left[ \frac{x^3}{3} \right]_0^3 = \frac{3^3a}{3} - 0 = 1 \Rightarrow a = \frac{1}{9}
+        \Rightarrow \int_{-\infty}^{\infty} f(x)dx = \int_0^3 ax^2 dx = a \left[ \frac{x^3}{3} \right]_0^3 = \frac{3^3a}{3} - 0 = 1 \Rightarrow a = \frac{1}{9}
     \end{flalign*}
     \item Definition of cdf for a continuous random variable $X$ is $F(x) = P(X \le x)$, same as for discrete random variables
-    \item For continuous random variables in general, since $P(X=x)=0$, $P(a < X < b) = P(a < x \le b)$, $P(a \le x < b) = P(a \le x \le b)$
+    \begin{itemize}
+        \item For continuous random variables in general, $P(X=x)=0$, $P(a < X < b) = P(a < x \le b)$, $P(a \le x < b) = P(a \le x \le b)$
+    \end{itemize}
     \item We can relate the cdf and pdf of a continuous random variable using the following equations:
     \begin{itemize}
         \item $F(x)=\int_{-\infty}^x f(t)dt$
@@ -431,19 +664,23 @@
     \item In general, if $X$ is binomial with parameters $n$ and $p$, $E(X)=np$
     \item Suppose $X$ is a binomial random variable with parameters $p$ and $n$, the expectation $X, E(X) = \sum_{x_i=0}^n x_i \cdot \binom{n}{x_i} p^{x_i} (1-p)^{(n-x_i)}$
     \begin{flalign*}
-        &= \sum_{x_i=0}^n x_i \cdot \frac{n!}{x! (n-x_i)!} p^{x_i} (1-p)^{(n-x_i)} \\
-        &= \sum_{x_i=1}^n \frac{n!}{(x-1)! (n-x_i)!} p^{x_i} (1-p)^{(n-x_i)} \qquad \text{Case when } x_i=0 \text{ is zero}\\
-        &= np \sum_{x_i=1}^n \frac{(n-1)!}{(x-1)! (n-x_i)!} p^{x_i-1} (1-p)^{(n-x_i)} \\
+        E[X] &= \sum_{x_i=0}^n x_i \cdot \frac{n!}{x_i! (n-x_i)!} p^{x_i} (1-p)^{(n-x_i)} \\
+        &= \sum_{x_i=1}^n \frac{n!}{(x_i-1)! (n-x_i)!} p^{x_i} (1-p)^{(n-x_i)} \qquad \text{Case when } x_i=0 \text{ is zero}\\
+        &= \sum_{x_i=1}^n \frac{n \cdot (n-1)!}{(x_i-1)! (n-x_i)!} p \cdot p^{x_i-1} (1-p)^{(n-x_i)}\\
+        &= np \sum_{x_i=1}^n \frac{(n-1)!}{(x_i-1)! (n-1-(x_i-1))!} p^{x_i-1} (1-p)^{(n-x_i)} \\
         &= np \underbrace{\sum_{x_i=1}^n \binom{(n-1)}{(x_i-1)} p^{x_i-1} (1-p)^{[n-1-(x_i-1)]}}_{=1} \qquad \text{sum of all possible values of the binominal distribution is 1} \\
+        &= np
     \end{flalign*}
-    \item Let $Y = X-1$, $Y$ takes on value $y_j = x_i - 1 = 0,1, \dots, (n-1),$ then $E(X)=np \sum_{y_j=0}^n-1 \binom{n-1}{y_j} p^{y_j} (1-p)^{[(n-1)-y_j]} = np \underbrace{\sum_{y_j=0}^{n-1} p(y_j)}_{=1}=np$,, where $Y$ is a binomial random variable with parameters $p$ and $n-1$
+    \item Let $Y = X-1$, $Y$ takes on value $y_j = x_i - 1 = 0,1, \dots, (n-1),$ then $E[X]=np \sum_{y_j=0}^{n-1} \binom{n-1}{y_j} p^{y_j} (1-p)^{[(n-1)-y_j]} = np \underbrace{\sum_{y_j=0}^{n-1} p(y_j)}_{=1}=np$,, where $Y$ is a binomial random variable with parameters $p$ and $n-1$
     \item Researchers studying unemployment often assumes the inter-arrival time $X$ of two consecutive job offers follows an exponential distribution with parameter $\lambda: f(x)=\lambda e^{-\lambda x}, x \ge 0; f(x)=0$ otherwise
-    \item What is the expected value of $X$?
+    \begin{itemize}
+        \item What is the expected value of $X$?
+    \end{itemize}
     \begin{flalign*}
         E[X] &= \int_{-\infty}^\infty xf(x)dx=\int_0^{\infty} \lambda x e^{-\lambda x} dx = \qquad u = x, dv= \lambda e^{-\lambda x} dx, du = dx, v = -e^{-\lambda x} \\
         &= -xe^{-\lambda x} \vert_0^\infty - \int_0^\infty -e^{-\lambda x} dx = 0 - \frac{1}{\lambda}[e^{-\lambda x}]_0^\infty = -\frac{1}{\lambda} [0-1] = \frac{1}{\lambda}
     \end{flalign*}
-    \item Often, we're not interested in $X$ itself, but in some function of it $profit=g(demand)$
+    \item Often, we're not interested in $X$ itself, but in some function of it (e.g., $profit=g(demand)$)
     \item If $X$ is a discrete random variable with pdf $p(x_i)$, where $x_i$ represents all possible values $X$ takes on. Let $g(X)$ be a function of $X$. Then the expected value of the random variable $g(X)$ is given by $E[g(X)]=\sum_{x_i} g(x_i)p(x_i)$, if $\sum_{x_i} \vert g(x_i) \vert p(x_i) < \infty$
     \item If $Y$ is a continuous random variable with pdf $f(y)$, and if $g(Y)$ is a continuous function, then the expected value of the random variable $g(Y)$ is $\int_{-\infty}^\infty g(y)f(y)dy$, if $\int_{-\infty}^\infty \vert g(y) \vert f(y) dy < \infty$
     \item As a special case, for random variable $W$, discrete or continuous, $E(aW+b)=aE(W)+b$
@@ -458,10 +695,10 @@
     \item A fair coin is tossed until a head appears. You will be given $\frac{1}{2}^k$ dollars if the first head occurs on the $k$th toss. How much money can you expect to be paid?
     \begin{flalign*}
         &1+a+a^2+a^3+\cdots = \sum_{k=0}^\infty a^k = \frac{1}{1-a}, \text{if } \vert a \vert <1 \\
-        &E[X] = \sum_{k=1}^\infty \frac{1}{2}^k \frac{1}{2}^{k} = \sum_{k=1}^\infty \left( \frac{1}{2}^2 \right)^k = \sum_{k=1}^\infty \frac{1}{4}^k = \frac{1}{1-\frac{1}{4}} - \frac{1}{4}^0= \frac{4}{3} - 1 = \frac{1}{3}
+        &E[\text{amount won}] = E\left[\left(\frac{1}{2}\right)^X\right] = \sum_{i=1}^\infty \frac{1}{2}^{x_i} \frac{1}{2}^{x_i} = \sum_{i=1}^\infty \left( \frac{1}{2}^2 \right)^{x_i} = \sum_{k=1}^\infty \frac{1}{4}^{x_i} = \frac{1}{1-\frac{1}{4}} - \frac{1}{4}^0= \frac{4}{3} - 1 = \frac{1}{3}
     \end{flalign*}
-    \item One reasonable way of measuring dispersion is to calculate the possible deviation fromt he mean $X-\mu$, where $\mu = E[X]$
-    \item Since the deviation is a random variable, we can take the expected value fo the squared deviation: variance
+    \item One reasonable way of measuring dispersion is to calculate the possible deviation from the mean $X-\mu$, where $\mu = E[X]$
+    \item Since the deviation is a random variable, we can take the expected value of the squared deviation: variance
     \item Variance - for a discrete random variable $X$ with pdf $p(x)$ and expectation $\mu_X$, variance is 
     \[ Var(X) = E[(X-\mu_X)^2] = \sum_{x_i} (x_i - \mu_X)^2 p(x_i) = V(X) = \sigma_X^2 \]
     \begin{itemize}
@@ -470,7 +707,7 @@
     \end{itemize}
     \item Using the definition of variance, for both discrete and continuous random variables, we can show $Var(X)=E[X^2] - E[X]^2$
     \begin{itemize}
-        \item $E[(X-\mu_X)^2] = E[X^2 - 2\mu_X X + E[X]^2] = E[X^2] - E[X]^2$
+        \item $E[(X-\mu_X)^2] = E[X^2 - 2\mu_X X + E[X]^2] = E[X^2] - E[2 \mu_X X] + E[E[X]^2] = E[X^2] - 2\mu_X E[X] + E[X]^2 = E[X^2] - 2E[X]^2 + E[X]^2 = E[X^2] - E[X]^2$
         \item We are implicitly assuming $E[X^2]$ is finite
     \end{itemize}
     \item Since variance is measured in the square of the units for the random variable, an alternative measure, standard deviation, is also commonly used: $\sigma = \sqrt{\text{variance}} = \sqrt{\sigma^2}$
@@ -510,45 +747,139 @@
         \item You can ask for a probability over an interval: $P(a \le x \le b) = \int_a^b f_X(x)dx$
     \end{itemize}
     \item $k \sim \text{HyperGeometric}(N,r,k)$
+    \begin{itemize}
+        \item Calculates the probability of drawing a specific number of successes (\(x\)) in a sample (\(n\)) from a population (\(N\)) containing a known number of successes (\(k\)), without replacement
+        \item Used in question 1
+    \end{itemize}
+\subsection{Problem Set 3}
     \item Always define your support
+    \item 1. Suppose an urn contains $r$ red chips and $w$ white chips, where $r + w = N$. Imagine drawing $n$ chips from the urn without replacement. What is the probability that exactly $k$ red chips are included among the $n$ that are drawn?
     \begin{itemize}
-        \item For Question 1, $k$ is bounded below by either 0 or $n-w$, the number of chips after you have exhausted the white chips
-        \item It is bounded above by either $n$ or $r$, the number of red chips
+        \item Order doesn't matter and no replacement
+        \item There are $\binom{N}{n}$ ways to pick $n$ chips from $N$ total chips
+        \item There are $\binom{r}{k}$ ways to pick $k$ red chips from $r$ total red chips
+        \item There are $\binom{w}{n-k}$ ways to pick the remaining number, $n-k$ white chips, from $w$ total white chips
+        \item Let random variable $K$ denote the number of red chips drawn. Then,
+        \[
+        P(K=k) = \frac{\binom{r}{k}\binom{w}{n-k}}{\binom{N}{n}} = \frac{\binom{r}{k}\binom{w}{n-k}}{\binom{r+w}{n}}
+        \]
+        \item Always define your support
+        \begin{itemize}
+            \item For Question 1, $k$ is bounded below by either 0 or $n-w$, the number of red chips after you have exhausted the white chips
+            \item It is bounded above by either $n$ or $r$, the number of red chips
+            \item Therefore, the support is $K = \max\{0,n-w\}, \dots, \min\{r,n\}$
+        \end{itemize}
     \end{itemize}
-    \item Consider $X := \max \{x_1,x_2\}$
+    \item 2. Suppose that two fair dice are rolled. Let the random variable $X$ denote the larger of the two faces showing. Let $F(x)$ be the cdf of $X$.
     \begin{itemize}
-        \item We have
-        \begin{flalign*}
-            F_X(x) &= P(X \le x) \\
-            &= P(X_1 \le x \cap X_2 \le x) \\
-            &= P(X_1 \le x)P(X_2 \le x) \\
-            &= F_{X_1}(x) F_{X_2}(x)
-        \end{flalign*}
+        \item (a) Find $F(x)$ for $x = 1, 2, \dots, 6$
+        \begin{itemize}
+            \item Let $X_i$ denote the outcome of the roll of die $i$ for $i=1,2$
+            \item Then, $P(X_i = x) = \left\{ \begin{array}{cl}
+                \frac{1}{6} & \text{for } x = 1,\dots,6 \\
+                0 & \text{otherwise} 
+            \end{array} \right.$
+            \item So $F_{X_i}(x) = P(X_i \le x) = \left\{ \begin{array}{cl}
+                0 & x<1 \\
+                \frac{1}{6} & 1 \le x \le 2 \\
+                \frac{2}{6} & 2 \le x \le 3 \\
+                \frac{3}{6} & 3 \le x \le 4 \\
+                \frac{4}{6} & 4 \le x \le 5 \\
+                \frac{5}{6} & 5 \le x \le 6 \\
+                1 & x \ge 6 \\
+            \end{array} \right.$ for $i=1,2$
+            \item Consider $X := \max \{x_1,x_2\}$
+            \begin{itemize}
+                \item We have
+                \begin{flalign*}
+                    F_X(x) &= P(X \le x) \\
+                    &= P(X_1 \le x \cap X_2 \le x) \\
+                    &= P(X_1 \le x)P(X_2 \le x) \\
+                    &= F_{X_1}(x) F_{X_2}(x) \\
+                    &= [F_{X_i}(x)]^2
+                \end{flalign*}
+                for $x \in \mathbb{R}$ since $X_1 \indep X_2$
+            \end{itemize}
+            \item Thus, $F_{X}(x) = P(X \le x) = \left\{ \begin{array}{cl}
+                0 & x<1 \\
+                \frac{1}{36} & 1 \le x \le 2 \\
+                \frac{4}{36} & 2 \le x \le 3 \\
+                \frac{9}{36} & 3 \le x \le 4 \\
+                \frac{16}{36} & 4 \le x \le 5 \\
+                \frac{25}{36} & 5 \le x \le 6 \\
+                1 & x \ge 6 \\
+            \end{array} \right.$
+        \end{itemize}
+        \item (b) Find $F(2.5)$
+        \begin{itemize}
+            \item Using $F_X(x)$, we find easily that $F_X(2.5)=\frac{4}{36}=\frac{1}{9}$
+        \end{itemize}
+        \item If instead we were told that the random variable $Y$ denoted both die being at least some number $y$, we would do the following:
+        \begin{itemize}
+            \item Consider $Y := \min \{x_1,x_2\}$
+            \begin{itemize}
+                \item We have
+                \begin{flalign*}
+                    F_Y(y) &= P(Y \ge y) \\
+                    &= P(X_1 \ge x \cap X_2 \ge x) \\
+                    &= P(X_1 \ge x)P(X_2 \ge x) \\
+                    &= (1-F_{X_1}(x)) (1-F_{X_2}(x))
+                \end{flalign*}
+            \end{itemize}
+        \end{itemize}
     \end{itemize}
-    \item Consider $X := \min \{x_1,x_2\}$
+    \item 3. A continuous random variable Y has a cdf given by $F(y) = 0$ for $y < 0$; $F(y)=y^2$ for $0 \le y \le 1$; $F(y) = 1$ for $y \ge 1$. Find $P(\frac{1}{2} < Y \le \frac{3}{4})$ in two ways, first by using the cdf and second by using the pdf.
     \begin{itemize}
-        \item We have
-        \begin{flalign*}
-            F_X(x) &= P(X \ge x) \\
-            &= P(X_1 \ge x \cap X_2 \ge x) \\
-            &= P(X_1 \ge x)P(X_2 \ge x) \\
-            &= (1-F_{X_1}(x)) (1-F_{X_2}(x))
-        \end{flalign*}
+        \item We are given $F_Y(y) = \left\{ \begin{array}{cl}
+            0 & y < 0 \\
+            y^2 & 0 \le y < 1 \\
+            1 & y \ge 1
+        \end{array} \right.$
+        \item Using the cdf, we have $P(\frac{1}{2} < y \le \frac{3}{4}) = F_Y(\frac{3}{4})-F_Y(\frac{1}{2}) = \frac{9}{16} - \frac{1}{4} = \frac{5}{16}$
+        \item We recover the pdf by taking the derivative: $f_Y(y) = \left\{ \begin{array}{cl}
+            0 & y < 0 \\
+            2y & 0 \le y < 1 \\
+            0 & y \ge 1
+        \end{array} \right.$
+        \item Hence, $P(\frac{1}{2} < y \le \frac{3}{4}) = \int_{\frac{1}{2}}^{\frac{3}{4}} f_Y(y) dy = \int_{\frac{1}{2}}^{\frac{3}{4}} 2y dy = \left[ y^2 \right]_{\frac{1}{2}}^{\frac{3}{4}} = \frac{9}{16} - \frac{1}{4} = \frac{5}{16}$
     \end{itemize}
-    \item Question 4a
-    \begin{flalign*}
-        \int_{-\infty}^\infty g(x)dx &= \int_{-\infty}^\infty 2F(x)f(x)dx \\
-        &= \int_{-\infty}^\infty 2F(x)F'(x)dx \\
-        &= \int_{-\infty}^\infty \left[ \frac{d}{dx} F^2(x) \right] dx \\
-        &= \left[ F^2(x) \right]_{-\infty}^\infty  = 1 \\
-    \end{flalign*}
-    \item Question 4b
+    \item For a pdf $f(x)$ to be valid, two conditions must hold:
     \begin{itemize}
-        \item Since $f(x) \ge 0, \forall x \in \mathbb{R}$, $h(x) \ge 0$
-        \item Let $y=-x, dy=-dx$
-        \begin{flalign*}
-            \int_{-\infty}^\infty f(-x)dx = \int_{y=\infty}^{y=-\infty} f(y)(-dy) = - \int_{y=\infty}^{y=-\infty} f(y)dy = \int_{y=-\infty}^{y=\infty} f(y)dy = 1
-        \end{flalign*}
+        \item $f(x) \ge 0$ for all $x \in \mathbb{R}$
+        \item $\int_{-\infty}^\infty f(x)dx = 1$
+    \end{itemize}
+    \item 4. Let $F(x)$ be the cdf of a continuous random variable and $f(x)$ be the pdf
+    \begin{itemize}
+        \item (a) Show that $g(x)$ defined by $g(x) = 2F(x)f(x)$ is also a valif pdf
+        \begin{itemize}
+            \item Since $f(x) \ge 0$ and $F(x) \ge 0$ for all $x \in \mathbb{R}$, it must be true that $g(x) = 2F(x)f(x) \ge 0$ for all $x \in \mathbb{R}$ as well.
+            \item Further, we need to show that $\int_{-\infty}^\infty g(x)dx = 1$.
+            \item Solution 1:
+            \begin{flalign*}
+                \int_{-\infty}^\infty g(x)dx &= \int_{-\infty}^\infty 2F(x)f(x)dx \\
+                &= \int_{-\infty}^\infty 2F(x)F'(x)dx \\
+                &= \int_{-\infty}^\infty \left[ \frac{d}{dx} F^2(x) \right] dx \\
+                &= \left[ F^2(x) \right]_{-\infty}^\infty  = 1
+            \end{flalign*}
+            \item Solution 2:
+            \begin{flalign*}
+                \int_{-\infty}^\infty g(x)dx &= \int_{-\infty}^\infty 2F(x)f(x)dx \\
+                u = 2F(x), v &= F(x)dx \\
+                du = 2f(x)dx, dv &= f(x)dx \\
+                &= [2F^2(x)]_{-\infty}^\infty - \int_{-\infty}^\infty 2F(x)f(x)dx \\
+                \Rightarrow \int_{-\infty}^\infty g(x)dx &= \frac{1}{2} [2F^2(x)]_{-\infty}^\infty = \frac{1}{2} [2 - 0] = 1
+            \end{flalign*}
+        \end{itemize}
+        \item (b) Show that $h(x)$ defined by $h(x) = \frac{1}{2}f(-x) + \frac{1}{2} f(x)$ is also a valid pdf
+        \begin{itemize}
+            \item Since $f(x) \ge 0, \forall x \in \mathbb{R}$, $h(x) = \frac{1}{2} f(-x) + \frac{1}{2} f(x) \ge 0$ for all $x \in \mathbb{R}$
+            \item Further, $\int_{-\infty}^\infty h(x)dx = \frac{1}{2} \int_{-\infty}^\infty f(-x)dx + \frac{1}{2} \int_{-\infty}^\infty f(x)dx = \frac{1}{2} \int_{-\infty}^\infty f(-x)dx + \frac{1}{2}$
+            \item Let $y=-x, dy=-dx$
+            \begin{flalign*}
+                \int_{-\infty}^\infty f(-x)dx = \int_{y=\infty}^{y=-\infty} f(y)(-dy) = - \int_{y=\infty}^{y=-\infty} f(y)dy = \int_{y=-\infty}^{y=\infty} f(y)dy = 1
+            \end{flalign*}
+            \item Hence $\frac{1}{2} \int_{-\infty}^\infty f(-x)dx = \frac{1}{2}$ and $\int_{-\infty}^\infty h(x)dx = 1$
+        \end{itemize}
     \end{itemize}
 \end{itemize}
 
@@ -562,13 +893,23 @@
         \int_{-\infty}^\infty e^{tw} f(w)dw & \text{if } W \text{ is continuous} 
     \end{array}\right. \]
     for all values of $t$ for which the expected value exists
-    \item Note $M_W(t)$ is a function of real numbers $t$
-    \item mgf is a convenient tool to derive means and variance:
-    \[ M_X'(0)= E[X] \text{ and } M_X''(0) = E[X^2] \]
-    and we have $Var(X) = M_X''(0) - (M_x'(0))^2$
+    \begin{itemize}
+        \item Note $M_W(t)$ is a function of real numbers $t$, not a random variable
+    \end{itemize}
+    \item The MGF is a convenient tool to derive means and variance:
+    \begin{flalign*}
+        M_X'(X) &= \frac{d}{dt} E[e^{tX}] = E\left[ \frac{d}{dt} e^{tX} \right] = E[Xe^{tX}] \\
+        M_X'(0) &= E[Xe^{0 \cdot X}] = E[X] \\
+        M_X''(X) &= \frac{d}{dt} E[Xe^{tX}] = E\left[ \frac{d}{dt} Xe^{tX} \right] = E[X^2e^{tX}] \\
+        M_X''(0) &= E[X^2e^{0 \cdot X}] = E[X^2]
+    \end{flalign*}
+    and we have $Var(X) = E[X^2] - E[X]^2 =  M_X''(0) - (M_x'(0))^2$
     \item We can obtain other moments $M_X^{(k)}(0) = E[X^k], k \in \mathbb{N}$
     \item Suppose that $X$ and $Y$ are random variables for which $M_X(t) = M_Y(t)$ for some interval of $t$ containing $0$. Then $X$ and $Y$ have the same distribution.
     \item If $Y=aX+b$, $X$ is a random variable, $a$ and $b$ are constants, then $M_Y(t)=e^{bt}M_X(at)$
+    \[
+    M_Y(t) = E[e^{tY}] = E[e^{t(aX+b)}] = E[e^{atX}e^{bt}] = e^{bt} E[e^{(at)X}] = e^{bt} M_X(at)
+    \]
     \begin{itemize}
         \item Can be used to prove Central Limit Theorem and compare to different types of distributions
     \end{itemize} 
@@ -583,25 +924,243 @@
     \item Example: Exponential
     \begin{itemize}
         \item If $X$ follows an exponential distribution with paramter $\lambda$, derive its mgf, expectation, and variance
-        \item $M_X(t)=E[e^{tx}] = \int_0^\infty e^{tx}f(x)dx = \int_0^\infty e^tx \lambda e^{-\lambda x} dx = \int_0^\infty \lambda e^{-(\lambda - t)x} dx = \frac{\lambda}{\lambda - t} \underbrace{\int_0^\infty (\lambda - t)e^{-(\lambda - t)x} dx}_{=1} = \frac{\lambda}{\lambda - t}$
+        \item $M_X(t)=E[e^{tx}] = \int_0^\infty e^{tx}f(x)dx = \int_0^\infty e^{tx} \lambda e^{-\lambda x} dx = \int_0^\infty \lambda e^{-(\lambda - t)x} dx = \frac{\lambda}{\lambda - t} \underbrace{\int_0^\infty (\lambda - t)e^{-(\lambda - t)x} dx}_{=1} = \frac{\lambda}{\lambda - t}$
         \item Above equation holds when $t < \lambda$, and $M_X(t)$ is not defined when $t \ge \lambda$
         \item We get $M'_X(t) = \frac{\lambda}{(\lambda - t)^2}$ and $M_X''(t) = \frac{2\lambda}{(\lambda - t)^3}$, so $E[X] = M_X'(0) = \frac{1}{\lambda}$ and $E[X^2] = M_X''(0) = \frac{2}{\lambda^2}$, and $Var(X) = \frac{2}{\lambda^2} - (\frac{1}{\lambda})^2 = \frac{1}{\lambda^2}$
     \end{itemize}
+\subsection{Slide 5 (Midterm Review)}
+    \item Outcomes, events, and probability
+    \begin{itemize}
+        \item Sample space $S$ is the set of all possible outcomes $s \in S$
+        \item Event $A$ is a collection of outcomes
+        \item Probability function $P$ is a function from events to real numbers
+        \item $P$ satisfies three axioms
+        \begin{itemize}
+            \item 1. $P(A) \ge 0$ for any event $A$
+            \item 2. $P(S) = 1$
+            \item 3. If events $A$ and $B$ are mutually exclusive, $P(A \cup B) = P(A) + P(B)$
+        \end{itemize}
+    \end{itemize}
+    \item Counting and calculating probabilities
+    \begin{itemize}
+        \item Sampling an ordered set with replacement: take ordered $k$ draws from a group of size $n$ options, with replacement, the number of outcomes is $n \times n \times \cdots = n^k$
+        \item Sampling an ordered set without replacement (permutation): take ordered $k$ draws from a group of size $n$ options, without replacement $(n \ge k)$, the number of outcomes is $\frac{n!}{(n-k)!}$
+        \item Sampling an unordered set without replacement (combination): take unordered $k$ draws from a group of size $n$ options, without replacement $(n \ge k)$, the number of outcomes is $\binom{n}{k} = \frac{n!}{k!(n-k)!}$
+    \end{itemize}
+    \item Conditional probability, law of total probability, Bayes' rule, and independence
+    \begin{itemize}
+        \item The probability of $A \mid B$ is $P(A \mid B) = \frac{P(A \cap B)}{P(B)}$
+        \item Law of total probability: $A_1,\dots,A_n$ form a partition of the sample space, then $P(B) = \sum_{i=1}^n P(B \mid A_i)P(A_i)$
+        \item Bayes' rule: $A_1,\dots,A_n$ form a partition of the sample space, for any event $B$ where $P(B) > 0$, $P(A_j \mid B) = \frac{P(B \mid A_j)P(A_j)}{P(B)} = \frac{P(B \mid A_j)P(A_j)}{\sum_{i=1}^n P(B \mid A_i)P(A_i)}$
+        \item Events $A$ and $B$ are independent if $P(A \cap B) = P(A)P(B)$ or $P(A \mid B) = P(A)$ or $P(B \mid A)=P(B)$
+        \begin{itemize}
+            \item Independence and mutually exclusive: one does not imply the other
+            \item Independence of multiple events: any subset of events are independent
+        \end{itemize}
+    \end{itemize}
+    \item Discrete random variables
+    \begin{itemize}
+        \item Random variables $X$ takes on discrete values $x_1,x_2,\dots$
+        \item Pdf (or pmf) $p(x_i) = P(X=x_i)$, where $p(x_i)$ satisfies two conditions:
+        \begin{itemize}
+            \item $p(x_i) \ge 0$ for any $x_i \in \mathbb{R}$
+            \item $\int_{-\infty}^\infty p(x)dx = 1$ (i.e., the sum of the probabilities of all possible values of $X$ is 1)
+        \end{itemize}
+        \item Cdf $F(x) = P(X \le x)$
+        \begin{itemize}
+            \item $F(x)$ is a step function: it remains constant in all intervals between possible values of $X$
+            \item At a possible value $x_i$, $F(x)$ jumps by the amount $p(x_i)=P(X=x_i)$
+        \end{itemize}
+    \end{itemize}
+    \item Continuous random variables
+    \begin{itemize}
+        \item Random variables $X$ takes on any values in some interval of the real line
+        \item Pdf $f(x)$ is defined such that for any interval $[a,b] \subset S, P(X \in [a,b]) = \int_a^b f(x)dx$ satisfies two conditions:
+        \begin{itemize}
+            \item $f(x) \ge 0$ for all $x \in \mathbb{R}$
+            \item $\int_{-\infty}^\infty f(x)dx = 1$
+        \end{itemize}
+        \item Cdf $F(x) = P(X \le x)$
+        \begin{itemize}
+            \item $F(x) = \int_{-\infty}^x f(x)dx$
+            \item $F'(x) = \frac{d}{dx}F(x)=f(x)$
+        \end{itemize}
+    \end{itemize}
+    \item Expectation
+    \begin{itemize}
+        \item Discrete $X$: $E[X] = \sum_{i=1}^n x_i \cdot p(x_i)$
+        \item Continuous $X$: $E[X] = \int_{-\infty}^\infty x \cdot f(x)dx$
+        \item Expectation of functions of $X$
+        \begin{itemize}
+            \item If $X$ is discrete, the expected value of the random variable $g(X)$ is given by $E[g(X)] = \sum_{i=1}^n g(x_i) p(x_i)$ if $\sum_{x_i} \vert g(x_i) \vert p(x_i) < \infty$
+            \item If $X$ is continuous and if $g(x)$ is a continuous function, then the expected value of $g(x)$ is $\int_{-\infty}^\infty g(x)f(x)dx$ if $\int_{-\infty}^\infty \vert g(x) \vert f(x) dx < \infty$
+            \item Linear function of $X$: $E[aX+b] = aE[X]+b$
+        \end{itemize}
+    \end{itemize}
+    \item Variance
+    \begin{itemize}
+        \item Discrete $X$ with pdf $p(x)$ and expectation $\mu$ is $Var(X) = E[(X-\mu)^2] = \sum_{x_i} (x_i -\mu)^2 p(x_i)$
+        \item Continuous $X$ with pdf $f(x)$ and expectation $\mu$ is $Var(X) = E[(X - \mu)^2] = \int_{-\infty}^\infty (x-\mu)^2f(x)dx$
+        \item For discrete or continuous $X$, its variance can be written as $Var(X) = E[X^2] - E[X]^2$
+        \item Variance of linear functions of $X$: $Var(aX+b) = a^2Var(X)$
+    \end{itemize}
+\subsection{Problem Set 4 and Midterm Review}
+    \item 1. Suppose you buy a laptop for 1,200 pounds which comes with a limited warranty for the first year. During that first year, there is a probability p = 10\% that you spill a cup of coffee over the laptop (or have a similar accident, which is all your own fault) and have to replace the entire motherboard, which will cost 1100 pounds. This repair is not covered by the limited warranty, but you may purchase an extended service plan for 115 pounds.
+    \begin{itemize}
+        \item (a) Should you buy this additional service plan if you only care about monetary value?
+        \begin{itemize}
+            \item Let $C$ be the monetary value of your spending. If you don't buy: $E[C] = (1200+1100)(0.1) + (1200)(0.9) = 1310$. If you buy, you spend $1200+115=1315$ for sure. Since $1310 < 1315$, you would not buy the additional service plan.
+        \end{itemize}
+        \item (b) Economists often model individual’s decision making using utility functions. Suppose your utility function depends on the cost you spend in the following way: $u(c) = \sqrt{4800 - c}$. Based on the expected value of your utility, should you buy the additional insurance?
+        \begin{itemize}
+            \item Now we will find $E[u(C)]$. If you don't buy: $E[u(C)] = (\sqrt{4800-(1200+1100)})(0.1) + (\sqrt{4800-1200})(0.9) = (50)(0.1) + (60)(0.9) = 59 = \sqrt{3481}$. If you buy, $E[u(C)] = \sqrt{4800-(1200+115)} = \sqrt{3485}$ for sure. Since $\sqrt{3485} > \sqrt{3481}$, you will buy the additional insurance.
+        \end{itemize}
+    \end{itemize}
+    \item 2. A random variable X is said to follow a Pareto distribution if its pdf is
+    \[
+    f(x) = \left\{ \begin{array}{cl}
+        \frac{\alpha k^\alpha}{x^{\alpha+1}} & \text{for } x \ge k \\
+        0 & \text{otherwise} 
+    \end{array} \right.
+    \]
+    where $\alpha > 0$ is a parameter, and $k > 0$ is a known number which is the smallest possible value of $X$. Pareto distribution is often used in practice to model the distribution of insurance claims, personal income, etc., where k is the deductible amount for an insurance policy or some low income benefits or universal credits.
+    \begin{itemize}
+        \item (a) Check the pdf is valid
+        \begin{itemize}
+            \item Since $\alpha > 0$, $k > 0$, and $x \ge k > 0$, $f(x) \ge 0$ for all $x$. Next, we check:
+            \begin{flalign*}
+                \int_{-\infty}^\infty f(x)dx &= \int_k^\infty \frac{\alpha k^\alpha}{x^{\alpha+1}} dx \\
+                &= \alpha k^\alpha \int_k^\infty x^{-(\alpha + 1)} dx \\
+                &= \alpha k^\alpha [\frac{-1}{\alpha} x^{-\alpha}]_k^\infty dx \\
+                &= \alpha k^\alpha\frac{-1}{\alpha} [ x^{-\alpha}]_k^\infty dx \\
+                &= -k^\alpha [0 - k^{-\alpha}] dx = 1\\
+            \end{flalign*}
+        \end{itemize}
+        \item (b) Derive the cdf of $X$
+        \begin{flalign*}
+            F(x) &= \int_{-\infty}^x f(t)dt \\
+            &= \int_{k}^x \frac{\alpha k^\alpha}{t^{\alpha+1}} dt \\
+            &= \alpha k^\alpha [\frac{-1}{\alpha} t^{-\alpha}]_k^x \\
+            &= -k^\alpha [x^{-\alpha} - k^{-\alpha}] \\
+            &= 1-\left(\frac{k}{x}\right)^\alpha, \text{ for } x \ge k, F(x) = 0 \text{ for } x<k
+        \end{flalign*}
+        \item (c) Calculate the expected value and variance of $X$. When are they finite?
+        \begin{itemize}
+            \item Expected value of $X$:
+            \begin{flalign*}
+                E[X] &= \int_{-\infty}^\infty xf(x)dx \\
+                &= \int_k^\infty x\frac{\alpha k^\alpha}{x^{\alpha+1}} dx \\
+                &= \int_k^\infty \frac{\alpha k^\alpha}{x^{\alpha}} dx \\
+                &= \frac{\alpha k}{\alpha - 1} \underset{=1}{\underbrace{\int_k^\infty \frac{(\alpha-1) k^{\alpha -1}}{x^{(\alpha-1)+1}} dx}} \\
+                &= \frac{\alpha k}{\alpha -1}
+            \end{flalign*}
+            for $\alpha > 1$. The integral only converges when $\alpha > 1$, i.e. $E[X] = \infty$ if $\alpha \le 1$
+            \item Variance of $X$
+            \begin{flalign*}
+                E[X^2] &= \int_{-\infty}^\infty x^2f(x)dx \\
+                &= \int_k^\infty x^2\frac{\alpha k^\alpha}{x^{\alpha+1}} dx \\
+                &= \int_k^\infty \frac{\alpha k^\alpha}{x^{\alpha-1}} dx \\
+                &= \frac{\alpha k^2}{\alpha - 2} \underset{=1}{\underbrace{\int_k^\infty \frac{(\alpha-2) k^{\alpha -2}}{x^{(\alpha-2)+1}} dx}} \\
+                &= \frac{\alpha k^2}{\alpha -2}
+            \end{flalign*}
+            for $\alpha > 2$. Therefore, $Var(X) = \frac{\alpha k^2}{\alpha -2} - \left( \frac{\alpha k}{\alpha -1}\right)^2 = \frac{\alpha k^2}{(\alpha -1)^2(\alpha-2)}$ for $\alpha > 2$ and $Var(X) = \infty$ for $1 < \alpha \le 2$
+        \end{itemize}
+    \end{itemize}
+    \item 3.  Consider the Monty Hall problem, except that Monty enjoys opening Door 2 more than he enjoys opening Door 3, and if he has a choice between opening these two doors, he opens Door 2 with probability $p$, where $1/2 \le p \le 1$. To recap: there are three doors, behind one of which there is a car (which you want), and behind the other two of which there are goats (which you do not want). Initially, all possibilities are equally likely for where the car is. You choose a door, which for concreteness we assume is Door 1. Monty Hall then opens a door to reveal a goat, and offers you the option of switching. Assume that Monty Hall knows which door has the car, will always open a goat door and offer the option of switching, and as above assume that if Monty Hall has a choice between opening Door 2 and Door 3, he chooses Door 2 with probability $p$ (with $1/2 \le p \le 1$).
+    \begin{itemize}
+        \item (a) Find the unconditional probability that the strategy of always switching succeeds (unconditional in the sense that we do not condition on which of Doors 2,3 Monty opens)
+        \begin{itemize}
+            \item Let $C_j$ be the event that the car is hidden behind door $j$ and let $W$ be the event that we win using the switching strategy. Using the law of total probability, we can find the unconditional probability of winning like we did in class:
+            \begin{flalign*}
+                P(W) &= P(W \mid C_1)P(C_1) + P(W \mid C_2)P(C_2) + P(W \mid C_3)P(C_3) \\
+                &= 0 \cdot \frac{1}{3} + 1 \cdot \frac{1}{3} + 1 \cdot \frac{1}{3} = \frac{2}{3}
+            \end{flalign*}
+        \end{itemize}
+        \item (b) Find the probability that the strategy of always switching succeeds, given that Monty opens Door 2
+        \begin{itemize}
+            \item Let $M_i$ be the event that Monty opens Door $i$. Note that we are looking for $P(W \mid M_2)$, which is the same as $P(C_3 \mid M_2)$ as we first choose Door 1 and then switch to Door 3. Similar to the analysis we discussed in class, by Bayes' rule,
+            \begin{flalign*}
+                P(C_3 \mid M_2) &= \frac{P(M_2 \mid C_3)P(C_3)}{P(M_2)} \\
+                &= \frac{P(M_2 \mid C_3)P(C_3)}{P(M_2 \mid C_1)P(C_1) + P(M_2 \mid C_2)P(C_2) + P(M_2 \mid C_3)P(C_3)} \\
+                &= \frac{1 \cdot \frac{1}{3}}{p \cdot \frac{1}{3} + 0 \cdot \frac{1}{3} + 1 \cdot \frac{1}{3}} = \frac{1}{1+p}
+            \end{flalign*}
+        \end{itemize}
+        \item (c) Find the probability that the strategy of always switching succeeds, given that Monty opens Door 3
+        \begin{itemize}
+            \item The structure of the problem is the same as part (b). Imagine repainting doors 2 and 3, reversing which is called which. By part (b) with $1-p$ in place of $p$, we get:
+            \[
+            P(C_2 \mid M_3) = \frac{1}{1+(1-p)} = \frac{1}{2-p}
+            \]
+        \end{itemize}
+    \end{itemize}
+    \item 4. Suppose that a deck of 52 cards containing four aces is shuffled thoroughly, and the cards are then distributed among four players so that each player receives 13 cards. What is the probability that each player will receive one ace?
+    \begin{itemize}
+        \item Solve through combinations:
+        \begin{itemize}
+            \item Number of possible combinations of four positions in deck occupied by four aces: $\binom{52}{4}$
+            \item There must be exactly one ace out of 13 cards for each player
+            \begin{itemize}
+                \item 13 possible positions for ace for first player, 13 possible possitions for second player, etc.
+            \end{itemize}
+            \item Therefore, there are exactly $13^4$ possible combinations of each player receiving one ace
+            \item The probability that each player will receive one ace is $p=\frac{13^4}{\binom{52}{4}}=0.1055$
+            \begin{itemize}
+                \item Works because we didn't specify which order the combination of aces are in nor the positions that the aces can occupy
+            \end{itemize}
+        \end{itemize}
+        \item Solve through permutations:
+        \begin{itemize}
+            \item There are $52!$ possible outcomes considering ordering
+            \item As before, there are $13^4$ ways to choose four positions for four aces
+            \item Now there are $4!$ ways to arrange the aces in each position
+            \item For the 48 other cards, there are $48!$ ways to arrange them
+            \item $p=\frac{13^4 \times 4! \times 48!}{52!}=0.1055$
+        \end{itemize}
+    \end{itemize}
+    \item 5. A venture capital fund has a portfolio of 15 startups, categorized as follows: 6 are in FinTech (F), 5 are in BioTech (B), 4 are in CleanTeach (C). The manager decides to randomly select 4 startups to review. What is the probability that the selected group contains at least 2 FinTech (F) startups?
+    \begin{itemize}
+        \item Total number of combinations: $\binom{15}{4} = 1365$
+        \item Case 1: Exactly 2 FinTech startups
+        \begin{itemize}
+            \item $\binom{6}{2} \binom{9}{2} = 540$
+        \end{itemize}
+        \item Case 2: Exactly 3 FinTech startups
+        \begin{itemize}
+            \item $\binom{6}{3}\binom{9}{1} = 180$
+        \end{itemize}
+        \item Case 3: Exactly 4 FinTech startups
+        \begin{itemize}
+            \item $\binom{6}{4} = 15$
+        \end{itemize}
+        \item $P(\text{at least }2F) = \frac{540+180+15}{1365} = \frac{7}{13}$
+    \end{itemize}
+\end{itemize}
+
+\subsection{Tutorial 5 (7/11/2025)}
+\begin{itemize}
+    \item Did not have tutorial (midterm exam)
 \end{itemize}
 
 \section{Lecture 6 (10/11/2025)}
 \begin{itemize}
-    \item Motivation
+\subsection{Slide 6}
+    \item Motivation for multivariate random variables
     \begin{itemize}
-        \item Treat eeach observation in data as a random variable, then the size of the sample is the length of the multivariate random variable of interest
+        \item Treat each observation in data as a random variable, then the size of the sample is the length of the multivariate random variable of interest
         \item Often interested in relationship between two or more variables
+        \item Variable of interest might be transformations of other random variables
     \end{itemize}
-    \item Joint Probability Density (Mass) Function - for random variables $X,Y$, $p(x,y)=P(s \mid X(s) = x, Y(s) = y) = P(X=x, Y=y)$
+    \item Joint Probability Density (Mass) Function - for random variables $X,Y$, $p_{X,Y}(x,y)=P(s \mid X(s) = x, Y(s) = y) = P(X=x, Y=y)$
+    \item Similar to univariate pdfs, $p(x,y)$ satisfies two conditions
     \begin{itemize}
         \item $p(x,y) \ge 0$
         \item $\sum_x \sum_y p(x,y) = 1$
     \end{itemize}
     \item For multivariate random variables $X_1, X_2, \cdots , X_n$, the join pdf $p(x_1,x_2, \cdots, x_n) = P(X_1=x_1, X_2=x_2, \cdots, X_n=x_n)$
+    \item Marginal PDF - Suppose that $p(x,y)$ is the joint pdf of the discrete random variables $X,Y$, then $p(x) = \sum_y p(x,y), p(y) = \sum_x p(x,y)$
+    \begin{itemize}
+        \item By summing over the other variable, we are ignoring it
+    \end{itemize}
     \item Example: A supermarket has two express check-out lines. Let $X$ and $Y$ denote the number of customers in the first and in the second, respectively, at any given time. The joint pdf of $X$ and $Y$ is summarized by the following table:
     \[ \begin{array}{cc|cccc}
          & & & & X & \\
@@ -612,37 +1171,39 @@
         Y & 2 & 0 & 0.05 & 0.05 & 0.025 \\
          & 3 & 0 & 0 & 0.025 & 0.05 
     \end{array}\]
-    \item What is the probability that the two lines are of the same length?
     \begin{itemize}
-        \item $p(x=y)=p(0,0)+p(1,1)+p(2,2)+p(3,3) = 0.1 + 0.25 + 0.05 + 0.05 = 0.45$
+        \item What is the probability that the two lines are of the same length?
+        \begin{itemize}
+            \item $p(x=y)=p(0,0)+p(1,1)+p(2,2)+p(3,3) = 0.1 + 0.25 + 0.05 + 0.05 = 0.45$
+        \end{itemize}
+        \item What is the probability that the lengths of the two lines differ by 1?
+        \begin{itemize}
+            \item $p(\vert x - y \vert = 1)=p(0,1)+p(1,0)+p(1,2)+p(2,1)+p(2,3)+p(3,2) = 0.2 + 0.2 + 0.05 + 0.05 + 0.025 + 0.025 = 0.55$
+        \end{itemize}
+        \item What is the probability $X \ge 2$?
+        \begin{itemize}
+            \item $P(X \ge 2) = \sum_{x \ge 2} \sum_y p(x,y) = 0.05+0.05+0.025+0.025+0.05 = 0.2$
+        \end{itemize}
     \end{itemize}
-    \item What is the probability that the lengths of the two lines differ by 1?
-    \begin{itemize}
-        \item $p(\vert x - y \vert = 1)=p(0,1)+p(1,0)+p(1,2)+p(2,1)+p(2,3)+p(3,2) = 0.2 + 0.2 + 0.05 + 0.05 + 0.025 + 0.025 = 0.55$
-    \end{itemize}
-    \item Marginal PDF - Suppose that $p(x,y)$ is the joint pdf of the discrete random variables $X,Y$, then $p(x) = \sum_y p(x,y), p(y) = \sum_x p(x,y)$
-    \item Back to the supermarket example, what is the probability $X \ge 2$?
-    \begin{itemize}
-        \item $p(x \ge 2)= \sum_y \sum_{x=2}^3 p(x,y)=p(2,\cdot)+p(3, \cdot) = (0 + 0.05 + 0.05 + 0.025) + (0 + 0 + 0.025 + 0.05) = 0.2$
-    \end{itemize}
-    \item Joint PDF (Continuous) - $P[(X,Y) \in \mathbb{R}]  = \int_R \int f(x,y) dxdy$
+    \item Joint PDF (Continuous) - $f(x,y) = P[(X,Y) \in \mathbb{R}]  = \int_R \int f(x,y) dxdy$
     \begin{itemize}
         \item $f(x,y) \ge 0$
         \item $\int_{-\infty}^\infty \int_{-\infty} ^\infty f(x,y) dxdy = 1$
     \end{itemize}
     \item Suppose the joint pdf of two continuous random variables $X,Y$ can be written as $f(x,y)=cxy, 0 < y < x < 1$
     \begin{itemize}
-        \item $\int_{-\infty}^\infty \int_{-\infty} ^\infty f(x,y) dxdy =  \int_0^1 \int_y^1 cxy dxdy = c \int_0^1 y[\frac{x^2}{2}]_y^1 dy = c \int_0^1 \frac{1}{2} y - \frac{y^3}{2} dy = c [\frac{y^2}{4} - \frac{y^4}{8}]_0^1 = [\frac{1}{4}-\frac{1}{8}] c = 1 \Rightarrow c = 8$
+        \item $\int_{-\infty}^\infty \int_{-\infty} ^\infty f(x,y) dxdy =  \int_0^1 \int_0^x cxydydx = \int_0^1 \int_y^1 cxy dxdy = c \int_0^1 y[\frac{x^2}{2}]_y^1 dy = c \int_0^1 \frac{1}{2} y - \frac{y^3}{2} dy = c [\frac{y^2}{4} - \frac{y^4}{8}]_0^1 = [\frac{1}{4}-\frac{1}{8}] c = 1 \Rightarrow c = 8$
     \end{itemize}
     \item Marginal PDF (Continuous) - for continuous random variables $X,Y$, $f(x) = \int_{-\infty}^\infty f(x,y)dy, f(y) = \int_{-\infty}^\infty f(x,y)dx$
-    \item Suppose two conitnuous random variables, $X,Y$ with joint uniform pdf $f(x,y)=\frac{1}{6}, 0 \le x \le 3, 0 \le y \le 2$. What is marginal pdf $f(x)$?
+    \item Suppose two continuous random variables, $X,Y$ with joint uniform pdf $f(x,y)=\frac{1}{6}, 0 \le x \le 3, 0 \le y \le 2$. What is marginal pdf $f(x)$?
     \begin{itemize}
-        \item $f(x)=\int_{-\infty}^\infty f(x,y)dy = \int_0^2 \frac{1}{6} dy = \left[ \frac{1}{6} y \right]_0^2 = \frac{1}{3}$
+        \item $f(x)=\int_{-\infty}^\infty f(x,y)dy = \int_0^2 \frac{1}{6} dy = \left[ \frac{1}{6} y \right]_0^2 = \frac{1}{3}$ for $0 \le x \le 3$
     \end{itemize}
     \item Joint Cumulative Distribution Function (CDF) - for random variables $X,Y$, $F(x,y) = P(X \le x, Y \le y)$
-    \item Conditional Probability Distribution - probability that $Y$ takes on the value $y$ given that $X=x$ is $p_{Y \mid X} (y) = P(Y=y,X=x) = \frac{p_{X,Y}(x,y)}{p_X(x)}, p_X(x) > 0$
-    \item Conditional Probability Distribution Function (Continuous) - $f_{Y \mid X}(y) = \frac{f_{X,Y}(x,y)}
+    \item Conditional Probability Density Function (conditional pdf) - probability that $Y$ takes on the value $y$ given that $X=x$ is $p_{Y \mid X} (y) = P(Y=y,X=x) = \frac{p_{X,Y}(x,y)}{p_X(x)}, p_X(x) > 0$
+    \item Conditional PDF (Continuous) - $f_{Y \mid X}(y) = \frac{f_{X,Y}(x,y)}
     {f_X(x)}, f_X(x) > 0$
+    \item Conditional pdf properties
     \begin{itemize}
         \item $f_{Y \mid X}(y) \ge 0, p_{Y \mid X}(y) \ge 0$\
         \item $\int_{-\infty}^\infty f_{Y \mid X}(y) dy = 1, \sum_y p_{Y \mid X}(y) = 1$
@@ -653,20 +1214,23 @@
     \end{array} \right. $. What is $P(2 < Y < 3 \mid X = 1)$?
     \begin{itemize}
         \item $P(2 < Y < 3 \mid X = 1) = \int_2^3 \frac{f_{X,Y}(1,y)}{f_X(1,\cdot)} dy = \int_2^3 \frac{\frac{1}{8}(6-1-y)}{\int_2^4 \frac{1}{8} (6-1-y)dy}dy = \int_2^3 \frac{\frac{1}{8}(5-y)}{\frac{1}{8} [5y-\frac{y^2}{2}]_2^4}dy = \frac{1}{4} \int_2^3 (5-y)dy = \frac{1}{4} [5y-\frac{y^2}{2}]_2^3 = \frac{1}{4} [\frac{5}{2}] = \frac{5}{8}$
-        \item Another way: 
+        \item Another way (expanding out each individual function): 
         \begin{flalign*}
             f_{Y \mid X}(y) &= \frac{f_{X,Y}(x,y)}{f_X(x)}=\frac{\frac{1}{8}(6-x-y)}{\frac{1}{8}(6-2x)}= \frac{6-x-y}{6-2x}, 0 \le x \le 2, 2 \le y \le 4 \\
             f_X(x) &= \int_2^4 \frac{1}{8} (6-x-y)dy = \frac{1}{8} \left[ 6y-xy-\frac{y^2}{2} \right]_2^4 = \frac{1}{8} (6-2x), 0 \le x \le 2 \\
-            \text{When } x=1, &f_{Y \mid X} (y) = \frac{5-y}{4} \\
+            \text{When } x=1, \ &f_{Y \mid X} (y) = \frac{5-y}{4} \\
             P(2 < Y < 3 \mid X = 1) &= \int_2^3 \frac{5-y}{4} dy = \frac{5}{8}
         \end{flalign*}
     \end{itemize}
     \item Independence of Random Variables - for discrete random variables $X,Y$, $p_{X,Y}(x,y)=p_X(x)p_Y(y)$ or $p_{Y \mid X}(y)=p_Y(y)$ or $p_{X \mid Y} (x) = p_X(x),  \forall x,y,p_X(x) > 0$
     \begin{itemize}
-        \item $p(x_1,x_2, \cdots, x_n) = p(x_1)p(x_2) \cdots p(x_n)$
+        \item For discrete random variables $X_1,X_2,\dots,X_n$, they are independent if $p(x_1,x_2, \cdots, x_n) = p(x_1)p(x_2) \cdots p(x_n)$
         \item For continuous case, replace $p(\cdot)$ with $f(\cdot)$ in the above definitions
     \end{itemize}
     \item Independent and Identically Distributed (i.i.d.) sample - set of $n$ independent random variables, all having the same pdf
+    \begin{itemize}
+        \item Said to also be a random sample of size $n$
+    \end{itemize}
     \item Coin is tossed $n$ times
     \begin{itemize}
         \item Assume the tosses are independent
@@ -679,15 +1243,18 @@
         \item By independence, the probability of observing this one sequence is $P(X_1=x_1, X_2=x_2, \cdots, X_n = x_n) = P(X_1=x_1)P(X_2=x_2) \cdots P(X_n = x_n)$
         \item Since $P(X_i = 1) = p$ and $P(X_i = 0) = 1 - p$, $P(X_1=x_1)P(X_2=X_2)\cdots P(X_n=x_n) = p^y (1-p)^{n-y}$
         \item To compute $P(Y=y)=P(\sum_{i=1}^n X_i = y) = P\left( \bigcup_{\sum_{i=1}^n X_i=y} \{X_1=x_1, X_2=x_2, \cdots, X_n=x_n\} \right)$
-        \item Since the different ways of observing $y$ heads in $n$ tosses are mutually exclusive,
+        \item Since the different ways of observing $y$ heads in $n$ tosses are mutually exclusive, we can turn the multiplication into a sum:
         $P(Y=y)=\sum_{\sum_{i=1}^n X_i =y} P(X_1=x_1, X_2=x_2, \cdots, X_n=x_n) = \sum_{\sum_{i=1}^n X_i = y} p^y (1-p)^{n-y}$
         \item There are $\binom{n}{y}$ different ways of observing $y$ heads, so $P(Y=y)=\binom{n}{y} p^y (1-p)^{n-y}$
+        \item $Y$ follows a binomial distribution with parameters $n$ and $p$ ($Y \sim Binom(n,p)$)
     \end{itemize}
 \end{itemize}
 
+\section{Tutorial 6}
+
 \section{Lecture 7 (13/11/2025)}
-\subsection{Slide 7}
 \begin{itemize}
+\subsection{Slide 7}
     \item For functions of multivariate random variables, their expectations have very similar expressions to the univariate random variable case
     \begin{itemize}
         \item $X$ and $Y$ are discrete random variables with joint pdf $p_{X,Y}(x,y)$ and $g(X,Y)$ is a function of $X$ and $Y$
@@ -711,13 +1278,15 @@
          & 1 & 0.2 & 0.3 & 0.125 & 0.075
     \end{array}
     \]
-    \item What is the expected value of $g(X,Y) = 3X - 2XY + Y$?
-    \begin{flalign*}
-        E[g(X,Y)] &= \sum_{x=0}^3 \sum_{y=0}^1 (3x - 2xy + y) p_{X,Y}(x,y) \\
-        &= 0 + 0.2 \cdot 3 + 0 + 0 + 0.2 \cdot 1 + 0.3 \cdot 2 + 0.125 \cdot 3 + 0.075 \cdot 4 \\
-        &= 0.6 + 0.2 + 0.6 + 0.375 + 0.3 \\
-        &= 2.075
-    \end{flalign*}
+    \begin{itemize}
+        \item What is the expected value of $g(X,Y) = 3X - 2XY + Y$?
+        \begin{flalign*}
+            E[g(X,Y)] &= \sum_{x=0}^3 \sum_{y=0}^1 (3x - 2xy + y) p_{X,Y}(x,y) \\
+            &= 0 + 0.2 \cdot 3 + 0 + 0 + 0.2 \cdot 1 + 0.3 \cdot 2 + 0.125 \cdot 3 + 0.075 \cdot 4 \\
+            &= 0.6 + 0.2 + 0.6 + 0.375 + 0.3 \\
+            &= 2.075
+        \end{flalign*}
+    \end{itemize}
     \item Let $X$ and $Y$ be any two random variables, discrete or continuous, dependent or indpeendent, and let $a$ and $b$ be two constants. Then
     \[
     E[aX+bY] = aE[X] + bE[Y]
@@ -1541,5 +2110,15 @@
     \end{itemize}
 \end{itemize}
 
-\end{document}
+\section{Textbook Material}
+\begin{itemize}
+    \item Slide 1: LM 2.1-2.3, 2.6-2.7
+    \item Slide 2: LM 2.4-2.5
+    \item Slide 3: LM 3.1-3.4
+    \item Slide 4: LM 3.5, 3.6, 3.9, 3.12
+    \item Slide 5: Midterm Review
+    \item Slide 6: LM 3.7, 3.8, 3.11
+    \item Slide 7: LM 3.8, 3.9, 5.1, 5.2, 4.3, 11.4
+\end{itemize}
 
+\end{document}
