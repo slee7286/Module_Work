@@ -4,6 +4,13 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{centernot}
+\usepackage{color}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linktoc=all,
+    linkcolor=black,
+}
 \allowdisplaybreaks
 \newcommand{\indep}{\perp\!\!\!\perp}
 
@@ -14,6 +21,8 @@
 \begin{document}
 
 \maketitle
+\tableofcontents
+\newpage
 
 \section{Lecture 1 (6/10/2025)}
 \subsection{Slide 1}
@@ -885,6 +894,7 @@
 
 \section{Lecture 5 (3/11/2025)}
 \begin{itemize}
+    \item Moment generating functions are optional for the tests
     \item $r$th moment - $\mu_r = E[W^r]$ where $r$ is a positive integer and $\int_{-\infty}^\infty \vert w \vert^r f(w)dw < \infty$
     \item $r$th moment about the mean $\mu$ - $\mu_r' = E[(W - \mu)^r]$
     \item Moment Generating Function - mgf for random variable $W$ is denoted $M_W(t)$ and given by
@@ -1136,7 +1146,7 @@
     \end{itemize}
 \end{itemize}
 
-\subsection{Tutorial 5 (7/11/2025)}
+\section{Tutorial N/A (7/11/2025)}
 \begin{itemize}
     \item Did not have tutorial (midterm exam)
 \end{itemize}
@@ -1249,8 +1259,6 @@
         \item $Y$ follows a binomial distribution with parameters $n$ and $p$ ($Y \sim Binom(n,p)$)
     \end{itemize}
 \end{itemize}
-
-\section{Tutorial 6}
 
 \section{Lecture 7 (13/11/2025)}
 \begin{itemize}
@@ -1372,32 +1380,32 @@
         \item If $X,Y$ are independent, $Cov(X,Y) = E[XY] - E[X]E[Y] = E[X]E[Y] - E[X]E[Y] = 0$
         \item Note $Cov(X,Y) = 0 \centernot \Longleftrightarrow X,Y$ are independent
         \begin{itemize}
-            \item Example: $Y = X^2, X \sim U(-1,1), Cov(X,Y) = 0$
+            \item Example: $Y = X^2, X \sim U(-1,1) \Rightarrow E[XY] = E[X] = 0 \Rightarrow Cov(X,Y) = 0 $
             \item $X$ and $Y$ are not independent
         \end{itemize}
-        \item For random variables $X$ and $Y$, their correlation is defined as
-        \[
-        Corr(X,Y) = \frac{Cov(X,Y)}{\sqrt{Var(X)Var(Y)}}
-        \]
-        \begin{itemize}
-            \item We can see from the above equation that correlation is the "scale-free" version of covariance: it is covariance scaled by the standard deviation of $X$ and the standard deviation of $Y$ (always between +1 and -1)
-            \begin{flalign*}
-                Corr(aX+b,cY+d) &= \frac{Cov(aX+b,cY+d)}{\sqrt{Var(aX+b)}\sqrt{Var(cY+d})} \\
-                &= \frac{acCov(X,Y)}{a\sigma_{X} c \sigma_{Y}} \\
-                &=\frac{Cov(X,Y)}{\sigma_X \sigma_Y} \\
-                &= Corr(X,Y)
-            \end{flalign*}
-        \end{itemize}
+    \end{itemize}
+    \item For random variables $X$ and $Y$, their correlation is defined as
+    \[
+    Corr(X,Y) = \frac{Cov(X,Y)}{\sqrt{Var(X)Var(Y)}}
+    \]
+    \begin{itemize}
+        \item We can see from the above equation that correlation is the "scale-free" version of covariance: it is covariance scaled by the standard deviation of $X$ and the standard deviation of $Y$ (always between +1 and -1)
+        \begin{flalign*}
+            Corr(aX+b,cY+d) &= \frac{Cov(aX+b,cY+d)}{\sqrt{Var(aX+b)}\sqrt{Var(cY+d})} \\
+            &= \frac{acCov(X,Y)}{a\sigma_{X} c \sigma_{Y}} \\
+            &=\frac{Cov(X,Y)}{\sigma_X \sigma_Y} \\
+            &= Corr(X,Y)
+        \end{flalign*}
+    \end{itemize}
+    \item Correlation and covariance only measures linear associations of $X$ and $Y$
+    \begin{itemize}
         \item If $Y=aX+b$, $Corr(X,Y) = \left\{ \begin{array}{cc}
             -1 & a>0 \\
             1 & a<0
         \end{array} \right.$
     \end{itemize}
-    \item $X$ and $Y$ are random variables with finite variances,
-    \[
-    Var(aX+bY) = a^2Var(X) + b^2Var(Y) + 2abCov(X,Y)
-    \]
     \item For univariate random variables, $Var(aX)=a^2Var(X)$
+    \item $X$ and $Y$ are random variables with finite variances,
     \begin{flalign*}
         Var(aX+bY) &= E[(aX+bY)^2] - E[aX+bY]^2 \\
         &= E[a^2X^2 + b^2Y^2 + 2abXY] - (aE[X] + bE[Y])^2 \\
@@ -1417,30 +1425,16 @@
     \item Revisiting our binomial example: $Y = \sum_{i=1}^n X_i$, where $X_1,X_2, \dots, X_n$ are i.i.d., $X_i \sim Bernoulli(p)$
     \begin{itemize}
         \item We know $E[X_i] = 1 \cdot p + 0 \cdot (1-p) = p$
-        \item We can compute $E[X_i]^2 = 1 \cdot p + 0 \cdot (1-p)$, so $Var(X_i) = E(X_i^2) - [E(X_i)]^2 = p - p^2 = p(1-p)$
+        \item We can compute $E[X_i^2] = 1 \cdot p + 0 \cdot (1-p)$, so $Var(X_i) = E(X_i^2) - [E(X_i)]^2 = p - p^2 = p(1-p)$
         \item Since $X_1,X_2, \dots, X_n$ are i.i.d.,
         \[
         Var(Y) = Var\left( \sum_{i=1}^n X_i \right) = \sum_{i=1}^n Var(X_i) = np(1-p)
         \]
         \item If the variables are only independent and not identically distributed,
         \[
-        Var(Y) = Var\left( \sum_{i=1}^n X_i \right) = \sum_{i=1}^n p_i(1-p_i)
+        Var(Y) = Var\left( \sum_{i=1}^n X_i \right) = \sum_{i=1}^n Var(X_i) = \sum_{i=1}^n p_i(1-p_i)
         \]
     \end{itemize}
-    \item $X$ is normally distributed with mean $\mu$ and variance $\sigma^2$, or $X \sim N(\mu,\sigma^2)$
-    \begin{itemize}
-        \item The pdf of $X$ is $f(x)=\frac{1}{(2\pi \sigma^2)^{\frac{1}{2}}}e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}}$
-        \item We often need to transform $X$ into a variable with standard normal distribution, $\frac{X-\mu}{\sigma} \sim N(0,1)$
-        \begin{itemize}
-            \item $E\left[ \frac{X-\mu}{\sigma} \right] = \frac{1}{\sigma} E[X-\mu] = \frac{1}{\sigma} [E[X] - \mu] = 0$
-            \item $Var\left[ \frac{X-\mu}{\sigma} \right] = \frac{1}{\sigma^2}Var(X) = 1$
-        \end{itemize}
-    \end{itemize}
-    \item Suppose $X_1,X_2,$ are normally distributed random variables with $X_i \sim N(\mu_i,\sigma_i^2)$ for $i=1,2,\dots,n$ and $a_1,a_2,\dots,a_n$ and $b$ are constants, then
-    \[
-    \sum_{i=1}^n a_iX_i + b \sim N(\mu,\sigma^2), \quad \mu = \sum_{i=1}^n a_i \mu_i + b, \quad \sigma^2 = \sum_{i=1}^n a_i^2 \sigma_i^2 + 2\sum_{i<j} a_ia_jCov(X_i,X_j)
-    \]
-    \item If $X_i$s are independent or just uncorrelated, the variance simplifies to $\sigma^2 = \sum_{i=1}^n a_i^2 \sigma_i^2$
 \end{itemize}
 
 \section{Tutorial 5 (14/11/2025)}
@@ -1454,29 +1448,29 @@
             \item Like going to war without knowing who you are fighting
         \end{itemize}
     \end{itemize}
-    \item Ten fair dice are rolled: four blue and six yellow. Write down numerical expression for the following probabilities. If your answer involves factorials, binomial coefficients, or fractions, you do not need to calculate them.
+\subsection{Midterm Exam}
+    \item 1. Ten fair dice are rolled: four blue and six yellow. Write down numerical expression for the following probabilities. If your answer involves factorials, binomial coefficients, or fractions ($n!$, $\binom{n}{k}$, or $\frac{k}{n}$), you do not need to calculate them, simply leave them in your answer.
     \begin{itemize}
-        \item The probability exactly one blue die shows a six, and exactly two yellow dice show even numbers: $\binom{4}{1} \left( \frac{1}{6} \right) \left( \frac{5}{6} \right)^3 \binom{6}{2} \left( \frac{1}{2} \right)^2 \left( \frac{1}{2} \right)^4$
+        \item (a) The probability that exactly one blue die shows a six, and exactly two yellow dice show even numbers. \textit{(10 points)}: $p(A) = \binom{4}{1} \left( \frac{1}{6} \right) \left( \frac{5}{6} \right)^3 \binom{6}{2} \left( \frac{1}{2} \right)^2 \left( \frac{1}{2} \right)^4$
         \begin{itemize}
             \item Probability that two die are rolled and first shows a six while the second doesn't: $\left( \frac{1}{6} \right) \left( \frac{5}{6} \right)$
             \item Probability that two die are rolled and second shows a six while the first doesn't: $\left( \frac{5}{6} \right) \left( \frac{1}{6} \right)$
             \item Probability that two die are rolled and one shows a six: $\binom{2}{1} \left( \frac{1}{6} \right) \left( \frac{5}{6} \right)$
             \item Probability that any one of four blue die rolled shows a six:
             $\binom{4}{1} \left( \frac{1}{6} \right) \left( \frac{5}{6} \right)^3$
-        \end{itemize}
-        \begin{itemize}
             \item Probability that two die are rolled and first shows a even number and the second doesn't:
-             $\left( \frac{1}{2} \right) \left( \frac{1}{2} \right)$
-             \item Probability that two die are rolled and one shows a even number: $\binom{2}{1} \left( \frac{1}{2} \right) \left( \frac{1}{2} \right)$
-             \item Probability that exactly two yellow die show even numbers: $\binom{6}{2} \left( \frac{1}{2} \right)^2 \left( \frac{1}{2} \right)^4$
+            $\left( \frac{1}{2} \right) \left( \frac{1}{2} \right)$
+            \item Probability that two die are rolled and one shows a even number: $\binom{2}{1} \left( \frac{1}{2} \right) \left( \frac{1}{2} \right)$
+            \item Probability that exactly two yellow die show even numbers: $\binom{6}{2} \left( \frac{1}{2} \right)^2 \left( \frac{1}{2} \right)^4$
         \end{itemize}
-        \item The probability that exactly three of the ten dice show a six, regardless of color: $\binom{10}{3} \left( \frac{1}{6} \right)^3 \left( \frac{5}{6} \right)^7$
+        \item (b) The probability that exactly three of the ten dice show a six, regardless of color. \textit{(10 points)}: $\binom{10}{3} \left( \frac{1}{6} \right)^3 \left( \frac{5}{6} \right)^7$
     \end{itemize}
-    \item A box contains 998 black balls and 2 white balls. Let $X$ be the number of white balls in 500 random draws with replacement from this box. Calculate the probability that $X$ equals to 1 given we already know $X$ is either 1 or 2
+    \item 2. A box contains 998 black balls and 2 white balls. Let $X$ be the number of white balls in 500 random draws with replacement from this box. Calculate the probability that $X$ equals to 1 given we already know $X$ is either 1 or 2. \textit{(15 points)}
     \begin{itemize}
         \item White ball is a success (counting total number of sucessess)
         \item $p=\frac{2}{1000}$
         \item $n=500$
+        \item $X \sim Binom(n,p)$
         \item Apply Binomial: $P(X=1) = \binom{500}{1} \left( \frac{2}{1000} \right)^1 \left( \frac{998}{1000} \right)^{2-1}$
         \item $P(X=2) = \binom{500}{2} \left( \frac{2}{1000} \right)^2 \left( \frac{998}{1000} \right)^{2-2}$
         \item $P(X=1 \mid X=1 \cup X=2) = \frac{P(X=1 \cap \left( X=1 \cup X=2 \right))}{P(X=1 \cup X=2)} = \frac{P(X=1)}{P(X=1)+P(X=2)}$
@@ -1486,28 +1480,87 @@
         \begin{itemize}
             \item $\frac{P(X=1)}{P(X=2)} = \frac{\binom{n}{1} p (1-p)^{n-1}}{\binom{n}{2} p^2 (1-p)^{n-2}}= \frac{\frac{n!}{(n-1)!} (1-p)}{\frac{n!}{(n-2)!2!} p} = \frac{2(1-p)}{(n-1)p}$
         \end{itemize}
-        \item $\frac{\frac{P(X=1)}{P(X=2)}}{\frac{P(X=1)}{{(X=2)}} + 1} = \frac{\frac{2(1-p)}{(n-1)p}}{\frac{2(1-p)}{(n-1)p}+1} = \frac{\frac{2(1-p)}{(n-1)p}}{\frac{2(1-p)+(n-1)p}{(n-1)p}}=\frac{2-2p}{2-2p+np-p}$
+        \item $\frac{\frac{P(X=1)}{P(X=2)}}{\frac{P(X=1)}{{(X=2)}} + 1} = \frac{\frac{2(1-p)}{(n-1)p}}{\frac{2(1-p)}{(n-1)p}+1} = \frac{\frac{2}{499}\frac{\frac{998}{1000}}{\frac{2}{1000}}}{\frac{2}{499}\frac{\frac{998}{1000}}{\frac{2}{1000}} + 1} = \frac{2}{3}$
     \end{itemize}
-    \item A random variable $X$ takes value $0,1,2$ with probabilities proportional to $1,2,3$. Find $E[X^2+1]$
+    \item 3. A random variable $X$ takes value $0,1,2$ with probabilities proportional to $1:2:3$. Compute $E[X^2+1]$. \textit{(15 points)}
     \begin{itemize}
-        \item $X^2+1= \left\{ \begin{array}{cc}
-            0^2+1 = 1 & P(1)=\frac{1}{6} \\
-            1^2 + 1 = 2 & P(2) = \frac{1}{3} \\
-            2^2 + 1 = 5 & P(2) = \frac{1}{2}
-        \end{array} \right.$
-        \item $E[X^2 + 1] = \frac{1}{6} \cdot 1 + \frac{1}{3} \cdot 2 + \frac{1}{2} \cdot 5 = \frac{1}{6} + \frac{2}{3} + \frac{5}{2} = \frac{1+4+15}{6} = \frac{20}{6} = \frac{10}{3}$
+        \item Method 1: Calculate $X^2+1$ first
+        \begin{itemize}
+            \item $X^2+1= \left\{ \begin{array}{cc}
+                0^2+1 = 1 & P(0)=\frac{1}{6} \\
+                1^2 + 1 = 2 & P(1) = \frac{1}{3} \\
+                2^2 + 1 = 5 & P(2) = \frac{1}{2}
+            \end{array} \right.$
+            \item $E[X^2 + 1] = \frac{1}{6} \cdot 1 + \frac{1}{3} \cdot 2 + \frac{1}{2} \cdot 5 = \frac{1}{6} + \frac{2}{3} + \frac{5}{2} = \frac{1+4+15}{6} = \frac{20}{6} = \frac{10}{3}$
+        \end{itemize}
+        \item Method 2: Use properties of expectations
+        \begin{itemize}
+            \item $X = \left\{ \begin{array}{cc}
+                0 & P(0)=\frac{1}{6} \\
+                1 & P(1) = \frac{1}{3} \\
+                2 & P(2) = \frac{1}{2}
+            \end{array} \right.$
+            \item $E[X^2 + 1] = E[X^2] + 1 = 0^2 \frac{1}{6} + 1^2 \frac{2}{6} + 2^2 \frac{3}{6} + 1 = \frac{7}{3} + 1 = \frac{10}{3}$
+        \end{itemize}
     \end{itemize}
-    \item e
+    \item 4. A random variable $X$ has pdf
+    \[
+    f(x) = \left\{ \begin{array}{rl}
+        k(1-x)^2, & 0 \le x \le 1 \\
+        0, & \text{otherwise}
+    \end{array} \right.
+    \]
     \begin{itemize}
-        \item Find $k$
-        \item 
+        \item (a) Find $k$. \textit{(10 points)}
+        \begin{itemize}
+            \item By the property of pdfs, we know that $\int_{-\infty}^\infty f(x)dx = \int_0^1 k(1-x)^2 dx = \frac{-1}{3}k [(1-x)^3]_0^1 = \frac{-k}{3}(0-1) = \frac{k}{3} = 1 \Rightarrow k = 3$
+        \end{itemize}
+        \item (b) Find the cumulative distribution function $F(x)$. \textit{(10 points)}
+        \begin{itemize}
+            \item $F(x) = \int_{-\infty}^x f(x)dx = \int_0^x 3(1-t)^2dt = [-(1-t)^3]_0^x = -(1-x)^3 + 1$
+            \[
+            F(x) = \left\{ \begin{array}{rl}
+                0, & x < 0 \\
+                1-(1-x)^3, & 0 \le x \le 1 \\
+                1, & x > 1
+            \end{array} \right.
+            \]
+        \end{itemize}
+        \item (c) Compute $E[X]$ and $Var(x)$. \textit{(15 points)}
+        \begin{itemize}
+            \item $E[X] = \int_{-\infty}^\infty xf(x)dx = \int_0^1 3x(1-x)^3 dx = 3 \int_0^1 (x-2x^2+x^3)dx = 3\left[ \frac{x^2}{2} - \frac{2x^3}{3} + \frac{x^4}{4} \right]_0^1 = 3 \left[\frac{1}{2} - \frac{2}{3} + \frac{1}{4} \right] = \frac{1}{4}$
+            \item $E[X] = \int_{-\infty}^\infty x^2f(x)dx = \int_0^1 3x^2(1-x)^3 dx = 3 \int_0^1 (x^2-2x^3+x^4)dx = 3\left[ \frac{x^3}{3} - \frac{x^4}{2} + \frac{x^5}{5} \right]_0^1 = 3 \left[\frac{1}{3} - \frac{1}{2} + \frac{1}{5} \right] = \frac{1}{10}$
+            \item $Var(X) = E[X^2] - E[X]^2 = \frac{1}{10} - \left( \frac{1}{3} \right)^2 = \frac{3}{80}$
+        \end{itemize}
     \end{itemize}
-    \item A factory has three suppliers: $A,B,C$. Supplier $A$ provides 50% in all 
+    \item 5. A factory has three suppliers: $A,B,C$. Supplier $A$ provides 50\% of all parts, supplier $B$ provides 30\% of all parts, and supplier $C$ provides 20\% of all parts. The defect rate is the probability that a supplier provides a defective part. The defect rates for suppliers $A$, $B$, and $C$ are $0.01$, $0.03$, and $0.05$, respectively. A randomly chosen part is found defective, what is the probability that it came from supplier $C$? \textit{(15 points)}
+    \begin{itemize}
+        \item $P(A) = 0.5, P(D \mid A)= 0.01$
+        \item $P(B) = 0.3, P(D \mid B) = 0.03$
+        \item $P(C) = 0.2, P(D \mid C) = 0.05$
+        \item $P(C \mid D) = \frac{P(D \mid C) P(C)}{P(D)} = \frac{P(D \mid C)P(C)}{P(D \mid A)P(A) + P(D \mid B)P(B) + P(D \mid C)P(C)} = \frac{0.05 \cdot 0.2}{0.01 \cdot 0.5 + 0.03 \cdot 0.3 + 0.05 \cdot 0.2} = \frac{0.1}{0.005+0.009+0.01} = \frac{5}{12}$
+    \end{itemize}
 \end{itemize}
 
 \section{Lecture 8 (17/11/2025)}
 \begin{itemize}
-    \item Normal Distribution - Mean $\mu$ and variance $\sigma^2$ ($X \sim \mathcal{N} (\mu, \sigma^2)$
+    \item $X$ is normally distributed with mean $\mu$ and variance $\sigma^2$, or $X \sim N(\mu,\sigma^2)$
+    \begin{itemize}
+        \item The pdf of $X$ is $f(x)=\frac{1}{(2\pi \sigma^2)^{\frac{1}{2}}}e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}}$
+        \item We often need to transform $X$ into a variable with standard normal distribution, $\frac{X-\mu}{\sigma} \sim N(0,1)$
+        \begin{itemize}
+            \item $E\left[ \frac{X-\mu}{\sigma} \right] = \frac{1}{\sigma} E[X-\mu] = \frac{1}{\sigma} [E[X] - \mu] = 0$
+            \item $Var\left[ \frac{X-\mu}{\sigma} \right] = \frac{1}{\sigma^2}Var(X) = 1$
+        \end{itemize}
+    \end{itemize}
+    \item Suppose $X_1,X_2,$ are normally distributed random variables with $X_i \sim N(\mu_i,\sigma_i^2)$ for $i=1,2,\dots,n$ and $a_1,a_2,\dots,a_n$ and $b$ are constants, then
+    \[
+    \sum_{i=1}^n a_iX_i + b \sim N(\mu,\sigma^2), \quad \mu = \sum_{i=1}^n a_i \mu_i + b, \quad \sigma^2 = \sum_{i=1}^n a_i^2 \sigma_i^2 + 2\sum_{i<j} a_ia_j Cov(X_i,X_j)
+    \]
+    \begin{itemize}
+        \item If $X_i$s are independent or just uncorrelated, the variance simplifies to $\sigma^2 = \sum_{i=1}^n a_i^2 \sigma_i^2$
+    \end{itemize}
+    \item Normal Distribution - Mean $\mu$ and variance $\sigma^2$ ($X \sim \mathcal{N} (\mu, \sigma^2)$)
     \begin{itemize}
         \item Pdf of $X$ is $f(x)=\frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{1}{2} \frac{(x-\mu)^2}{\sigma^2}}$
         \item Often normalize $X$ by transforming $\frac{X - \mu}{\sigma} \sim \mathcal{N}(0,1)$
@@ -1527,26 +1580,29 @@
     \begin{itemize}
         \item the heights of men (in cm) follow a normal distribution with mean 174.9 and standard deviation 7.39
         \item the heights of women (in cm) follow a normal distribution with mean 161.3 and standard deviation 6.85
-    \end{itemize}
-    \item Suppose we select one man and one woman at random and independently of each other. Denote the man’s height by X and the woman’s height by Y. What is the probability that the man is at most 10 cm taller than the woman?
-    \begin{itemize}
-        \item $w = x - y$
-        \item $\mu_w = (1)174.9 + (-1) 161.3 = 13.6$
-        \item $\sigma_w^2 = (1)^2 7.39^2 + (-1)^2 6.85^2 = 10.08^2$
-        \item $p(w \le 10) = p\left(\frac{w - 13.6}{10.08} \le \frac{10-13.6}{10.08}\right) = p(z \le -0.36)$
+        \item Suppose we select one man and one woman at random and independently of each other. Denote the man’s height by X and the woman’s height by Y. What is the probability that the man is at most 10 cm taller than the woman?
         \begin{itemize}
-            \item $z= \frac{w - 13.6}{10.08^2} \sim \mathcal{N}(0,1)$
+            \item $W = X - Y, \ W \sim \mathcal{N}(\mu_W,\sigma_W^2)$
+            \item $\mu_W = (1)174.9 + (-1) 161.3 = 13.6$
+            \item $\sigma_W^2 = (1)^2 7.39^2 + (-1)^2 6.85^2 = 10.08^2$
+            \item $p(W \le 10) = p\left(\frac{W - 13.6}{10.08} \le \frac{10-13.6}{10.08}\right) = p(z \le -0.36)$
+            \begin{itemize}
+                \item $z= \frac{w - 13.6}{10.08} \sim \mathcal{N}(0,1)$
+            \end{itemize}
+            \item Looking up in a z-table, we find that $P(W \le 10) = 0.36$
         \end{itemize}
     \end{itemize}
     \item Conditional Expectation - conditional expectation of $Y$ given $X=x$ is defined as
     \[
     E[Y \mid X = x] = \left\{ \begin{array}{cc}
-        \sum_{\text{all}} y \cdot p_{Y \mid X} (y) & Y \text{ is discrete} \\
+        \sum_{\text{all y}} y \cdot p_{Y \mid X} (y) & Y \text{ is discrete} \\
         \sum_{-\infty}^\infty y \cdot f_{Y \mid X} (y) dy & Y \text{ is continuous}
     \end{array} \\
     \right.
     \]
-    \item We can interpret it as the average value of $Y$ given $X=x$
+    \begin{itemize}
+        \item We can interpret it as the average value of $Y$ given $X=x$
+    \end{itemize}
     \item $E[Y \mid X=x]$ also provides us with a useful way of summarizing the relationship, or dependence, between $X$ and $Y$
     \begin{itemize}
         \item If $Y$ tends to take on higher values when $X$ also takes on higher values, the mapping $x$ to $E[Y \mid X=x]$ will trace out an increasing function
@@ -1558,14 +1614,12 @@
         \item Conditional expectation has similar property as unconditional expectation when it comes to linear functions of random variables:
         \[ E[aY+bZ + c \mid X=x] = aE[Y \mid X=x] + bE[Z \mid X=x] +c
         \]
-        \item Law of iterated expectations - $E[E[Y \mid X] = E[Y]$, where the inner expectation is taken over $Y$ conditional on $X=x$, the outer expectation is taken over $X$
+        \item Law of iterated expectations - $E[E[Y \mid X]] = E[Y]$, where the inner expectation is taken over $Y$ conditional on $X=x$, the outer expectation is taken over $X$
         \begin{itemize}
             \item If we make our best guess of $Y$ when $X=x$ and average over all possible values of $X$, then we recove the guess we would have make about $Y$, which is $E[Y]$
         \end{itemize}
     \end{itemize}
-\end{itemize}
 \subsection{Slide 8}
-\begin{itemize}
     \item Toss a coin $n$ times where each toss has probability $p$ of yielding a head, and we derived the total number of heads $Y \sim Binomial(n,p)$
     \begin{itemize}
         \item In statistics, we invert the problem: we might have data on the total, number of successes from independent experimental trials and we would like to use this data to learn about $p$ (can we estimate $p$?)
@@ -1580,9 +1634,6 @@
         \item The size of the UK population is about 67 million
         \item One reasonable thing to do is to draw a random sample of size $n$ people, and collect data about their income $x_1,x_2, \dots, x_n$
         \item We typically assume $X_1, X_2, \dots, X_n$ are i.i.d. random variables
-        \begin{itemize}
-            \item Why?
-        \end{itemize}
         \item For the first observation or data point in our sample, we randomly select an individual to record their income level
         \item There is randomness to who the particular individual we select is, therefore we treat $X_1$ as a random variable
         \item After the first observation has been selected, there is no more randomness, and $X_1=x_1$ is the realized value of $X_1$
@@ -1599,7 +1650,7 @@
     \begin{itemize}
         \item $\mu, \sigma^2$ are the unknown parameters we are interested in estimating using the data
         \item If $X$ is continuous, $\mu = \int_{-\infty}^\infty x \cdot f(x)dx$
-        \item Sample mean $\hat{u} = \frac{1}{n} \sum_{i=1}^n X_i$
+        \item Sample mean $\hat{u} = \frac{1}{n} \sum_{i=1}^n X_i$ is one estimator
     \end{itemize}
     \item More generally, an estimator $\hat{\theta}$ (for unknown parameter $\theta$) is a function of the random sample $X_1, X_2, \dots, X_n$ with distribution $f(x_1, x_2, \dots, x_n; \theta)$
     \begin{itemize}
@@ -1609,9 +1660,9 @@
     \item Since $\hat{\theta}$ is a random variable itself, it is reasonable to consider $E[\hat{\theta}] =\theta$ a desirable property
     \begin{itemize}
         \item If $\hat{\theta}$ is evaluated many times with many samples, on average, we would get the right answer
+        \item Formally, if $E[\hat{\theta}]=\theta$, $\hat{\theta}$ is an unbiased estimator
+        \item Note that the unbiasedness of an estimator does not depend on the size of the sample $n$
     \end{itemize}
-    \item Formally, if $E[\hat{\theta}]=\theta$, $\hat{\theta}$ is an unbiased estimator
-    \item The unbiasedness of an estimator does not depend on the size of the sample $n$
     \item $\tilde{\mu} = X_1$ is an estimator of $\mu$ and it is unbiased because $E[X_1] = \mu$. Is $\tilde{\mu}$ a desirable estimator?
     \begin{itemize}
         \item Throwing away $X_2, \dots, X_n$ observations
@@ -1620,14 +1671,15 @@
     \end{itemize}
     \item We might also want to compute the variance of the estimator, which tells us how reliable the estimator is
     \begin{itemize}
-        \item If $\hat{\theta}$ and $\tilde{\theta}$ are two estimators for $\theta$, and $\tilde{\theta}$ has a smaller variance than $\tilde{\theta}$, then $\hat{\theta}$ is said to be more efficient than $\tilde{\theta}$
-        \item $Var(\hat{\mu}) = Var\left( \frac{1}{n} \sum_{i=1}^n X_i \right)= \frac{1}{n^2} \sum_{i=1}^n \sigma^2 = \frac{\sigma^2}{n} < \sigma^2 = Var(X_1) = Var(\tilde{\mu})$
-        \item Standard Error - the estimated standard deviation of the estimator
+        \item If $\hat{\theta}$ and $\tilde{\theta}$ are two estimators for $\theta$, and $\hat{\theta}$ has a smaller variance than $\tilde{\theta}$, then $\hat{\theta}$ is said to be more efficient than $\tilde{\theta}$
+        \item Going back to our example: $Var(\hat{\mu}) = Var\left( \frac{1}{n} \sum_{i=1}^n X_i \right)= \frac{1}{n^2} \sum_{i=1}^n \sigma^2 = \frac{\sigma^2}{n} < \sigma^2 = Var(X_1) = Var(\tilde{\mu})$
+        \item Standard Error - the estimated standard deviation of the estimator (estimator for $\sqrt{Var(\hat{\theta})}$)
     \end{itemize}
     \item Consider a third estimator for $\mu$: $\overline{\mu} = \frac{1}{n} (\frac{1}{2} X_1 + \frac{3}{2} X_2 + \frac{1}{2} X_3 + \frac{3}{2} X_4 + \cdots + \frac{1}{2} X_{n-1} + \frac{3}{2} X_n)$
     \begin{itemize}
-        \item For convenience, assume $n$ is even, then $E[\overline{\mu}] = E[\frac{1}{n} (\frac{1}{2} X_1 + \frac{3}{2} X_2 + \frac{1}{2} X_3 + \frac{3}{2} X_4 + \cdots + \frac{1}{2} X_{n-1} + \frac{3}{2} X_n)] = \frac{1}{n} \frac{1}{2} E[X_1] + \frac{3}{2} E[X_2] + \frac{1}{2} E[X_3] + \frac{3}{2} E[X_4] + \cdots + \frac{1}{2} E[X_{n-1}] + \frac{3}{2} E[X_n]) = \frac{1}{n} \left( \frac{1}{2}\frac{3}{2} \mu + \frac{1}{2} \frac{1}{2} \mu \right)  = \mu$
+        \item For convenience, assume $n$ is even, then $E[\overline{\mu}] = E[\frac{1}{n} (\frac{1}{2} X_1 + \frac{3}{2} X_2 + \frac{1}{2} X_3 + \frac{3}{2} X_4 + \cdots + \frac{1}{2} X_{n-1} + \frac{3}{2} X_n)] = \frac{1}{n} \left(\frac{1}{2} E[X_1] + \frac{3}{2} E[X_2] + \frac{1}{2} E[X_3] + \frac{3}{2} E[X_4] + \cdots + \frac{1}{2} E[X_{n-1}] + \frac{3}{2} E[X_n]\right) = \frac{1}{n} \left( \frac{1}{2}\frac{3}{2} \mu + \frac{1}{2} \frac{1}{2} \mu \right)  = \mu$
         \item $Var(\overline{\mu})= \frac{1}{n^2} Var(\frac{1}{2} X_1 + \frac{3}{2} X_2 + \frac{1}{2} X_3 + \frac{3}{2} X_4 + \cdots + \frac{1}{2} X_{n-1} + \frac{3}{2} X_n) \\ = \frac{1}{n^2} \left( \frac{1}{4} Var[X_1] + \frac{9}{4} Var[X_2] + \cdots + \frac{1}{4} Var[X_{n-1}] + \frac{9}{4} Var[X_n] \right) = \frac{1}{n^2} \frac{5}{2} \frac{n}{2}z \sigma^2 = 1.25 \frac{\sigma^2}{n} > Var(\hat{\mu})$
+        \item Note that all three estimators $\hat{\mu}, \tilde{mu}, \overline{\mu}$ are unbiased and linear functions of $X_1,X_2,\dots,X_n$ 
     \end{itemize}
     \item In the class of unbiased estimators which can be written as $\frac{1}{n} \sum_{i=1}^n a_iX_i$, where $a_i$s are constants, $\hat{\mu}$ has the smallest variance, and is called the best linear unbiased estimator (BLUE)
     \item How do we compare two estimators if one is biased and the other is not?
@@ -1638,14 +1690,14 @@
             MSE(\hat{\theta}) &=  E[(\hat{\theta} - \theta)^2] \\
             &= E[(\hat{\theta} - E[\hat{\theta}] + E[\hat{\theta}] - \theta)^2] \\
             &= E[(\hat{\theta} - E[\hat{\theta}])^2 + 2(\hat{\theta} - E[\hat{\theta}])(E[\hat{\theta}] - \hat{\theta}) + (E[\hat{\theta}] - \theta)^2] \\
-            &= \underset{Var(\hat{\theta})^2}{\underbrace{[(\hat{\theta} - E[\hat{\theta}])^2}} + \underset{2(E[\hat{\theta}] - \theta)(E[\hat{\theta}] - E[\hat{\theta}]) = 0}{\underbrace{2E[(\hat{\theta} - E[\hat{\theta}])(E[\hat{\theta}] - \hat{\theta})]}} + \underset{bias(\hat{\theta})^2}{\underbrace{(E[\hat{\theta}] - \theta)^2}} \\
+            &= \underset{Var(\hat{\theta})^2}{\underbrace{E[(\hat{\theta} - E[\hat{\theta}])^2]}} + \underset{E[\hat{\theta}]E[\hat{\theta}] - E[\hat{\theta}]E[\hat{\theta}] - E[\hat{\theta}]\theta + E[\hat{\theta}]\theta = 0}{\underbrace{2E[\hat{\theta}E[\hat{\theta}] - E[\hat{\theta}]E[\hat{\theta}] - \hat{\theta}\theta + E[\hat{\theta}]\theta]}} + \underset{bias(\hat{\theta})^2}{\underbrace{E[(E[\hat{\theta}] - \theta)^2]}} \\
             &= \left[ bias(\hat{\theta}) \right]^2 + Var(\hat{\theta}^2)
         \end{flalign*}
     \end{itemize}
     \item For an estimator to have low MSE, both bias and variance has to be small
     \begin{itemize}
         \item For many estimators, there is often a bias-variance tradeoff
-        \item For this reason, it is more meaningful to discuss efficiency for tow unbiased estimators
+        \item For this reason, it is more meaningful to discuss efficiency for two unbiased estimators, as we only need to compare variance
     \end{itemize}
     \item So far we have discussed properties of estimators regardless of the sample size $n$
     \begin{itemize}
@@ -1662,6 +1714,94 @@
     \begin{itemize}
         \item $f_X(x,y) = \int_{-\infty}^\infty f_{X,Y}(x,y) dy$
         \item $f_Y(x,y) = \int_{-\infty}^\infty f_{X,Y}(x,y) dx$
+    \end{itemize}
+\subsection{Problem Set 5}
+    \item 1.  An urn contains four red chips, three white chips, and two blue chips. A random sample of size 3 is drawn without replacement. Let $X$ denote the number of white chips in the sample and $Y$ the number of blue chips. Write a formula for the joint pdf of $X$ and $Y$.
+    \begin{itemize}
+        \item There are $\binom{9}{3}$ ways to choose three chips from nine
+        \item $\binom{3}{X}$ ways of choosing $X$ white chips for $X = 0,1,2,3$
+        \item $\binom{2}{Y}$ ways of choosing $Y$ blue chips for $Y=0,1,2$
+        \item $\binom{4}{3-(X+Y)}$ ways of choosing $3-(X+Y)$ red chips for $(X+Y)=0,1,2,3$
+        \item Let us define set $A := \left\{ (x,y): x \in \{0,1,2,3\}, y \in \{0,1,2\}, x+y \le 3 \right\}$
+        \item Then $P(X=x, Y=y) = \left\{ \begin{array}{rl}
+            \frac{\binom{3}{x}\binom{2}{y}\binom{4}{3-(x+y)}}{\binom{9}{3}}, & \text{for } (x,y) \in A \\
+            0, & \text{otherwise} 
+        \end{array} \right.$
+    \end{itemize}
+    \item 2. A study claims that the daily number of hours $X$ a teenager watches television and the daily number of hours they work on their homework are approximted by the joint pdf $f_{X,Y}(x,y) = xye^{-(x+y)}, x>0, y>0$
+    \begin{itemize}
+        \item (a) What is the probability that a teenager chosen at random spends at least twice as much time watching television as they do working on their homework?
+        \begin{flalign*}
+            f(x \ge 2y) &= \int_0^\infty \int_{2y}^\infty xye^{-(x+y)} dxdy \\
+            &= \int_0^\infty ye^{-y} \int_{2y}^\infty xe^{-x}dxdy \\
+            u = x, v &= -e^{-x} \\
+            du = dx, dv &= e^{-x}dx \\
+            &= \int_0^\infty ye^{-y}\left[ -xe^{-x} \vert_{2y}^\infty + \int_{2y}^\infty e^{-x}dx \right] dy \\
+            &= \int_0^\infty ye^{-y} \left[ 0 + 2ye^{-2y} - e^{-x} \vert_{2y}^\infty \right] dy \\
+            &= \int_0^\infty ye^{-y} \left[ 2ye^{-2y} +e^{-2y} \right] dy \\
+            &= \int_0^\infty e^{-3y} \left[ 2y^2 + y \right] dy \\
+            &= 2 \int_0^\infty y^2e^{-3y}dy + \int_0^\infty ye^{-3y}dy \\
+            u = y^2, v &= -\frac{1}{3}e^{-3y} \\
+            du = 2ydy, dv &= e^{-3y}dy \\
+            &= 2 \left[ -\frac{y^2}{3}e^{-3y} \vert_0^\infty + \int_0^\infty \frac{2y}{3} e^{-3y}dy \right] + \int_0^\infty ye^{-3y}dy \\
+            u = y, v &= -\frac{1}{3}e^{-3y} \\
+            du = dy, dv &= e^{-3y}dy \\
+            &= 2 \left[ 0 + \frac{2}{3}  \left[ -\frac{y}{3} e^{-3y} \vert_0^\infty + \int_0^\infty \frac{1}{3}e^{-3y}dy \right] \right] + \int_0^\infty ye^{-3y}dy \\
+            &= 2 \left[ \frac{2}{3}  \left[ -\frac{1}{9}e^{-3y} \vert_0^\infty \right] \right] + \int_0^\infty ye^{-3y}dy \\
+            &= 2 \left[ \frac{2}{3} \cdot \frac{1}{9} \right] + \int_0^\infty ye^{-3y}dy \\
+            &= \frac{4}{27} + \int_0^\infty ye^{-3y}dy \\
+            u = y, v &= -\frac{1}{3} e^{-3y} \\
+            du = dy, dv &= e^{-3y}dy \\
+            &= \frac{4}{27} + \left[ -\frac{y}{3}e^{-3y} \vert_0^\infty + \int_0^\infty \frac{1}{3}e^{-3y}dy \right] \\
+            &= \frac{4}{27} + \left[ 0 + -\frac{1}{9}e^{-3y} \vert_0^\infty \right] \\
+            &= \frac{4}{27} + \frac{1}{9} = \frac{7}{27} \\
+        \end{flalign*}
+        \item (b) Are $X$ and $Y$ independent?
+        \begin{itemize}
+            \item Notice that
+            \begin{flalign*}
+                \int_0^\infty xye^{-(x+y)}dy &= xe^{-x} \int_0^\infty ye^{-y}dy \\
+                u = y, v &= -e^{-y} \\
+                du = dy, dv &= e^{-y}dy \\
+                &= xe^{-x} \left[ -ye^{-y} \vert_0^\infty + \int_0^\infty e^{-y}dy \right] \\
+                &= xe^{-x} \left[ 0 - e^{-y} \vert_0^\infty \right] \\
+                &= xe^{-x}
+            \end{flalign*}
+            \item Therefore, $f_X(x) = \int_0^\infty f(x,y)dy = \left\{ \begin{array}{rl}
+                xe^{-x}, & x>0 \\
+                0, & \text{otherwise}
+            \end{array}\right.$
+            \item Analogously, $f_Y(y) = \left\{ \begin{array}{rl}
+                ye^{-y}, & y>0 \\
+                0, & \text{otherwise}
+            \end{array}\right.$
+            \item If $f_{X,Y}(x,y) = f_x(x)f_Y(y)$, we can say random variables $X$ and $Y$ are independent of each other
+            \item $f_{X,Y}(x,y) = \left\{ \begin{array}{rl}
+                f_X(x)f_Y(y) = xe^{-x}ye^{-y} = xye^{-(x+y)}, & x>0,y>0 \\
+                f_X(x)f_Y(y) = 0 \cdot 0 = 0, & \text{otherwise}
+            \end{array}\right.$
+            \item Thus $X \indep Y$
+        \end{itemize}
+    \end{itemize}
+    \item 3. Suppose the joint pdf of $X$ and $Y$ is $f_{X,Y}(x,y) = 2, x \ge 0, y \ge 0, x+y = 1$. Is the condition distribution of $Y$ given $X = x$ uniform?
+    \begin{flalign*}
+        f_X(x) = \int_0^{1-x} 2 dy = [2y]_0^{1-x} = 2-2x, 0 \le x \le 1 \\
+        f_{Y \mid X}(y) = \frac{f_{X,Y}(x,y)}{f_X(x)} = \frac{2}{2-2x} = \frac{1}{1-x}, 0 \le y \le 1-x
+    \end{flalign*}
+    \begin{itemize}
+        \item Since $f_{Y \mid X}(y)$ is independent of $y$, it is a constant so it is uniform.
+    \end{itemize}
+    \item 4. A fair coin is tossed five times. Let the random variable $Y$ denote the total number of heads that occur, and let $X$ denote the number of heads occurring on the last two tosses. Find the conditional pmf $p_{Y \mid X}(y)$ for $X = 1$.
+    \begin{itemize}
+        \item Support for $P(Y=y \mid X=1)$ is clearly $y=\{1,2,3,4\}$
+        \item $Y = X_1+X_2+X_3+X_4+X_5$ and $X = X_4 + X_5 = 1$
+        \begin{itemize}
+            \item $\Rightarrow Y = X + (X_1+X_2+X_3) = 1 + (X_1+X_2+X_3)$
+        \end{itemize}
+        \item Utilizing the binomial formula, we get $P_{Y \mid X}(y) = \left\{ \begin{array}{rl}
+            \binom{3}{y-1} (0.5)^{y-1}(0.5)^{3-(y-1)} & y=1,2,3,4 \\
+            0, & \text{otherwise}
+        \end{array} \right.$
     \end{itemize}
 \end{itemize}
 
@@ -1687,76 +1827,85 @@
         \item If the data is collected by random sampling, the i.i.d. assumption is likely to hold
         \item The finite variance assumptions can be interpreted as outliers are unlikely or observed infrequently
         \item Intuition: as we collect more and more data, our estimators constructed using sample average gets more and more concentrated around the true parameter value
+        \item Applies to any random variable that takes on positive values
     \end{itemize}
-    \item Chebyshev's Inequality - $P(\vert X - \mu \vert \ge k \sigma) \le \frac{1}{k^2}$
-    \item Applies to any random variable that takes on positive values
+    \item Proof of the Law of Large Numbers:
     \begin{flalign*}
-        P(x > \epsilon) &\le \frac{E[X]}{\epsilon}, \quad x >0, \epsilon>0 \\
         E[x] &= \int_0^\epsilon xf(x)dx + \int_\epsilon^\infty xf(x)dx \\
         &\ge \int_\epsilon^\infty xf(x)dx, \quad x \ge \epsilon > 0 \\
-        &\ge \epsilon \int_\epsilon^\infty f(x)dx = \epsilon P(x > \epsilon) \\ \\
+        &\ge \epsilon \int_\epsilon^\infty f(x)dx = \epsilon P(x > \epsilon) \\
+        \Rightarrow P(x > \epsilon) &\le \frac{E[X]}{\epsilon}, \quad x >0, \epsilon>0 \\ \\
         P(\vert \overline{x} - \mu \vert > \epsilon) &= P((\overline{x}-\mu)^2 >. \epsilon^2) \\
         &\le \frac{E\left[(\overline{x}-\mu)^2\right]}{\epsilon^2} \\
         &= \frac{Var(\overline{x})}{\epsilon^2} \\
         &= \frac{\sigma^2}{n\epsilon^2} \\
         \lim_{n \rightarrow 0} \frac{\sigma^2}{n\epsilon^2} &= 0
     \end{flalign*}
+    \item Optional: Chebyshev's Inequality - $P(\vert X - \mu \vert \ge k \sigma) \le \frac{1}{k^2}$
     \item Consistency tells us the distribution of an $\hat{\theta}$ collapses to a constant $\theta$, but we would like to know more about its shape
     \item Sequence of random variables $Y_1,Y_2, \dots, Y_n$ converges in distribution to a random variable $Y$ with cdf $F(y)$, denoted $Y_n \overset{d}{\rightarrow} Y$, if for all $y$, 
     \[
     F_{Y_n}(y) = P(Y_n \le y) \rightarrow F(y)
     \]
     as $n \rightarrow \infty$
-    \item Intuition: convergence in distribution tells us we can treat $Y_n$ as if it has the same distribution as $Y$ when $n$ is large
-    \item Central Limit Theorem (CLT) - Suppose $X_1,X_2, \dots, X_n$ are i.i.d. with $[E[X_i]=\mu$ and $Var(X_i)=\sigma^2$, then
+    \begin{itemize}
+        \item Intuition: convergence in distribution tells us we can treat $Y_n$ as if it has the same distribution as $Y$ when $n$ is large
+    \end{itemize}
+    \item Central Limit Theorem (CLT) - Suppose $X_1,X_2, \dots, X_n$ are i.i.d. with $E[X_i]=\mu$ and $Var(X_i)=\sigma^2$, then
     \[
-        \frac{\sqrt{n}(\overline{X}_n - \mu)}{\sigma} \overset{d}{\rightarrow} N(0,1)
+        \frac{\overline{X}_n - E[\overline{X}_n]}{\sqrt{Var(\overline{X}_n)}} = \frac{\sqrt{n}(\overline{X}_n - \mu)}{\sigma} \overset{d}{\rightarrow} N(0,1)
     \]
     where $X_n = \frac{1}{n} \sum_{i=1}^n X_i = \hat{\mu}$
     \begin{itemize}
-        \item Note $E[\overline{X}_n]=\mu, Var(\overline{X}_n) = \frac{\sigma^2}{n}$, so we can treat the left-hand side as the standardization of a nomrally distributed random variable: $\frac{\overline{X}_n - E[\overline{X}_n]}{\sqrt{Var(\overline{\overline{X}_n}}}$
+        \item Note $E[\overline{X}_n]=\mu, Var(\overline{X}_n) = \frac{\sigma^2}{n}$, so we can treat the left-hand side as the standardization of a nomrally distributed random variable: $\frac{\overline{X}_n - E[\overline{X}_n]}{\sqrt{Var(\overline{{X}}_n)}}$
         \item Intuition: as we collect more data, estimator fluctuates normally around true parameter value
     \end{itemize}
+\subsection{Slide 9}
     \item CLT provides one way to approximate the average or sum of a random sample using normal distribution
     \item Suppose a flight from London to New York has 168 economy class seats. The arline has estimated that each ticket holder has a probability 90\% of showing up at gate. If the arline has sold 178 tickets, what is the probability that the flight is overbooked?
-    \item We often use $\phi(z)$ to denote the cdf of standard normal distribution, $\phi(z) = P(Z \le z)$, where $Z \sim N(0,1)$
     \begin{itemize}
-        \item $\phi(z)$ can be looked up in the standard normal distribution table or Z-table
-        \item Exact calculation is possible but inconvenient for large $n$
+        \item We often use $\phi(z)$ to denote the cdf of standard normal distribution, $\phi(z) = P(Z \le z)$, where $Z \sim N(0,1)$
+        \begin{itemize}
+            \item $\phi(z)$ can be looked up in the standard normal distribution table or Z-table
+            \item Exact calculation is possible but inconvenient for large $n$
+        \end{itemize}
+        \begin{flalign*}
+            x &= \text{\# of } \text{people } \text{showing} \\
+            x &\sim Binom(178,0.9) \\
+            P(X > 168) &= P\left(\frac{x-np}{\sqrt{np(1-p)}} \ge  \frac{169-178 \cdot 0.9}{\sqrt{178 \cdot 0.9 (1-0.9)}} \right) \\
+            &= P(z \ge 2.1999999) \\
+             &= 1 - \phi(2.199) = 0.014
+        \end{flalign*}
     \end{itemize}
-    \begin{flalign*}
-        x &= \text{\# of } \text{people } \text{showing} \\
-        x &\sim Bin(178,0.9) \\
-        P(X > 168) &= P\left(\frac{x-np}{\sqrt{np(1-p)}} \ge  \frac{169}{\sqrt{np (1-p)}} \right) \\
-        &= P(z \ge 2.1999999) \\
-         &= 1 - \phi(2.199) = 0.014
-    \end{flalign*}
+    \item We have looked at sample mean as an estimator for $\mu$
     \begin{itemize}
-        \item We have looked at sample mean as an estimator for $\mu$
-        \item Next, we will look at estimators and their properties for $\sigma^2$
+         \item Next, we will look at estimators and their properties for $\sigma^2$
         \item Recall our setting: $\{ X_1, \dots, X_n\}$ is a random sample drawn from a distribution with negative mean $\mu$ and variance $\sigma^2$
         \item Applying our methods of moments to construct an estimator by replacing expectations with averages of the sample:
         \[
         \hat{\sigma}^2 = \frac{1}{n} \sum_{i=1}^n (X_i - \overline{X}_n)^2
         \]
+        \item Is $\hat{\sigma}^2$ an unbiased estimator for $\sigma^2$?
+        \begin{flalign*}
+            E[\hat{\sigma}^2] &= E[\frac{1}{n} \sum_{i=1}^n (X_i - \overline{X}_n)^2] \\
+            &= E[\frac{1}{n} \sum_{i=1}^n (X_i^2 - 2\overline{X}X_i + \overline{X}^2)] \\
+            &= E[\frac{1}{n}  \left(\sum_{i=1}^nX_i^2 - 2\overline{X} \sum_{i=1}^nX_i + n\overline{X}^2\right)] \\
+            &= E[\frac{1}{n}  \left(\sum_{i=1}^nX_i^2 - 2\overline{X} n \overline{X} + n\overline{X}^2\right)], \quad \sum_{i=1}^n X_i = n\overline{X} \\
+            &= E[\frac{1}{n} \sum_{i=1}^nX_i^2 - \frac{1}{n}n\overline{X}^2] \\
+            &= E[X_i^2] - E[\overline{X}^2] \\
+            &= E[X_i^2] - E[X_i]^2 + E[X_i]^2 - E[\overline{X}^2] \\
+            &=\sigma^2 + E[X_i]^2 - E[\overline{X}^2] \\
+            &=\sigma^2 + E[X_i]^2 - E[\left(\frac{X_1+X_2+\cdots+X_n}{n}\right)^2] \\
+            &=\sigma^2 + E[X_i]^2 - \frac{1}{n^2} E[\sum_{i=1}^n X_i^2 + 2 \sum_{i < j} X_iX_j], \quad 2 \cdot \binom{n}{2} = n(n-1) \\
+            &=\sigma^2 + E[X_i]^2 - \frac{1}{n^2} n E[X_i^2] -\frac{1}{n^2} n(n-1) E[X_i]^2, \quad E[X_iX_j] = E[X_i]E[X_j] = E[X_i]^2 \\
+            &= \sigma^2 + \frac{1}{n} E[X_i]^2 - \frac{1}{n} E[X_i^2] \\
+            &= \sigma^2 - \frac{1}{n}\sigma^2 = \frac{n-1}{n} \sigma^2
+        \end{flalign*}
+        \[
+        E[\frac{n}{n-1}\hat{\sigma}^2] = \sigma^2, \quad \frac{n}{n-1}\frac{1}{n} \sum_{i=1}^n (X_i - \overline{X})^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i - \overline{X})^2
+        \]
+        \item $\hat{\sigma}^2$ is not an unbiased estimator for $\sigma^2$ but we can construct the sample variance to be an unbiased estimator
     \end{itemize}
-    \item Is $\hat{\sigma}^2$ an unbiased estimator for $sigma^2$
-    \begin{flalign*}
-        E[\hat{\sigma}^2] &= E[\frac{1}{n} \sum_{i=1}^n (X_i - \overline{X}_n)^2] \\
-        &= E[\frac{1}{n} \sum_{i=1}^n (X_i^2 - 2\overline{X}X_i + \overline{X}^2)] \\
-        &= E[\frac{1}{n}  \left(\sum_{i=1}^nX_i^2 - 2\overline{X} \sum_{i=1}^nX_i + n\overline{X}^2\right)] \\
-        &= E[\frac{1}{n}  \left(\sum_{i=1}^nX_i^2 - 2\overline{X} n \overline{X} + n\overline{X}^2\right)], \quad \sum_{i=1}^n X_i = n\overline{X} \\
-        &= E[\frac{1}{n} \sum_{i=1}^nX_i^2 - \frac{1}{n}n\overline{X}^2] \\
-        &= E[X_i^2] - E[\overline{X}^2] \\
-        &= E[X_i^2] - E[X_i]^2 + E[X_i]^2 - E[\overline{X}^2] \\
-        &=\sigma^2 + E[X_i]^2 - E[\overline{X}^2] \\
-        &=\sigma^2 + E[X_i]^2 - \frac{1}{n^2} E[\sum_{i=1}^n X_i^2 + 2 \sum_{i < j} X_iX_j] \\
-        &=\sigma^2 + E[X_i]^2 - \frac{1}{n^2} n E[X_i^2] -\frac{1}{n^2} n(n-1) E[X_i]^2, \quad E[X_iX_j] = E[X_i]E[X_j] = E[X_i]^2 \\
-        &= \sigma^2 - \frac{1}{n}\sigma^2 = \frac{n-1}{n} \sigma^2
-    \end{flalign*}
-    \[
-    E[\frac{n}{n-1}\hat{\sigma}^2] = \sigma^2, \quad \frac{n}{n-1}\frac{1}{n} \sum_{i=1}^n (X_i - \overline{X})^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i - \overline{X})^2
-    \]
     \item Sample Variance - $\tilde{\sigma}^2 = s_X^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i - \overline{X})^2$ and is an unbiased estimator for $\sigma^2$
     \begin{itemize}
         \item As $n$ increases, the difference between $\hat{\sigma}^2$ and $\tilde{\sigma}^2$ becomes smaller and smaller, so in large samples, $\hat{\sigma}^2$ and $\tilde{\sigma}^2$ should have very similar properties
@@ -1766,18 +1915,18 @@
             &= \frac{1}{n} \sum_{i=1}^n (X_i^2 - 2X_i\overline{X} + \overline{X}^2) \\
             &= \frac{1}{n} \left( \sum_{i=1}^n X_i^2 - 2\overline{X}(\sum_{i=1}^n X_i) + n\overline{X}^2 \right) \\
             &= \frac{1}{n} \left( \sum_{i=1}^n X_i^2 - 2n\overline{X}^2 + n\overline{X}^2 \right) \\
-            &= \frac{1}{n} \sum_{i=1}^n X_i^2 - \overline{X}^2 \\
+            &= \frac{1}{n} \sum_{i=1}^n (X_i^2) - \overline{X}^2 \\
         \end{flalign*}
         \item By LLN, $\frac{1}{n} \sum_{i=1}^n (X_i - \overline{X}_n)^2 \overset{p}{\rightarrow} \sigma^2$, so $\hat{\sigma}^2$ and $\tilde{\sigma}^2$ are both consistent estimators for $\sigma^2$
-        \item Sketch of proof
+        \item Sketch of proof for consistency of $\hat{\sigma}^2$
         \begin{itemize}
             \item Functions of independent variables are independent, so $\{X_1^2,X_2^2, \dots, X_n^2\}$ is a random sample
             \item By LLN, $\frac{1}{n} \sum_{i=1}^n X_i^2 \overset{p}{\rightarrow} E[X^2]$
             \item By LLN, $\overline{X}_n = \frac{1}{n} \sum_{i=1}^n X_i \overset{p}{\rightarrow} E[X]$
-            \item Converges in probability is preserved by continuous operations such as addition, multiplication, etc.
+            \item Convergences in probability is preserved by continuous operations such as addition, multiplication, etc.
             \begin{itemize}
                 \item As a result, $\overline{X}_n^2 \overset{p}{\rightarrow} E[X]^2$
-                \item And $\tilde{\sigma}^2 = \frac{1}{n} \sum_{i=1}^n X_i^2 - \overline{X}_n^2 \overset{p}{\rightarrow} E[X^2] - E[X]^2$
+                \item And $\hat{\sigma}^2 = \frac{1}{n} \sum_{i=1}^n X_i^2 - \overline{X}_n^2 \overset{p}{\rightarrow} E[X^2] - E[X]^2 = \sigma^2$
             \end{itemize}
         \end{itemize}
     \end{itemize}
@@ -1792,7 +1941,7 @@
     \end{itemize}
     \item The significance level of the test is defined as the probability of Type I error, $\alpha$
     \begin{itemize}
-        \item Testing procedure: suppose $H-0$ is true, we want to check if $\overline{X}_n$ is far from 3 or not $(\vert \overline{X}_n - 3 \vert > c)$
+        \item Testing procedure: suppose $H_0$ is true, we want to check if $\overline{X}_n$ is far from 3 or not $(\vert \overline{X}_n - 3 \vert > c)$
     \end{itemize}
     \item Suppose $H_0$ is true, $\mu = 3$, then we know $\overline{X}_n \sim N(3,\frac{\sigma^2}{n})$ approximately, or $\frac{\overline{X}_n - 3}{\sqrt{\frac{\sigma^2}{n}}} \sim N(0,1)$
     \begin{itemize}
@@ -1803,7 +1952,7 @@
         where $k$ is called critical value, and we know $k = 1.645$
         \item We reject $H_0$ if $\frac{\vert \overline{X}_n - 3 \vert }{\sqrt{\frac{\sigma^2}{n}}} \ge 1.645$
         \item Hypothesis testing assesses whether sample evidence is too inconsistent with the null
-        \item Critical value found by adding $(1-\alpha) + \frac{\alpha}{2}$
+        \item Upper critical value for two-tailed test found by $1-\frac{\alpha}{2} = (1-\alpha) + \frac{\alpha}{2}$
     \end{itemize}
     \item In practice, since $\sigma^2$ is often unknown, we replace it by its estimator $s_X^2$:
     \[
@@ -1811,8 +1960,82 @@
     \]
     or equivalently, $\overline{X} \ge 3 + 1.645\sqrt{\frac{s_X^2}{n}}$ or  $\overline{X} \le 3 - 1.645\sqrt{\frac{s_X^2}{n}}$
     \begin{itemize}
-        \item $\frac{\vert \overline{X}_n - 3 \vert }{\sqrt{\frac{s_X^2}{n}}}$ is referred to as t-statistic, and in some references, $\sqrt{\frac{s_X^2}{n}}$ is referred to as the standard error of $\overline{X}_n$ (estimate of the standard deviation of $\overline{X}_n$
+        \item $\frac{\vert \overline{X}_n - 3 \vert }{\sqrt{\frac{s_X^2}{n}}}$ is referred to as t-statistic, and in some references, $\sqrt{\frac{s_X^2}{n}}$ is referred to as the standard error of $\overline{X}_n$ (estimate of the standard deviation of $\overline{X}_n$)
     \end{itemize}
+\end{itemize}
+
+\section{Tutorial 7 (28/10/2025)}
+\begin{itemize}
+\subsection{Problem Set 6}
+    \item 1. Suppose random variables $X$ and $Y$ have joint pdf $f_{X,Y}(x,y) = \lambda^2 e^{-\lambda(x+y)}, 0 \le x, 0 \le y$. Find $E[X+Y]$.
+    \begin{itemize}
+        \item $E[X+Y]=E[X]+E[Y]$
+        \item $\int_0^\infty \lambda^2 e^{-\lambda(x+y)} dy = \lambda^{-\lambda x}$
+        \item Hence, $f_X(x) = \left\{ \begin{array}{rl}
+            \lambda e^{-\lambda x}, & x \ge 0  \\
+            0, & \text{otherwise}
+        \end{array}\right.$ and $f_Y(y) = f_X(y)$ for all $y \in \mathbb{R}$
+        \item It follows that $E[X] = \int_0^\infty x \lambda e^{-\lambda x} dx = \frac{1}{\lambda} = E[Y]$
+        \item Hence $E[X+Y] = E[X]+E[Y] = \frac{1}{\lambda} + \frac{1}{\lambda} = \frac{2}{\lambda}$
+    \end{itemize}
+    \item 2. $Y_1,Y_2,\dots,Y_n$ is a random sample (i.i.d.) from the uniform pdf over [0,1]. The geometric mean of the numbers is the random variable $(Y_1 \cdot Y_2 \cdot, \cdots, \cdot Y_n)^{\frac{1}{n}}$. Compute the expected value of the geometric mean.
+    \begin{itemize}
+        \item $Y_i \sim Uniform([0,1])$ for $i=1,\dots,n$
+        \item Let $Y = \left( \prod_{i=1}^n Y_i \right)^{\frac{1}{n}}$. What is $E[Y]$?
+        \begin{flalign*}
+            E[Y] &= E\left[ \left( \prod_{i=1}^n Y_i \right)^{\frac{1}{n}} \right] \\
+            &= E\left[ \left( \prod_{i=1}^n Y_i^{\frac{1}{n}}  \right) \right] \\
+            &= \prod_{i=1}^n E \left[ Y_i^{\frac{1}{n}} \right], \qquad \because \text{Independence} \\
+            &= E\left[ Y_i^{\frac{1}{n}} \right]^n, \qquad \because \text{Identically Distributed} \\
+            &= \left[ \int_0^1 y_i^{\frac{1}{n}} \cdot f(y_i) dy_i  \right]^n \\
+            &= \left[ \int_0^1 y_i^{\frac{1}{n}} \cdot 1 dy_i  \right]^n \\
+            &= \left[ \frac{1}{\left( 1+ \frac{1}{n} \right)} y_i^{1 + \frac{1}{n}} \vert_0^1  \right]^n \\
+            &= \left[ \frac{n}{n+1} y_i^{\frac{(n+1)}{n}} \vert_0^1  \right]^n = \left[ \frac{n}{1+n} \right]^n \\
+        \end{flalign*}
+    \end{itemize}
+    \item 3. Let $X$ and $Y$ be random variables with
+    \[
+    f_{X,Y}(x,y) = \left\{ \begin{array}{rl}
+        1, & -y < x < y, 0 < y < 1 \\
+        0, & \text{otherwise}
+    \end{array}\right.
+    \]
+    Show that $Cov(X,Y) = 0$.
+    \begin{itemize}
+        \item $Cov(X,Y) = E[XY] - E[X]E[Y]$
+        \item $E[XY] = \int_0^1 \int_{-y}^y xy \cdot 1 dxdy = \int_0^1 y[\frac{x^2}{2}]_{-y}^y dy = 0$
+        \item $f_Y(y) = \left\{ \begin{array}{rl}
+            \int_{-y}^y 1 dx = [x]_{-y}^y = 2y, & 0 < y < 1 \\
+            0, & \text{otherwise}
+        \end{array}\right.$
+        \item Hence, $E[Y] = \int_0^1 2y^2 dy = [\frac{2}{3}y^3]_0^1 = \frac{2}{3}$
+         \item $f_X(y) = \left\{ \begin{array}{rl}
+            \int_0^1 1 dy = [y]_0^1 = 1, & -1 < x < 1 \\
+            0, & \text{otherwise}
+        \end{array}\right.$
+        \item Hence, $E[X] = \int_{-1}^1 x dx = [\frac{1}{2}x^2]_{-1}^1 = 0$
+        \item It follows that $Cov(X,Y) = E[XY] - E[X]E[Y] = 0 - \frac{2}{3} \cdot 0 = 0$
+    \end{itemize}
+    \item 4. The random variable $X$ is said to have a Poisson distribution if $p_X(k) = P(X = k) = \frac{e^{-\lambda}\lambda^k}{k!}, k = 0, 1, 2,\dots$, and $\lambda$ is a positive integer. We know for any Poisson random variables, $E[X] = Var(X) = \lambda$, which can be shown using its moment generating function. Poisson distribution is often used to model the number of occurrences of a certain event during a time period. For example, the number of traffic accidents in a week. Consider the following application of Poisson distribution. \\
+    Let the Poisson random variable $U$ be the number of calls for technical assistance received by a computer company during the firm’s nine normal workday hours. Suppose the average number of calls per hour is 7.0 and that each call costs the company 50 pounds. Let $V$ be a Poisson random variable representing the number of calls for technical assistance received during a day’s remaining fifteen hours. Suppose the average number of calls per hour is 4.0 for that time period and that each such call costs the company 60 pounds due to overtime cost. Find the expected cost and the variance of the cost associated with the calls received during a twenty-four-hour day.
+    \begin{itemize}
+        \item $U \sim Poisson(9 \cdot 7) = Poisson(63)$
+        \item $V \sim Poisson(15 \cdot 4) = Poisson(60)$
+        \item $C = 50U + 60V$ then $E[C] = 50 E[U] + 60 E[V] = 50 \cdot 9 \cdot 7 + 60 \cdot 15 \cdot 4 = 6750$
+        \item $Var(C) = Var(50U + 60V) = 50^2Var(U) + 60^2Var(V) = 2500 \cdot 63 + 3600 \cdot 60 = 373500$
+    \end{itemize}
+    \item Extra Topic: Show that for $X \sim Poisson(\lambda)$, $E[X]=Var(X)=\lambda$ using the moment generating function $\mu_X(t)$
+    \begin{flalign*}
+        \mu_X(t) = E[e^{tX}] &= \sum_{x=0}^\infty (e^{tx})\frac{e^{-\lambda}\lambda^x}{x!} \\
+        &= e^{-\lambda} \sum_{x=0}^\infty \frac{(\lambda e^t)^x}{x!} \\
+        &= e^{-\lambda}e^{\lambda e^t}, \qquad \because \text{Maclaurin series for } e^z: \sum_{x=0}^\infty \frac{z^x}{x!} \\
+        &= e^{\lambda(e^t-1)} \\
+        M_X'(t) &= (\lambda e^t)(e^{\lambda(e^t - 1)}) \\
+        E[X] = M_X'(0) &= (\lambda e^0)(e^{\lambda(e^0-1)}) = \lambda \\
+        M_X''(t) &= (\lambda e^t)(e^{\lambda(e^t - 1)}) + (\lambda e^t)^2(e^{\lambda(e^t - 1)})\\
+        E[X^2] &= M_X''(0) (\lambda e^0)(e^{\lambda(e^0 - 1)}) + (\lambda e^0)^2(e^{\lambda(e^0 - 1)}) = \lambda^2 + \lambda \\
+        Var(X) &= E[X^2] - E[X]^2 = \lambda^2 + \lambda - \lambda^2 = \lambda
+    \end{flalign*}
 \end{itemize}
 
 \section{Lecture 10 (01/12/2025)}
@@ -1839,7 +2062,7 @@
         \item Sometimes we write $H_0: \mu \le 3$ or $H_0: \mu < 3$
     \end{itemize}
     \item If the significance level is set at 0.1, we have $P \left( \frac{\vert \overline{X}_n - 3\vert}{\sqrt{\sigma^2 /n}} \ge 1.28 \right) = 0.1$
-    \item Small sample size
+    \item Small sample size - Optional Material
     \begin{itemize}
         \item We can also conduct both one-sided and two-sided test for population mean using the $t$-statistic when the sample size is small
         \item In this case, the $t$-statistic $= \frac{Z}{\sqrt{W/(n-1)}}$ follows student $t$ distribution with $(n-1)$ degrees of freedom, $Z \sim N(0,1), W \sim \chi_{n-1}^2$, $Z$ and $W$ are independent
@@ -1858,6 +2081,9 @@
         \[
         \hat{Var}(\hat{d}) = \frac{s_{old}^2}{n_{old}} + \frac{s_{young}^2}{n_{young}}
         \]
+    \end{itemize}
+    \item Confidence intervals
+    \begin{itemize}
         \item Since we know the distribution of $\hat{d}$, we can assess the uncertainty around the estimated difference in mean directly
         \item Given $\hat{d} \sim N(d, Var(\hat{d}))$, we have
         \begin{flalign*}
@@ -1877,9 +2103,10 @@
     \begin{itemize}
         \item Interpretation: what is the effect on $Y$ when $X$ changes by one unit
     \end{itemize}
-    \item Take test scores and STR as an example
+    \item Take test scores and student-teacher ratio (STR) as an example
     \begin{itemize}
         \item We collect data on students' test scores and STRs $(Y_i,X_i)$
+        \item Try to find a line that runs through the middle of the observed variables
         \item Answer: $\underset{b_0,b_1}{\text{argmin}} \sum_{i=1}^n (Y_i - (b_0 + b_1X_i))^2$
         \begin{itemize}
             \item We choose the line with the smallest total vertical squared distance from the points
@@ -1892,26 +2119,28 @@
     \]
     \item We can show the solution to this problem is
     \[
-    \hat{\beta}_1 = \frac{\sum_{i=1}^n (X_i - \overline{X})(Y_i - \overline{Y})}{\sum_{i=1}^n (X_i - \overline{X})^2}, \hat{\beta}_0 = \overline{Y} - \overline{X} \hat{\beta}_1
+    \hat{\beta}_1 = \frac{\sum_{i=1}^n (X_i - \overline{X})(Y_i - \overline{Y})}{\sum_{i=1}^n (X_i - \overline{X})^2}, \ \hat{\beta}_0 = \overline{Y} - \overline{X} \hat{\beta}_1
     \]
     \item We compute the derivative and set it equal to zero:
     \begin{flalign*}
-        \sum_{i=1}^n (Y_i - (b_0 + b_1X_i))^2 &= (Y_1 - (b_0 + b_1X_1))^2 + (Y_2 - (b_0 + b_1X_2))^2 + \dots + Y_n - (b_0 + b_1X_n))^2 \\
-        \text{First Order Condition: } -2 \sum_{i=1}^n (Y_i - \hat{\beta}_0 - \hat{\beta}_1X_i) &= 0 \\
+        \sum_{i=1}^n (Y_i - (b_0 + b_1X_i))^2 &= (Y_1 - (b_0 + b_1X_1))^2 \\
+        + (Y_2 - (b_0 + b_1X_2))^2 + \dots &+ (Y_n - (b_0 + b_1X_n))^2 \\
+        \text{First Order Condition 1: } -2 \sum_{i=1}^n (Y_i - \hat{\beta}_0 - \hat{\beta}_1X_i) &= 0 \\
         \Rightarrow \sum_{i=1}^n Y_i - n\hat{\beta}_0 - \hat{\beta}_1 \sum_{i=1}^n X_i &= 0 \\
         \Rightarrow \hat{\beta}_0 &= \overline{Y} - \overline{X} \hat{\beta}_1 \\
-        -2 \sum_{i=1}^n (Y_i - \hat{\beta}_0 - \hat{\beta}_1X_i)X_i &= 0 \\
+         \text{First Order Condition 2: } -2 \sum_{i=1}^n (Y_i - \hat{\beta}_0 - \hat{\beta}_1X_i)X_i &= 0 \\
         \Rightarrow \sum_{i=1}^n X_iY_i - \hat{\beta}_0 \sum_{i=1}^n X_i  - \hat{\beta}_1 \sum_{i=1}^n X_i^2 &= 0 \\
-        \Rightarrow \sum_{i=1}^n X_iY_i - \overline{Y} \underset{n\overline{X}}{\underbrace{\sum_{i=1}^n X_i}} + \hat{\beta}_1 \overline{X} \underset{n\overline{X}}{\underbrace{\sum_{i=1}^n X_i}}  - \hat{\beta}_1 \sum_{i=1}^n X_i^2 &= 0 \\ 
+        \Rightarrow \sum_{i=1}^n X_iY_i - \overline{Y} \underset{n\overline{X}}{\underbrace{\sum_{i=1}^n X_i}} + \hat{\beta}_1 \overline{X} \underset{n\overline{X}}{\underbrace{\sum_{i=1}^n X_i}}  - \hat{\beta}_1 \sum_{i=1}^n X_i^2 &= 0, \qquad \because \text{Substitute in } \hat{\beta}_0\\ 
         \Rightarrow \sum_{i=1}^n X_iY_i - n \overline{Y} \overline{X} + n \hat{\beta}_1 \overline{X} \overline{X} - \hat{\beta}_1 \sum_{i=1}^n X_i^2 &= 0 \\ 
         \Rightarrow \hat{\beta}_1 \left( n \overline{X}^2 - \sum_{i=1}^n X_i^2 \right) &= n \overline{X} \overline{Y} - \sum_{i=1}^n X_iY_i \\
         \Rightarrow \hat{\beta}_1 \left( \sum_{i=1}^n X_i^2 - n \overline{X}^2 \right) &= \sum_{i=1}^n X_iY_i - n \overline{X} \overline{Y} \\
         \Rightarrow \hat{\beta}_1 &= \frac{\sum_{i=1}^n X_iY_i - n \overline{X} \overline{Y}}{\sum_{i=1}^n X_i^2 - n \overline{X}^2} \\
         \sum_{i=1}^n X_iY_i - n \overline{X} \overline{Y} &= \sum_{i=1}^n \left( X_iY_i - \overline{X} \overline{Y} \right) \\
-        &= \sum_{i=1}^n \left( X_iY_i - \overline{X}Y_i - \overline{Y}X_i + \overline{X} \overline{Y} \right) \qquad \because \sum_{i=1}^n \overline{X}Y_i = \sum_{i=1}^n \overline{Y}X_i = n \overline{x}\overline{y} \\
-        &= \sum_{i=1}^n (X_i - \overline{x})(Y_i - \overline{y}) \\
+        &= \sum_{i=1}^n \left( X_iY_i - \overline{X}Y_i - \overline{Y}X_i + \overline{X} \overline{Y} \right) \\
+        &\because \sum_{i=1}^n \overline{X}Y_i = \sum_{i=1}^n \overline{Y}X_i = n \overline{XY} \\
+        &= \sum_{i=1}^n (X_i - \overline{X})(Y_i - \overline{Y}) \\
         \sum_{i=1}^n X_i^2 - n \overline{X}^2 &= \sum_{i=1}^n (X_i^2 - \overline{X}^2) \\
-        &= \sum_{i=1}^n (X_i^2 - 2x\overline{X} + \overline{x}^2) \qquad\because \sum_{i=1}^n x\overline{x} = n \overline{x}^2 \\
+        &= \sum_{i=1}^n (X_i^2 - 2X_i\overline{X} + \overline{X}^2) \qquad \because \sum_{i=1}^n X_i\overline{X} = n \overline{X}^2 \\
         &= \sum_{i=1}^n (X_i - \overline{X})^2 \\
         \Rightarrow \hat{\beta}_1 &= \frac{\sum_{i=1}^n (X_i - \overline{X})(Y_i - \overline{Y})}{\sum_{i=1}^n (X_i - \overline{X})^2}
     \end{flalign*}
@@ -1919,8 +2148,14 @@
     \begin{itemize}
         \item Little variation in $X_i$ can create problems, as the denominator can not be too close to zero
         \item Larger variation in $X_i$ leads to more precisely estimated $\beta_1$
+        \begin{itemize}
+            \item In plain language measn that more horizontal spread leads to easier detection of trends
+        \end{itemize}
     \end{itemize}
     \item In theory, we can also estimate $X = \delta_0 + \delta_1 Y$ by solving $\underset{\delta_0,\delta_1}{\text{argmin}} \sum_{i=1}^n (X_i - \delta_0 - \delta_1 Y_i)^2$, but $\hat{\beta} \neq \frac{1}{\hat{\delta}}$
+    \begin{itemize}
+        \item This is because regression of $Y$ on $X$ minimizes vertical errors while regression of $X$ on $Y$ minimizes horizontal errors
+    \end{itemize}
     \item Population linear regression model:
     \[
     Y_i = \beta_0 + \beta_1 X_i + u_i
@@ -1934,23 +2169,23 @@
     \end{itemize}
     \item There are three assumptions we are making:
     \begin{itemize}
-        \item $E[u_1 \mid X_i] = 0$
+        \item Assumption 1: $E[u_1 \mid X_i] = 0$
         \begin{itemize}
             \item Equivalent to $E[Y_i \mid X_i] = \beta_0 + \beta_1 X_i$
             \begin{flalign*}
                 E[Y_i \mid X_i] &= E[\beta_0 + \beta_1X_i + u_i \mid X_i] \\
                 &= \beta_0 + \beta_1 E[X_i \mid X_i] + E[u_i \mid X_i] \\
-                &= \beta_0 + \beta_1 X_i
+                &= \beta_0 + \beta_1 X_i \qquad \text{if } E[u_i \mid X_i] = 0
             \end{flalign*}
             \item Assumes the conditional expectation is always a linear function (lots of cases when this is not true)
             \item For a given value of $X_i$, the expectation taken of $u_i$ needs to average to zero and $Y_i$ needs to average to the linear regression line
         \end{itemize}
-        \item $(Y_i,X_i), i=1,\dots,n$ are i.i.d.
+        \item Assumption 2: $(Y_i,X_i), i=1,\dots,n$ are i.i.d.
         \begin{itemize}
             \item Equivalent to assuming data are randomly sampled
             \item Some cases when this assumption may not hold are things like temporal correlation, spatial correlation, etc.
         \end{itemize}
-        \item $0 < E[u_i^4] < \infty$ and $0 < E[X_i^4] < \infty$
+        \item Assumption 3: $0 < E[u_i^4] < \infty$ and $0 < E[X_i^4] < \infty$
         \begin{itemize}
             \item Can be interpreted as large outliers $(X_i, Y_i)$ are unlikely
             \item OLS can be sensitive to even a single outlier
@@ -1960,65 +2195,125 @@
 
 \section{Tutorial 9 (05/12/2025)}
 \begin{itemize}
-    \item Question 1
-    \begin{flalign*}
-        \hat{\sigma}^2 &= \frac{1}{n} \sum_{i=1}^n (X_i - \mu)^2 \\
-        E[\hat{\sigma}^2] &= \frac{1}{n} \sum_{i=1}^n E[(X_i - \mu)^2] \\
-        &= \frac{1}{n} n Var(X) \qquad \text{i.i.d. condition} \\
-        &= Var(X) = \sigma^2
-    \end{flalign*}
-    \item Question 3
-    \begin{flalign*}
-        E[\overline{W}^2] &= Var(\overline{W}) - E[\overline{W}]^2 \\
-        E[\overline{W}] &= \frac{1}{n} \sum_{i=1}^n E[W_i] \\
-        &= \frac{1}{n} n\mu \qquad \text{i.i.d. assumption} \\
-        Var(\overline{W}) &= Var\left( \frac{1}{n} \sum_{i=1}^n W_i \right) \\
-        &= \frac{1}{n^2} Var(\sum_{i=1}^n W_i) \\
-        &= \frac{1}{n^2} \sum_{i=1}^n Var(W_i) \qquad \text{independence assumption} \\
-        &= \frac{1}{n^2} n\sigma^2 = \frac{\sigma^2}{n} \qquad \text{identical assumption} \\
-        E[\overline{W}^2] &= \frac{\sigma^2}{n} + \mu^2
-    \end{flalign*}
     \item $\hat{\theta}$ is a consistent estimator for $\theta$ if $\hat{\theta}$ converges in probability to $\theta$
     \begin{itemize}
         \item Check for asymptotic unbiasedness ($\lim_{n\rightarrow \infty} E[\hat{\theta}] = \theta$) and $\lim_{n \rightarrow \infty} Var(\hat{\theta}) = 0$
     \end{itemize}
-    \item Question 4
+    \item You never accept a null. You either "reject" or "fail-to-reject"
+    \begin{itemize}
+        \item When you "reject" or "fail-to-reject", you must say: "... at the $x\%$ significance level"
+    \end{itemize}
+\subsection{Problem Set 7}
+    \item 1. We showed in lecture that, for a random sample $\{ X_1, \dots, X_n\}$, $\hat{\sigma}^2 = \frac{1}{n} \sum_{i=1}^n (X_i - \overline{X})^2$ is a biased estimator for $\sigma^2 = Var(X_i)$. If $\mu = E[X_i]$ is known, show that $\hat{\sigma}^2 = \frac{1}{n} \sum_{i=1}^n (X_i - \mu)^2$ then becomes an unbiased estimator for $\sigma^2$.
+    \begin{flalign*}
+        \hat{\sigma}^2 &= \frac{1}{n} \sum_{i=1}^n (X_i - \mu)^2 \\
+        E[\hat{\sigma}^2] &= \frac{1}{n} \sum_{i=1}^n E[(X_i - \mu)^2] \\
+        &= \frac{1}{n} \sum_{i=1}^n E[(X_i - E[X_i])^2] \\
+        &= \frac{1}{n} n Var(X) \qquad \text{i.i.d. condition} \\
+        &= Var(X) = \sigma^2
+    \end{flalign*}
+    \item 2. Five hundred adults are asked whether they favor a public finance reform bill. If the true proportion of the electorate in favor of the legislation is 52\%, what are the chances that fewer than half of those in the sample support the proposal? Use a normal distribution to approximate the answer.
+    \begin{itemize}
+        \item Suppose $X_i \overset{i.i.d.}{\sim} Bernoulli(p)$ for $i=1,\dots,n$ where $n=500$ and $p = 0.52$
+        \item Then $X = \sum_{i=1}^{500} X_i \sim Binomial(n,p)$
+        \item Nevertheless, we will use the $\mathcal{N}(np,np(1-p)$ approximation to answer this question (as instructed)
+        \item Suppose $Y \sim \mathcal{N}(260,124.8)$. We use $Y$ to model the number of adults that support the public finance reform bill.
+        \[
+        P(Y \le 250) = P(\frac{Y-260}{\sqrt{124.8}} \le -\frac{10}{\sqrt{124.8}}) \approx P(Z \le -0.90)
+        \]
+        \item From a z-table, we obtain $P(Y \le 250) \approx 0.1841$
+    \end{itemize}
+    \item 3. An estimator $\hat{\theta}_n = h(W_1,\dots,W_n)$ is said to be asymptotically unbiased for $\theta$ if $\lim_{n \rightarrow \infty} E[\hat{\theta}_n] = \theta$. Suppose $W_1, \dots,W_n$ is a random sample with mean $\mu$ and variance $\sigma^2$. Let $\overline{W} = \frac{1}{n} \sum_{i=1}^n W_i$. Show that $\overline{W}^2$ is an asymptotically unbiased estimator for $\mu^2$.
+    \begin{flalign*}
+        E[\overline{W}^2] &= Var(\overline{W}) + E[\overline{W}]^2 \\
+        E[\overline{W}] &= \frac{1}{n} \sum_{i=1}^n E[W_i] \\
+        &= \frac{1}{n} n\mu = \mu \qquad \text{i.i.d. assumption} \\
+        Var(\overline{W}) &= Var\left( \frac{1}{n} \sum_{i=1}^n W_i \right) \\
+        &= \frac{1}{n^2} Var(\sum_{i=1}^n W_i) \\
+        &= \frac{1}{n^2} \sum_{i=1}^n Var(W_i) \qquad \text{independence assumption} \\
+        &= \frac{1}{n^2} n\sigma^2 = \frac{\sigma^2}{n} \qquad \text{identical assumption} \\
+        E[\overline{W}^2] &= \frac{\sigma^2}{n} + \mu^2 \\
+        \lim_{n \rightarrow \infty} E[\overline{W}^2] = \mu^2
+    \end{flalign*}
+    \item 4. In lecture, we showed that $\hat{\sigma}^2 = \frac{1}{n} \sum_{i=1}^n (X_i - \overline{X})^2$ is a consistent estimator for $\sigma^2$, and we said the sample variance $s_X^2$ must also be consistent given it has similar large sample properties as $\hat{\sigma}^2$. Show directly $s_X^2$ is consistent for $\sigma^2$, when $\{X_1,\dots,X_n\}$ is a random sample with finite fourth moments.
     \begin{flalign*}
         s_X^2 &= \frac{1}{n-1} \sum_{i=1}^n (X_i - \overline{X})^2 \\
         &= \frac{1}{n-1} \sum_{i=1}^n ((X_i - \mu) - (\overline{X} - \mu))^2 \\
-        &=\frac{1}{n-1} \sum_{i=1}^n \left[(X_i - \mu)^2 + (\overline{X} - \mu)^2 - 2(X_1 - \mu)(\overline{X} - \mu)\right] \\
+        &=\frac{1}{n-1} \sum_{i=1}^n \left[(X_i - \mu)^2 + (\overline{X} - \mu)^2 - 2(X_i - \mu)(\overline{X} - \mu)\right] \\
         &= \frac{1}{n-1} \sum_{i=1}^n (X_i - \mu)^2 + \frac{1}{n-1} n(\overline{X} - \mu)^2 - \frac{2n}{n-1} (\overline{X} - \mu)(\overline{X} - \mu) \qquad \sum_{i=1}^n X_i = n \overline{X} \\
         &= \frac{n}{n-1}\frac{1}{n} \sum_{i=1}^n (X_i - \mu)^2 - \frac{n}{n-1} (\overline{X}-\mu)^2 \\
         &= \frac{n}{n-1} \left[ \frac{1}{n} \sum_{i=1}^n (X_i - \mu)^2 - (\overline{X} - \mu)^2 \right] \\
-        &= \left( \frac{n}{n-1} \right) (A - B), \qquad A = \frac{1}{n} \sum_{i=1}^n (X_i - \mu)^2, \qquad B = (\overline{X} - \mu)^2 \\
-        E[A] &= \sigma^2, \qquad Var(A) = \frac{1}{n} Var(\tilde{X}_i^2) = \frac{1}{n} \left[ E[\tilde{X}_i^4] - E[\tilde{X}_i^2]^2 \right]
+        &= \left( \frac{n}{n-1} \right) (A - B), \qquad A = \frac{1}{n} \sum_{i=1}^n (X_i - \mu)^2, \qquad B = (\overline{X} - \mu)^2
     \end{flalign*}
-    \item Question 5
     \begin{itemize}
-        \item Hypothesis testing recipe
+        \item Consider $A := \frac{1}{n} \sum_{i=1}^n (X_i - \mu)^2$, for which $E[A] = \sigma^2$ and $ Var(A) = \frac{1}{n} Var(\tilde{X}_i^2) = \frac{1}{n} \left[ E[\tilde{X}_i^4] - E[\tilde{X}_i^2]^2 \right]$
         \begin{itemize}
-            \item Assumptions
+            \item Since $E[\tilde{X}^4] < \infty$, where $\tilde{X}_i = X_i - \mu$, $\frac{1}{n} \left[ E[\tilde{X}_i^4] - E[\tilde{X}_i^2]^2 \right] \rightarrow 0$
+            \item Hence, $A \overset{p}{\rightarrow} \sigma^2$ as $n \rightarrow \infty$ due to the LLN
+        \end{itemize}
+        \item Further, we know that $B := (\overline{X} - \mu) \overset{p}{\rightarrow} 0$ as $n \rightarrow \infty$ due to the LLN, meaning that $(\overline{X} - \mu)^2 \overset{p}{\rightarrow} 0$ as $n \rightarrow \infty$
+        \item Finally, $\frac{n}{n-1} \rightarrow 1$ as $n \rightarrow \infty$
+        \item Putting these together, we get that $\lim_{n \rightarrow \infty} E[s_X^2] = \sigma^2$ and $\lim_{n \rightarrow} Var(s_X^2) = 0$.
+    \end{itemize}
+    \item 5. To investigate possible gender discrimination in a firm, a sample of 100 men and 64 women with similar job descriptions are selected at random. A summary of the resulting monthly salaries follows:
+    \[
+    \begin{array}{cccc}
+        0 & \text{Average Salary} & \text{Standard Deviation} & n  \\
+        \hline 
+        \text{Men} & 3100 & 200 & 100 \\
+        \text{Women} & 2900 & 320 & 64
+    \end{array}
+    \]
+    What does the data suggest about wage differences in the firm? Are wages of men and women different?
+    \item Ragvir's hypothesis testing recipe
+        \begin{itemize}
+            \item (1) Assumptions
             \begin{itemize}
                 \item Assume $X_i \overset{i.i.d.}{\sim} \mathcal{N}(\mu_X,\sigma_X^2)$ for $i = 1,\dots,n_X$ and $Y_i \overset{i.i.d.}{\sim} \mathcal{N}(\mu_Y,\sigma_Y^2)$ for $i = 1,\dots,n_Y$, where $\sigma_X^2$ and $\sigma_Y^2$ are finite and $X_i \perp Y_i$ (independence) for all $i,j$, with $\mu_X,\mu_Y,\sigma_X^2,\sigma_Y^2$ unknown
             \end{itemize}
-            \item Hypothesis
+            \item (2) Hypotheses
             \begin{itemize}
                 \item $H_0: \mu_X - \mu_Y = 0$
                 \item $H_1: \mu_X - \mu_y \neq 0$
             \end{itemize}
-            \item Test statistic
+            \item (3) Test statistic
             \begin{itemize}
                 \item $t := \frac{(\overline{X} - \overline{Y})}{\left[ \frac{S_X^2}{n_X} + \frac{S_Y^2}{n_Y}\right]^\frac{1}{2}}$
             \end{itemize}
-            \item Distribution of test statistic under $H_0$ and assumptions
-            \item Significance level
+            \item (4) Distribution of test statistic under $H_0$ (and our assumptions)
+            \begin{itemize}
+                \item $t \overset{approx}{\sim} \mathcal{N}(0,1)$
+            \end{itemize}
+            \item (5) Significance level
+            \begin{itemize}
+                \item $\alpha = 0.05$
+            \end{itemize}
+            \item (6) Critical value(s)
+            \begin{itemize}
+                \item Reject $H_0$ if and only if $\vert t \vert > 1.96$
+            \end{itemize}
+            \item (7) Decision rule
+            \begin{itemize}
+                \item Reject $H_0$ if and only if $\vert t \vert > 1.96$
+            \end{itemize}
+            \item (8) Compute value of $t$
+            \begin{itemize}
+                \item $t = \frac{3100-2900}{\left[ \frac{200^2}{100} + \frac{320^2}{64} \right]^\frac{1}{2}} \approx 4.472$
+            \end{itemize}
+            \item (9) Test result
+            \begin{itemize}
+                \item Since $4.472 > 1.96$, we reject $H_0$ at the $5\%$ significance level
+            \end{itemize}
+            \item Interpretation
+            \begin{itemize}
+                \item There is strong evidence against the hypothesis that there is no gender discrimination in earnings.
+            \end{itemize}
         \end{itemize}
-    \end{itemize}
 \end{itemize}
 
 \section{Lecture 11 (08/12/2025)}
 \begin{itemize}
-    \item Probability framework for OLs
+    \item Probability framework for OLS
     \begin{itemize}
         \item We can show that OLS estimators of $\hat{\beta}_0. \hat{\beta}_1$ are indeed reasonable estimators for $\beta_0$ and $\beta_1$
         \item $\beta_0$ and $\beta_1$ are true parameter values (constants) in the population model
@@ -2028,18 +2323,23 @@
         \item We start from assumption 1 ($E[u_i \mid X_i] = 0$) and apply the law of iterated expectations
         \begin{flalign*}
             E[u_i] = E[E[u_i \mid X_i]] = E[0] &= 0 \\
+            \text{Sample analog: } \frac{1}{n} \sum_{i=1}^n \hat{u}_i &= 0 \\
+            \text{Thus } \frac{1}{n} \sum_{i=1}^n (Y_i - \hat{\beta}_0 - \hat{\beta}_1 X_i) &= 0 \\
+            \Rightarrow \overline{Y} - \hat{\beta}_0 - \hat{\beta}_1 \overline{X} &= 0 \\
+            \Rightarrow \hat{\beta}_0 = \overline{Y} - \overline{X} \hat{\beta}_1 \\
             E[u_i X_i] = E[E[u_iX_i \mid X_i]] = E[E[u_i \mid X_i]X_i] = E[0 \cdot X_i] &= 0 \\
-            \frac{1}{n} \sum_{i=1}^n \hat{u}_i X_i &= 0 \\
+            \text{Sample analog: } \frac{1}{n} \sum_{i=1}^n \hat{u}_i X_i &= 0 \\
             \frac{1}{n} \sum_{i=1}^n (Y_i - \hat{\beta}_0 - \hat{\beta}_1 X_i) X_i &= 0 \\
-            \frac{1}{n} \sum_{i=1}^n (Y_i - \overline{Y} + \hat{\beta}_1 \overline{X} - \hat{\beta}_1 X_i) X_i &= 0 \\
-            \overline{y} - \hat{\beta}_0 - \hat{\beta}_1 \overline{x} &= 0 \\
-            \frac{1}{n} \sum_{i=1}^n (Y_i - \overline{Y}) \overline{X} &= 0 \\
-            \frac{1}{n} n \overline{Y} \overline{X} - \frac{1}{n} n \overline{Y} \overline{X} &= 0 \\
-            \frac{1}{n} \sum_{i=1}^n (\hat{\beta}_1 \overline{X} - \hat{\beta}_1 X_i) \overline{X} &= 0 \\
+            \because \hat{\beta}_0 = \overline{Y} - \overline{X} \hat{\beta}_1, \qquad \frac{1}{n} \sum_{i=1}^n (Y_i - \overline{Y} + \hat{\beta}_1 \overline{X} - \hat{\beta}_1 X_i) X_i &= 0 \\
+            \text{Note } \frac{1}{n} \sum_{i=1}^n (Y_i - \overline{Y}) \overline{X} = 0 \text{ and } \frac{1}{n} \sum_{i=1}^n (\overline{X} \hat{\beta}_1 - X_i \hat{\beta}_1)\overline{X} &= 0 \\
+            (1) \because \frac{1}{n} n \overline{Y} \overline{X} - \frac{1}{n} n \overline{Y} \overline{X} &= 0 \\
+            (2) \because \frac{\hat{\beta}_1}{n} n\overline{XX} - \frac{\hat{\beta}_1}{n} n \overline{XX} &= 0 \\
+            \text{Subtract by zero: }
             \Rightarrow \frac{1}{n} \sum_{i=1}^n (Y_i - \overline{Y} + \hat{\beta}_1 \overline{X} - \hat{\beta}_1 X_i) (X_i- \overline{X}) &= 0 \\
-            \frac{1}{n} \sum_{i=1}^n (Y_i - \overline{Y} - \hat{\beta}_1 \overline{X} (X_i - \overline{X})) (X_i- \overline{X}) &= 0 \\
+            \frac{1}{n} \sum_{i=1}^n (Y_i - \overline{Y} - \hat{\beta}_1 (X_i - \overline{X})) (X_i- \overline{X}) &= 0 \\
+            \sum_{i=1}^n (Y_i - \overline{Y})(X_i - \overline{X}) - \hat{\beta}_1 \sum_{i=1}^n (X_i - \overline{X})^2 &= 0 \\
             \Rightarrow \hat{\beta}_1 = \frac{\sum_{i=1}^n (Y_i-\overline{Y})(X_i - \overline{X}))}{\sum_{i=1}^n (X_i -\overline{X})^2} \\
-            \hat{\beta}_0 = \overline{Y} - \hat{\beta}_1 \overline{X} \\
+            \hat{\beta}_0 = \overline{Y} - \hat{\beta}_1 \overline{X}
         \end{flalign*}
         \item We use the above two equations and method of moments to construct estimators for $\beta_0$ and $\beta_1$
         \item We can show the estimates $\hat{\beta}_0$ and $\hat{\beta}_1$ have the same expressions as those obtained by solving the problem $\min_{b_0,b_1} \sum_{i=1}^n (Y_i - b_0 - b_1X_i)^2$
@@ -2059,26 +2359,64 @@
     E[\hat{\beta}_1] = E\left[ \beta_1 + \frac{\sum_{i=1}^n (X_i-\overline{X})E[U_i \mid X_1, \dots, X_n]}{\sum_{i=1}^n (X_i - \overline{X})^2} \right] = \beta_1
     \]
     \item We can also show $E[\hat{\beta}_0] = \beta_0$ similarly
-    \item The OLD estimators $\hat{\beta}_0$ and $\hat{\beta}_1$ are unbiased
+    \item The OLS estimators $\hat{\beta}_0$ and $\hat{\beta}_1$ are unbiased
 \subsection{Slide 11}
+    \item Final exam
+    \begin{itemize}
+        \item Two-hour long
+        \item Similar format as midterm test
+        \item Exam covers all topics in lectures
+        \begin{itemize}
+            \item Conceptual questions only for OLS estimation
+            \item Moment generating function not included
+        \end{itemize}
+        \item Closed book, no internet access
+        \item Notes on two sheets of A4 paper (double-sided) allowed
+        \item Calculator allowed
+        \item Standard normal distribution table will be provided
+        \item Show your work!
+        \item Review lecture notes, tutorial notes, problem sets, practice exam
+        \item Review session on Friday
+    \end{itemize}
     \item Properties of OLS estimators: consistency
     \begin{itemize}
+        \item Intuition comes from LLN
         \item We can show the true parameter $\beta_1 = \frac{Cov(X_i,Y_i)}{Var(X_i)}$
         \item We have shown $\hat{\beta}_1 = \frac{\sum_{i=1}^n (Y_i-\overline{Y})(X_i - \overline{X}))}{\sum_{i=1}^n (X_i -\overline{X})^2} = \frac{\frac{1}{n} \sum_{i=1}^n (X_i - \overline{X})(Y_i - \overline{Y})}{\frac{1}{n} \sum_{i=1}^n (X_i - \overline{X})^2}$
         \item We can see the numerator of $\hat{\beta}_1$ approximates $Cov(X_i,Y_i)$ and the denominator approximates $Var(X_i)$
     \end{itemize}
-    \item Propoerties of OLS estimators: asymptotic distribution
+    \item Properties of OLS estimators: asymptotic distribution
     \begin{itemize}
         \item We can also use the central limit theorem to derive the asymptotic (large sample) distribution of the OLS estimates
         \item $\hat{\beta}_1 \sim \mathcal{N}(\beta_1,\sigma_{\hat{\beta}_!}^2), \hat{\beta}_0 \sim \mathcal{N}(\beta_0, \sigma_{\hat{\beta}_0}^2)$ approximately in large sample
         \item We take $\hat{\beta}_1$ as an example to describe the intuition
+        \begin{flalign*}
+            \hat{\beta}_1 &= \frac{\sum_{i=1}^n (Y_i-\overline{Y})(X_i - \overline{X}))}{\sum_{i=1}^n (X_i -\overline{X})^2} \\
+            Y_i &= \beta_0 + \beta_1 X_i + U_i \\
+            \hat{\beta}_1 &= \frac{\sum_{i=1}^n (\beta_0 + \beta_1 X_i + U_i - \overline{Y})(X_i - \overline{X})}{\sum_{i=1}^n (X_i -\overline{X})^2} \\
+            &= \frac{1}{\sum_{i=1}^n (X_i -\overline{X})^2} \left[ \sum_{i=1}^n \beta_0(X_i - \overline{X}) + \sum_{i=1}^n \beta_1 X_i (X_i - \overline{X}) + \sum_{i=1}^n U_i (X_i - \overline{X}) - \sum_{i=1}^n \overline{Y} (X_i - \overline{X}) \right] \\
+            &= \frac{1}{\sum_{i=1}^n (X_i -\overline{X})^2} [  \underset{=0}{\underbrace{(\beta_0 \sum_{i=1}^n X_i - \beta_0 \sum_{i=1}^n \overline{X})}} + \underset{= \beta_1\sum_{i=1}^n (X_i -\overline{X})^2}{\underbrace{(\beta_1 \sum_{i=1}^n X_i^2 - \beta_1 \sum_{i=1}^n X_i \overline{X})}} \\
+            &- \underset{=0}{\underbrace{(\sum_{i=1}^n \overline{Y} X_i - \sum_{i=1}^n \overline{YX})}} + \sum_{i=1}^n U_i (X_i - \overline{X})] \\
+            &= \frac{\beta_1\sum_{i=1}^n (X_i -\overline{X})^2 + \sum_{i=1}^n (X_i - \overline{X})U_i}{\sum_{i=1}^n (X_i -\overline{X})^2} \\
+            &= \beta_1 + \frac{\sum_{i=1}^n (X_i - \overline{X})U_i}{\sum_{i=1}^n (X_i -\overline{X})^2}
+        \end{flalign*}
         \begin{itemize}
-            \item Since $\hat{\beta}_1 = \beta_1 + \frac{\sum_{i=1}^n (X_i - \overline{X})U_i}{\sum_{i=1}^n (X_i -\overline{X})^2} = \beta_1 \frac{\frac{1}{n}\sum_{i=1}^n (X_i - \overline{X})U_i}{\frac{1}{n} \sum_{i=1}^n (X_i -\overline{X})^2}, \frac{1}{n} \sum_{i=1}^n (X_i - \overline{X})^2 \overset{p}{\rightarrow} Var(X_i)$, then $\sigma_{\hat{\beta}_1}^2 = \frac{Var[(X_i - E[X_i])U_i]}{n[Var(X_i)]^2}$
+            \item Since $\hat{\beta}_1 = \beta_1 + \frac{\sum_{i=1}^n (X_i - \overline{X})U_i}{\sum_{i=1}^n (X_i -\overline{X})^2} = \beta_1 + \frac{\frac{1}{n}\sum_{i=1}^n (X_i - \overline{X})U_i}{\frac{1}{n} \sum_{i=1}^n (X_i -\overline{X})^2}$
+            \item By LLN, $\frac{1}{n} \sum_{i=1}^n (X_i - \overline{X})^2 \overset{p}{\rightarrow} Var(X_i)$, meaning that in large samples, the denominator behaves like a constant
+            \item Assuming the terms are i.i.d. with finite variance, $\frac{1}{n}\sum_{i=1}^n (X_i - \overline{X})U_i \approx \frac{1}{n} \sum_{i=1}^n (X_i - E[X_i])U_i$
+            \begin{itemize}
+                \item We can also assume that $E[(X_i - E[X_i])U_i] = 0$ (expected value is zero)
+                \item By the central limit theorem, $\sqrt{n} \left( \frac{1}{n} \sum_{i=1}^n (X_i - E[X_i])U_i \right) \overset{d}{\rightarrow} \mathcal{N}(0,Var[(X_i - E[X_i])U_i])$
+            \end{itemize}
+            \item Putting everything together, we get $\hat{\beta}_1 \approx \mathcal{N}\left( \beta_1, \frac{Var[(X_i - E[X_i])U_i]}{n[Var(X_i)]^2} \right)$
+            \item Then $\sigma_{\hat{\beta}_1}^2 = \frac{Var[(X_i - E[X_i])U_i]}{n[Var(X_i)]^2}$
         \end{itemize}
         \item $\sigma_{\hat{\beta}_0}^2$ has a similar expression of $\frac{constant}{n}$
     \end{itemize}
     \item Standard errors of $\hat{\beta}_0$ and $\hat{\beta}_1$, $SE(\hat{\beta}_0)$ and $SE(\hat{\beta}_1)$ are the estimates of $\sigma_{\hat{\beta}_0}$ and $\sigma_{\hat{\beta}_1}$
-    \item Standard errors tell us how reliable our estimates are
+    \begin{itemize}
+        \item Standard errors tell us how reliable our estimates are
+    \end{itemize}
     \item Confidence intervals (CI): 95\% confidence intervals cover the true parameter value with probability 95\%
     \item Given the large sample distribution of $\hat{\beta}_1$, 95\% $CI = [\hat{\beta}_1 - 1.96 SE[\hat{\beta}_1], \hat{\beta}_1 + 1.96 SE[\hat{\beta}_1]]$
     \begin{itemize}
@@ -2087,26 +2425,137 @@
     \item We might be interested in testing for specific values of $\beta_1$
     \begin{itemize}
         \item $H_0 : \beta_1 = \gamma$ and $H_1: \beta_1 \neq \gamma$
+        \item The procedure is the same as the population mean test we discussed before
+        \begin{itemize}
+            \item Set $t$-statistic $= \frac{\hat{\beta}_1 - \gamma}{SE[\hat{\beta}_1]} \sim \mathcal{N}(0,1)$ under $H_0$
+            \item For 5\% significance level, reject $H_0$ if $\vert t\text{-statistic} \vert > 1.96$
+        \end{itemize}
     \end{itemize}
-    \item The procedure is the same as the population mean test we discussed before
-    \item Set $t$-statistic $= \frac{\hat{\beta}_1 - \gamma}{SE[\hat{\beta}_1]} \sim \mathcal{N}(0,1)$ under $H_0$
-    \item For 5\% significance level, reject $H_0$ if $\vert t\text{-statistic} \vert > 1.96$
     \item The predicted value of the dependent variable is $\hat{Y}_i = \hat{\beta}_0 + \hat{\beta}_1 X_i$
-    \item We can write predicted error $\hat{u}_i = Y_i - \hat{Y}_i = Y_i - \hat{\beta}_0 - \hat{\beta}_1 X_i$, which can also be called the residual
-    \item Sum of square residuals, $SSR = \sum_{i=1}^n \hat{u}_i^2$
-    \item Note that SSR is what we were minimizing when solving for $\hat{\beta}_0$ and $\hat{\beta}_1$, or how far the fitted line is to the data points
+    \begin{itemize}
+        \item We can write predicted error $\hat{u}_i = Y_i - \hat{Y}_i = Y_i - \hat{\beta}_0 - \hat{\beta}_1 X_i$, which can also be called the residual
+        \item Sum of square residuals, $SSR = \sum_{i=1}^n \hat{u}_i^2$
+        \item Note that SSR is what we were minimizing when solving for $\hat{\beta}_0$ and $\hat{\beta}_1$, or how far the fitted line is to the data points
+    \end{itemize}
     \item Standard error of the regression $SER = \sqrt{S_{\hat{u}}^2}$, where $S_{\hat{u}}^2 = \frac{1}{n-2} \sum_{i=1}^n \hat{u}_i^2 = \frac{SSR}{n-2}$, which measures the average size of the regression residual or "mistake" made by OLS line
     \item Total sum of squares $TSS = \sum_{i=1}^n (Y_i - \overline{Y})^2$ measures the total variation in the dependent variable which is what we are trying to explain using the regression model
     \item Explained sum of squares $ESS = \sum_{i=1}^n (\hat{Y}_i - \overline{Y})^2$ measures the variation we are able to explain using the regression model
     \item $R^2 = \frac{ESS}{TSS} = 1 - \frac{SSR}{TSS}$, the fraction of variation in the dependent variable explained by the regression model, $0 \le R^2 \le 1$
-    \item If $(\forall i) \ \hat{u}_i = 0$, then $Y_i = \hat{Y}_i, R^2 = 1$, we have a perfect fit
-    \item If $\hat{\beta}_1 = 0, \hat{Y}_i = \hat{\beta}_0 = \overline{Y} - \hat{\beta}_1 \overline{X} = \overline{Y}$, then $ESS = 0, R^2 = 0$, which can be interpreted as $X_i$ does not explain any variation in $Y_i$
+    \begin{itemize}
+        \item  If $(\forall i) \ \hat{u}_i = 0$, then $Y_i = \hat{Y}_i, R^2 = 1$, we have a perfect fit
+        \item If $\hat{\beta}_1 = 0, \hat{Y}_i = \hat{\beta}_0 = \overline{Y} - \hat{\beta}_1 \overline{X} = \overline{Y}$, then $ESS = 0, R^2 = 0$, which can be interpreted as $X_i$ does not explain any variation in $Y_i$
+    \end{itemize}
     \item Note $R^2$ increases with the number of independent variables, so when comparing models with different numbers of covariates, $R^2$ needs to be adjusted
-    \item We can conduct the following hypothesis test: $H_0: \beta_1 = 0$ vs. $H_1: \beta_1 \neq 0$
+    \item Going back to the test score vs STR example, we can conduct the following hypothesis test: $H_0: \beta_1 = 0$ vs. $H_1: \beta_1 \neq 0$
     \begin{itemize}
         \item 95\% confidence interval $CI=[-2.28-1.96 \times 0.52, -2.28 + 1.96 \times 0.52] = [-3.30,-1.26]$, does not cover 0
         \item We say $\hat{\beta}_1$ is statistically significantly different from 0 at the 5\% level, or simple, statistically significant at the 5\% level
         \item This shows STR is a relevant factor for test score, however, given the low $R^2$, there might be other factors we are missing in the regression model, which may or may not change the relevance of STR
+    \end{itemize}
+\end{itemize}
+
+\section{Tutorial 10 (12/12/2025)}
+\begin{itemize}
+    \item Variance of a linear combination
+    \begin{itemize}
+        \item $Var(a_1Y_1+a_2Y_2) = a_1^2Var(Y_1)+a_2^2Var(Y_2)+2a_1a_2Cov(Y_1,Y_2)$
+        \item We can rewrite this expression as $Var(a_1Y_1+a_2Y_2) = a_1a_1 Cov(Y_1,Y_1) + a_1a_2Cov(Y_1,Y_2) + a_2a_1Cov(Y_2,Y_1) + a_2a_2 Cov(Y_2,Y_2)$
+        \item $Var(a_1Y_1 + a_2Y_2) = \sum_{t=1}^2 \sum_{s=1}^2 a_ta_sCov(Y_t,Y_s)$
+        \item Therefore, $Var(a_1Y_1+\dots+a_nY_n) = Var\left( \sum_{i=1}^n a_iY_i \right) = \sum_{t=1}^n \sum_{s=1}^n a_ta_s Cov(Y_t,Y_s)$
+        \item Obviously, if we have $Y_i \indep Y_j$ for $i \neq j$ then $Cov(Y_i,Y_j) = 0$ when $i \neq j$ for $i,j = 1,\dots,n$
+        \item Thus, under independence, $Var\left( \sum_{i=1}^n a_iY_i \right) = \sum_{i=1}^n a_i^2Var(Y_i)$
+    \end{itemize}
+\subsection{Problem Set 8}
+    \item 1. We derived in class the slope estimate $\hat{\beta}_1$ by solving the minimization problem $\min_{b_0,b_1} \sum_{i=1}^n (Y_i - b_0 - b_1X_i)^2$. We showed $\hat{\beta}_1 = \frac{\sum_{i=1}^n X_iY_i - n\overline{XY}}{\sum_{i=1}^n X_i^2 - n\overline{X}^2}$. Complete the derivation by showing $\hat{\beta}_1 = \frac{\sum_{i=1}^n (X_i - \overline{X})(Y_i - \overline{Y})}{\sum_{i=1}^n (X_i - \overline{X})^2}$.
+    \begin{flalign*}
+        \text{Numerator} &= \sum_{i=1}^n X_iY_i - n\overline{XY} - n\overline{XY} + n\overline{XY} \\
+        &= \sum_{i=1}^n X_iY_i - \sum_{i=1}^n X_i\overline{Y} - \sum_{i=1}^n Y_i\overline{X} +  \sum_{i=1}^n \overline{XY} \\
+        &= \sum_{i=1}^n Y_i (X_i - \overline{X}) - \sum_{i=1}^n \overline{Y}(X_i - \overline{X}) \\
+        &= \sum_{i=1}^n (X_i - \overline{X})(Y_i - \overline{X}) \\
+        \text{Denominator} &= \text{Replace $Y_i$ with $X_i$ and $\overline{Y}$ with $\overline{X}$} \\
+        &= \sum_{i=1}^n (X_i-\overline{X})(X_i-\overline{X}) \\
+        &= \sum_{i=1}^n (X_i - \overline{X})^2
+    \end{flalign*}
+    \item 2. We showed in class that the OLS estimator $\hat{\beta}_1$ is unbiased. Show $\hat{\beta}_0$ is also unbiased.
+    \begin{itemize}
+        \item We can rewrite $\hat{\beta}_1$ as follows:
+        \begin{flalign*}
+            \hat{\beta}_1 &= \frac{\sum_{i=1}^n (X_i -\overline{X})(Y_i - \overline{Y})}{\sum_{i=1}^n (X_i - \overline{X})^2} \\
+            &= \frac{\sum_{i=1}^n (X_i -\overline{X})Y_i - (X_i -\overline{X})\overline{Y}}{\sum_{i=1}^n (X_i - \overline{X})X_i - (X_i - \overline{X})\overline{X}} \\
+            &= \frac{\sum_{i=1}^n (X_i -\overline{X})Y_i - \overline{Y} \sum_{i=1}^n (X_i -\overline{X})}{\sum_{i=1}^n (X_i - \overline{X})X_i - \overline{X} \sum_{i=1}^n (X_i - \overline{X})} \\
+            &= \frac{\sum_{i=1}^n (X_i -\overline{X})Y_i - \overline{Y} (n\overline{X} - n\overline{X})}{\sum_{i=1}^n (X_i - \overline{X})X_i - \overline{X} (n\overline{X} - n\overline{X})} \\
+            &= \frac{\sum_{i=1}^n (X_i -\overline{X})Y_i}{\sum_{i=1}^n (X_i - \overline{X})X_i}
+        \end{flalign*}
+        \item $Y_i = \beta_0 + \beta_1 X_i + u_i$
+        \item Consider $\hat{\beta}_0 = \overline{Y} - \hat{\beta}_1 \overline{X}$ where $\hat{\beta}_1 := \frac{\sum_{i=1}^n (X_i -\overline{X})Y_i}{\sum_{i=1}^n (X_i - \overline{X})X_i}$
+        \item We want to find $E[\hat{\beta}_0] = E[\overline{Y}] - E[\hat{\beta}_1\overline{X}]$
+        \item Then by the Law of Iterated Expectations, $E[\overline{Y}] = E[\beta_0 + \beta_1 \overline{X} + E[\overline{U} \mid X]]$ and $E[\hat{\beta}_1 \overline{X}] = E[\overline{X} E[\hat{\beta}_1 \mid X]]$
+        \item We define $X$ to be a specific set of $X_1,\dots,X_n$
+        \begin{flalign*}
+            E[\hat{\beta}_1 \mid X] &= E\left[ \frac{\sum_{i=1}^n (X_i -\overline{X})Y_i}{\sum_{i=1}^n (X_i - \overline{X})X_i} \mid X \right] \\
+            &= E\left[ \frac{\sum_{i=1}^n (X_i -\overline{X})(\beta_0 + \beta_1X_i + u_i)}{\sum_{i=1}^n (X_i - \overline{X})X_i} \mid X \right] \\
+            &= E\left[ \beta_0\frac{\sum_{i=1}^n (X_i -\overline{X})}{\sum_{i=1}^n (X_i - \overline{X})X_i} + \beta_1 \frac{\sum_{i=1}^n (X_i -\overline{X})X_i}{\sum_{i=1}^n (X_i - \overline{X})X_i}  + \frac{\sum_{i=1}^n (X_i -\overline{X})u_i}{\sum_{i=1}^n (X_i - \overline{X})X_i} \mid X \right] \\
+            &= \beta_0 E\left[ \frac{\sum_{i=1}^n (X_i -\overline{X})}{\sum_{i=1}^n (X_i - \overline{X})X_i} \mid X\right] + E[\beta_1 \mid X] + E\left[ \frac{\sum_{i=1}^n (X_i -\overline{X})u_i}{\sum_{i=1}^n (X_i - \overline{X})X_i} \mid X \right] \\
+            &= \underset{=0}{\underbrace{\beta_0 E\left[ \frac{(n\overline{X} -n\overline{X})}{\sum_{i=1}^n (X_i - \overline{X})X_i} \mid X\right]}} + \beta_1 + \underset{\text{Assumption 1}}{\underbrace{E\left[ \frac{\sum_{i=1}^n (X_i -\overline{X})}{\sum_{i=1}^n (X_i - \overline{X})X_i} E\left[ u_i \mid X \right] \right]}} \\
+            &= \beta_1
+        \end{flalign*}
+        \item This means that $E[\hat{\beta}_1 \overline{X}] = E[\overline{X} E[\hat{\beta}_1 \mid X]] = E[\overline{X}\beta_1] = \beta_1 \mu$
+        \item We also know that Assumption 1 makes $E[\overline{Y}] = E[\beta_0 + \beta_1 \overline{X} + E[\overline{U} \mid X]] = E[\beta_0 + \beta_1 \overline{X} + 0] = \beta_0 + \beta_1\mu$
+        \item Therefore, $E[\hat{\beta}_0] = E[\overline{Y}] - E[\hat{\beta}_1 \overline{X}] = \beta_0 + \beta_1\mu - \beta_1\mu = \beta_0$
+    \end{itemize}
+    \item 3. Show that under the three OLS assumptions, $\beta_1 = \frac{Cov(X_i,Y_i)}{Var(X_i)}$
+    \begin{flalign*}
+        Y_i &= \beta_0 + \beta_1 X_i + u_i \\
+        Cov(X_i,Y_i) &= \underset{=0}{\underbrace{Cov(X_i,\beta_0)}} + \beta_1 Cov(X_i,X_i) + Cov(X_i,u_i) \\
+        &= \beta_1 Var(X_i) + E[X_iu_i] - E[X_i]E[u_i] \\
+        &= \beta_1 Var(X_i) + E[E[X_iu_i \mid X_i]] - E[X_i]\underset{=0}{\underbrace{E[E[u_i \mid X_i]]}} \qquad \because \text{Assumption 1 and LIE} \\
+        &= \beta_1 Var(X_i) + E[X_i \underset{=0}{\underbrace{E[u_i \mid X_i]}}]\\
+        &=\beta_1 Var(X_i) \\
+        \Rightarrow \beta_1 &= \frac{Cov(X_i,Y_i)}{Var(X_i)}
+    \end{flalign*}
+    \item 4. Suppose $Y_i = \beta_0 + \beta_1X_i + u_i$, where $(X_i,u_i)$ are i.i.d., and $X_i$ is a Bernoulli random variable with $P(X_i = 1) = 0.2$. When $X_i = 1, u_i \sim \mathcal{N}(0,4)$; when $X_i = 0, u_i \sum \mathcal{N}(0,1)$.
+    \begin{itemize}
+        \item (a) Show that the three OLS regression assumptions are satisfied in this setting. (Hint: if $X \sim \mathcal{N}(0,\sigma^2), E[X^4] = 3\sigma^4$)
+        \begin{itemize}
+            \item Assumption 1: $E[u_i \mid X_i = 1] = 0$ and $E[u_i \mid X_i = 0] = 0$ and $X_i$ can take no other values
+            \item Assumption 2: For any $i,j=1,\dots,n$ and $i \neq j$, we have
+            \begin{flalign*}
+                P((X_i \le x_i, Y_i \le y_i), (X_j \le x_j, Y_j \le y_j)) &= P((X_i \le x_i, \beta_0 + \beta_1 X_i + u_i \le y_i), (X_j \le x_j, \beta_0 + \beta_1 X_j + u_j \le y_j)) \\
+                &= P(X_i \le x_i, \beta_0 + \beta_1 X_i + u_i \le y_i) \cdot P(X_j \le x_j, \beta_0 + \beta_1 X_j + u_j \le y_j) \\
+                &\because (X_i,u_i) \indep (X_j,u_j) \\
+                &= \left[ P(X_i \le x_i, \beta_0 + \beta_1X_i +u_i \le y_i) \right]^2 \\
+                &\because P(X_i \le x, u_i \le u) = P(X_j \le x, u_j \le u) \\
+                &= \left[ P(X_i \le x_i, Y_i \le y_i) \right]^2 \\
+                \Rightarrow &\text{All pairs $(X_i,Y_i)$ are independent and indentically distributed}
+            \end{flalign*}
+            \item Assumption 3: finite fourth moments
+            \begin{flalign*}
+                E[u_i^4] &= E[u_i^4 \mid X_i=1]P(X_i=1) + E[u_i^4 \mid X_i = 0 ]P(X_i = 0) \\
+                &= (3 \times 16)(0.2) + (3 \times 1)(0.8) \qquad \because \text{Hint} \\
+                &= 9.6 + 2.4 \\
+                &= 12 < \infty \\
+                E[X_i^4] &= 1^4 \times 0.2 + 0^4 \times 0.8 \\
+                &= 0.2 < \infty
+            \end{flalign*}
+        \end{itemize}
+        \item (b) Derive the expression for the large sample variance of the OLS estimate $\hat{\beta}_1$.
+        \begin{itemize}
+            \item We know that since $X_i \overset{i.i.d.}{\sim} Bernoulli(0.2)$ for $i=1,\dots,n$, $E[X_i]=0.2$ and $Var(X_i) = E[X_i^2] - E[X_i]E[X_i] = 0.2 -  0.2^2 = 0.16$
+            \item We have derived that $\sigma_{\hat{\beta}_1}^2 = \frac{Var[(X_i - E[X_i])u_i]}{n[Var(X_i)]^2}$
+            \item We now need to find $Var[(X_i-E[X_i])u_i] = Var[(X_i - 0.2)u_i]$
+            \begin{flalign*}
+                Var[(X_i - 0.2)u_i] &= E[((X_i - 0.2)u_i)^2] - E[(X_i - 0.2)u_i]^2 \\
+                &= E[(X_i-0.2)^2u_i^2] - E[X_iu_i]^2 + E[0.2u_i]^2 \\
+                &= E[(X_i-0.2)^2u_i^2] - E[E[X_iu_i \mid X_i]]^2 + E[E[0.2u_i \mid X_i]]^2 \qquad \because \text{LIE} \\
+                &= E[(X_i-0.2)^2u_i^2] \underset{=0}{\underbrace{- E[X_iE[u_i \mid X_i]]^2 + 0.2E[E[u_i \mid X_i]]^2}} \qquad \because \text{Assumption 1} \\
+                &= E[(X_i-0.2)^2u_i^2] \\
+                &= E[(X_i - 0.2)^2 u_i^2 \mid X_i = 1] P(X_i = 1) + E[(X_i - 0.2)^2 u_i^2 \mid X_i = 0] P(X_i = 0) \qquad \because \text{LOTP} \\
+                &= (1-0.2)^2 E[u_i^2 \mid X_i = 1] (0.2) + (-0.2)^2 E[u_i^2 \mid X_i = 0] (0.8) \\
+                &= (0.64)(4)(0.2) + (0.04)(1)(0.8) \\
+                &= 0.544 \\
+                Var(\hat{\beta}_1) &= \frac{0.544}{n(0.16)^2}
+            \end{flalign*}
+        \end{itemize}
     \end{itemize}
 \end{itemize}
 
@@ -2119,6 +2568,13 @@
     \item Slide 5: Midterm Review
     \item Slide 6: LM 3.7, 3.8, 3.11
     \item Slide 7: LM 3.8, 3.9, 5.1, 5.2, 4.3, 11.4
+    \item Slide 8: LM 4.3, 5.2, 5.4, 5.7
+    \begin{itemize}
+        \item SW 2.6, 3.1
+    \end{itemize}
+    \item Slide 9: SW 2.4, 3.2-3.4
+    \item Slide 10: SW 4
+    '\item Slide 11: SW4
 \end{itemize}
 
 \end{document}
