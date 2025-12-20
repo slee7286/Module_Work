@@ -1,0 +1,116 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[a4paper, left=2cm, right=2cm, top=3cm, bottom=3cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+
+\title{Probability and Statistics PS9}
+\author{Siheon Lee}
+\date{December 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Question 1a}
+\begin{itemize}
+    \item $E[Y] = \sum_{i} y_ip(y_i) = (0.35)(0) + (0.30)(1) + (0.15)(2) + (0.20)(3) = 1.2$
+\end{itemize}
+
+\section{Question 1b}
+\begin{itemize}
+    \item $E[Y^2] = (0.35)(0^2) + (0.30)(1^2)+(0.15)(2^2)+(0.20)(3^2) = 2.7$
+    \item $Var(Y) = E[Y^2]-E[Y]^2 = 2.7 - 1.2^2 = 1.26$
+\end{itemize}
+
+\section{Question 1c}
+\begin{itemize}
+    \item $E[\overline{Y}] = E[Y_i] = 1.2$
+\end{itemize}
+
+\section{Question 1d}
+\begin{itemize}
+    \item $Var(\overline{Y}) = \frac{Var(Y_i)}{n} = \frac{1.26}{100} = 0.0126$
+\end{itemize}
+
+\section{Question 1e}
+\begin{itemize}
+    \item By the Central Limit Theorem, $\overline{Y} \sim \mathcal{N}(1.2,0.0126)$ approximately
+\end{itemize}
+
+\section{Question 1f}
+\begin{itemize}
+    \item $P(\overline{Y} \le E[\overline{Y}] + 1.96 + \sqrt{Var(\overline{Y})}) = P(\frac{\overline{Y} - E[\overline{Y}]}{\sqrt{Var(\overline{Y})}} \le 1.96)$
+    \item We know that $\frac{\overline{Y} - E[\overline{Y}]}{\sqrt{Var(\overline{Y})}} \sim \mathcal{N}(0,1)$ so we can use a z-table: $P(z \le 1.96) = 0.975$
+\end{itemize}
+
+\section{Question 2a}
+\begin{itemize}
+    \item $E[Y \mid X=1] = (0.50)(0) + (0.10)(1) + (0.40)(2) = 0.9$
+    \item $E[Y \mid X=0] = (0.20)(0)+(0.50)(1)+(0.30)(2) = 1.1$
+\end{itemize}
+
+\section{Question 2b}
+\begin{itemize}
+    \item The joint distribution is summarized by the table below:
+    \[
+    \begin{array}{c|c|c|c}
+         & Y=0 & Y=1 & Y=2 \\
+        X=0 & 0.1 & 0.25 & 0.15 \\
+        X=1 & 0.25 & 0.05 & 0.2
+    \end{array}
+    \]
+    \item $p(X=0) = \sum_{i=0}^2 p(0,Y = i) = 0.1+0.25+0.15 = 0.5$
+    \item $p(X=1) = 1-0.5 = 0.5$
+    \item $p(Y=0) = \sum_{i=0}^1 p(X = i,0) = 0.1+0.25 =0.35$
+    \item $p(Y=1) = 0.25+0.05 = 0.3$
+    \item $p(Y=2) = 0.15+0.2 = 0.35$
+\end{itemize}
+
+\section{Question 2c}
+\begin{itemize}
+    \item $E[Y] = \sum_{i=0}^2 y \cdot p(y) = 0 \cdot (0.35) + 1 \cdot (0.3) + 2 \cdot (0.35) = 1$
+\end{itemize}
+
+\section{Question 2d}
+\begin{itemize}
+    \item $E[Y] = E[E[Y \mid X]] = E[Y \mid X=1]P(X=1) + E[Y \mid X=0]P(X=0) = 0.9(0.5) + 1.1(0.5) = 1$
+\end{itemize}
+
+\section{Question 2e}
+\begin{itemize}
+    \item $E[C] = E[100 + (100)(1)Y] = 100+100E[Y] = 200$
+\end{itemize}
+
+\section{Question 2f}
+\begin{itemize}
+    \item $E[Y^2] = \sum_{i=0}^2 y^2 \cdot p(y) = 0^2 \cdot (0.35) + 1^2 \cdot (0.3) + 2^2 \cdot (0.35) = 1.7$
+    \item $\sigma_Y = \sqrt{Var(Y)} = \sqrt{E[Y^2] - E[Y]^2} = \sqrt{1.7 - 1^2} = \sqrt{0.7} \approx 0.837$
+    \item $\sigma_C = \sqrt{100^2Var(Y)} = \sqrt{7000} \approx 83.67$
+\end{itemize}
+
+\section{Question 3a}
+\begin{itemize}
+    \item $\hat{TestScore} = 520.4 - 5.82 \times (22) = 392.36$
+\end{itemize}
+
+\section{Question 3b}
+\begin{itemize}
+    \item $\Delta \hat{TestScore} = [520.4 - 5.82 \times (23)] - [520.4 - 5.82 \times (19)] = -23.28$
+\end{itemize}
+
+\section{Question 3c}
+\begin{itemize}
+    \item $\overline{TestScore} = 520.4 - 5.82 \times \overline{CS} = 520.4 - 5.82 \times 21.4 = 395.85$
+\end{itemize}
+
+\section{Question 3d}
+\begin{itemize}
+    \item We know $SER=\sqrt{\frac{SSR}{n-2}}, R^2 = 1 - \frac{SSR}{TSS}, TSS = \sum_{i=1}^n (Y_i - \overline{Y})^2$
+    \item $SSR = (n-2)SER^2 = (100-2) \times 11.5^2 = 12961$
+    \item $TSS = \frac{SSR}{1-R^2} = \frac{12961}{1-0.08} = 14088$
+    \item The sample variance of test score $s^2 = \frac{TSS}{n-1} = \frac{14088}{99} = 142.3$ and the sample standard deviation is $s_{TestScore} = \sqrt{142.3} = 11.9$
+\end{itemize}
+
+\end{document}
