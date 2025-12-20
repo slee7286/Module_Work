@@ -1,0 +1,82 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[a4paper, left=2cm, right=2cm, top=3cm, bottom=3cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+
+\title{Probability and Statistics PS7}
+\author{Siheon Lee}
+\date{December 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Question 1}
+\begin{flalign*}
+    Var(X) &= E[(X - \mu)^2] = E[X^2] - E[X]^2 \\
+    \hat{\sigma}^2 &= \frac{1}{n} \sum_{i=1}^n (X_i - \mu)^2 \\
+    E\left[\frac{1}{n} \sum_{i=1}^n (X_i - \mu)^2\right] &= E\left[\frac{1}{n} \sum_{i=1}^n X_i^2 - 2 X_i \mu + \mu^2\right] \\
+    &= E\left[\frac{1}{n} \left[ \sum_{i=1}^n X_i^2 - \sum_{i=1}^n 2X_i \mu  + \sum_{i=1}^n \mu^2 \right]\right] \\
+    &= E\left[ \frac{1}{n} \sum_{i=1}^n X_i^2 - 2\mu \overline{X_i} + \mu^2 \right] \\
+    &= E[X_i^2] - 2\mu E[\overline{X_i}] + \mu^2 \\
+    &= E[X^2] - 2 \mu^2 + \mu^2 \\
+    &= E[X^2]- E[X]^2 = Var(X)
+\end{flalign*}
+
+\section{Question 2}
+\begin{itemize}
+    \item We are given that the distribution is normal. This means that $\mu = 52$, $Var(X) = \frac{1}{500}(0.52)(1-0.52) = 0.0004992$, and $\sigma = \sqrt{Var(X)} \approx 0.02234$. Therefore,
+    \begin{flalign*}
+        Z &= \frac{0.50-0.52}{0.02234} \approx -0.895 \\
+        p(\overline{X} < 0.50) &\approx 0.185 = 18.5\%
+    \end{flalign*}
+\end{itemize}
+
+\section{Question 3}
+\begin{flalign*}
+    E[X] &= \int_0^\epsilon xf(x)dx + \int_\epsilon^\infty xf(x)dx \\
+    &\ge \int_\epsilon^\infty xf(x)dx, \qquad x \ge \epsilon \\
+    &\ge \epsilon \int_\epsilon^\infty f(x)dx = \epsilon P(X > \epsilon) \\
+    \Rightarrow P(X > \epsilon) &\le \frac{E[X]}{\epsilon}, \qquad X > 0 \\
+    P(\vert \overline{X} - \mu \vert > \epsilon) &= P((\overline{X}-\mu)^2 > \epsilon^2) \\
+    &\le \frac{E[(\overline{X} - \mu]^2)^2}{\epsilon^2} = \frac{Var(\overline{X})}{\epsilon^2} = \frac{\sigma^2}{\epsilon^2 n} \overset{n \rightarrow \infty}{\rightarrow} 0\\
+    \Rightarrow \lim_{n \rightarrow \infty} \overline{X}_n &= \mu \\
+    \lim_{n \rightarrow \infty}  \overline{W}_n &= \mu \\
+    \Rightarrow \lim_{n \rightarrow \infty} \overline{W}_n^2 &= \mu^2 \\ 
+    \Rightarrow \lim_{n \rightarrow \infty} E[\overline{W}_n^2] &= \mu^2 \qquad \text{Expectation of constant}
+\end{flalign*}
+
+\section{Question 4}
+\begin{flalign*}
+    s_X^2 &= \frac{1}{n-1} \sum_{i=1}^n (X_i - \overline{X})^2 \\
+    &= \frac{1}{n-1} \sum_{i=1}^n (X_i^2 - 2X_i\overline{X} + \overline{X}^2) \\
+    &= \frac{1}{n-1} \left( \sum_{i=1}^n X_i^2 - 2\overline{X}(\sum_{i=1}^n X_i) + n\overline{X}^2 \right) \\
+    &= \frac{1}{n-1} \left( \sum_{i=1}^n X_i^2 - 2n\overline{X}^2 + n\overline{X}^2 \right) \\
+    &= \frac{1}{n-1} \sum_{i=1}^n X_i^2 - \left(\frac{n}{n-1} \right) \overline{X}^2 \\
+    \Rightarrow \lim_{n\rightarrow \infty} E[s_X^2] &= \lim_{n\rightarrow \infty} E\left[ \frac{1}{n-1} \sum_{i=1}^n X_i^2 - \left(\frac{n}{n-1} \right) \overline{X}^2 \right] \\
+    &= \lim_{n\rightarrow \infty} E\left[ \frac{1}{n-1} \sum_{i=1}^n X_i^2 \right] - \lim_{n\rightarrow \infty} E\left[ \left(\frac{n}{n-1} \right) \overline{X}^2 \right] \\
+    &= E[X_i^2] - \mu^2 \\
+    &= E[X^2] - E[X]^2 = Var(X) = \sigma^2
+\end{flalign*}
+
+\section{Question 5}
+\begin{itemize}
+    \item We will conduct a hypothesis test with the following hypotheses for $d = \mu_{men} - \mu_{women}$:
+    \begin{itemize}
+        \item $H_0: d = 0$
+        \item $H_1: d \neq 0$
+    \end{itemize}
+    \begin{flalign*}
+        \hat{d} &= \hat{\mu}_{men} - \hat{\mu}_{women} = 3100 - 2900 = 200 \\
+        Var(\hat{d}) &= Var(\hat{X}_{men}) + Var(\hat{X}_{women}) = \frac{1}{100}200^2 + \frac{1}{64}320^2 = 400 + 1600 = 2000 \\
+        \frac{\vert \hat{d} - 0 \vert}{\sqrt{Var(\hat{d})}} &= \frac{200}{\sqrt{2000}} \approx 4.472 \\
+        P\left( \frac{\vert \hat{d} - 0 \vert}{\sqrt{Var(\hat{d})}} \ge 4.472 \right) &\approx 7.74 \times 10^{-6} \\
+        &\text{At any conventional significance level, we reject } H_0 \\
+        \text{Confidence interval: } &\hat{d} \pm 1.96 \sqrt{Var(\hat{d})} \approx 200 \pm 87.7 \\
+        &\text{We are 95\% confident that the true mean } d \text{ lies in the interval }  (112.3, 287.7)
+    \end{flalign*}
+\end{itemize}
+
+\end{document}
