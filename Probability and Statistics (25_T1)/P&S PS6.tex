@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[a4paper, left=2cm, right=2cm, top=3cm, bottom=3cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+
+\title{Probability and Statistics PS6}
+\author{Siheon Lee}
+\date{November 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Question 1}
+\begin{flalign*}
+    E[X+Y] &= E[X] + E[Y] \\
+    &= \int_0^\infty \int_0^\infty xf_{X,Y}(x,y)dxdy + \int_0^\infty \int_0^\infty yf_{X,Y}(x,y)dxdy \\
+    &= \lambda^2\int_0^\infty \int_0^\infty xe^{-\lambda(x+y)} dxdy + \lambda^2\int_0^\infty \int_0^\infty ye^{-\lambda(x+y)} dxdy \\
+    &= \frac{1}{\lambda} + \frac{1}{\lambda} = \frac{2}{\lambda}
+\end{flalign*}
+
+\section{Question 2}
+\begin{flalign*}
+    E[\left(\prod_{i=1}^n Y_i \right)^{\frac{1}{n}}] &= \prod_{i=1}^n E[Y_i^{\frac{1}{n}}] \\
+    &= \prod_{i=1}^n \left[ \int_0^1 y^{\frac{1}{n}} dy\right] \\
+    &= \prod_{i=1}^n \left[ \frac{n}{n+1} y^{\frac{n+1}{n}} \right]_0^1 \\
+    &= \prod_{i=1}^n \left[ \frac{n}{n+1} \right] \\
+    &= \left[ \frac{n}{n+1} \right]^n
+\end{flalign*}
+
+\section{Question 3}
+\begin{flalign*}
+    Cov(X,Y) &= E[XY] - E[X]E[Y] \\
+    &= \int_0^1 \int_{-y}^y xy \cdot 1 dxdy - \int_0^1 \int_{-y}^y x \cdot 1 dx dy \int_{-y}^y \int_0^1 y \cdot 1 dy dx \\
+    &= \int_0^1 [\frac{1}{2}x^2y]_{-y}^y dy - \int_0^1 [\frac{1}{2}x^2]_{-y}^y dy \int_{-y}^y[\frac{1}{2} y^2]_0^1 dx \\
+    &= \int_0^1 0 dy - \int_0^1 0 dy \int_{-y}^y[\frac{1}{2} y^2]_0^1 dx \\
+    &= 0
+\end{flalign*}
+
+\section{Question 4}
+\begin{flalign*}
+    E[(50U+60V] &= 50E[U] + 60E[V] \\
+    &= (7.0)(50)(9) + (4.0)(60)(15) = 3150+3600 = 6750 \\
+    Var[50U+60V] &= 50^2 Var[U] + 60^2 Var[V] + 2(50)(60) Cov(U,V) \\
+    &= 50^2 Var[U] + 60^2 Var[V] \quad \because \text{Independence} \\
+    &= 50^2 E[U] + 60^2 E[V] \quad \because \text{Poisson Variable Property } Var[X] = E[X] = \lambda \\
+    &= (2500)(7.0)(9) + (3600)(4.0)(15) \\
+    &= 157500 + 216000 \\
+    &= 373500
+\end{flalign*}
+
+\end{document}
