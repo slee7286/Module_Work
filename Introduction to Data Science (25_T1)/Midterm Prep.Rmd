@@ -1,0 +1,1477 @@
+---
+title: |
+  | IDS Midterm Notes
+  | 20/12/2025  
+author: |
+  | Siheon Lee
+  | EFDS Y1 T1
+output:
+  html_document:
+    toc: true
+    toc_depth: 6
+    df_print: paged
+  pdf_document:
+    toc: true
+    number_sections: true
+---
+
+
+## Lecture 1 (06/10/2025)
+
+* Note: there are multiple setwd() lines in the code that need to be rewritten for the local machine directory path
+
+* **Overview**
+  * Guiding principles for excellence in graphics
+  * Data types in R
+  * Understanding R
+  * Development loop
+
+8 Guiding principles for excellence in graphics
+
+1. Substance: induce the viewer to think about the substance rather than about other things
+2. No distortion: avoid distorting what the data have to say
+3. Information-dense: present many numbers in a small space
+4. Coherence: make large data sets coherent
+5. Encourage comparisons: encourage the eye to compare different pieces of data
+6. Broad-to-fine details: reveal the data at several levels of detail, from a broad overview to the fine structure
+7. Clear purpose: serve a reasonably clear purpose
+8. Alignment with verbal descriptions: be aligned with the verbal descriptions accompanying the graph
+
+
+Data types in R
+
+* numeric - (10.5, 55, 787)
+* integer - (1L, 55L, 100L, where the letter "L" declares this as an integer)
+* complex - (9+3i, where "i" is the imaginary part)
+* character (a.k.a. string) - ("k", "R is exciting", "FALSE", "11.5")
+* logical (a.k.a. boolean) - (TRUE or FALSE)
+* Date - "07/01/1867"
+
+Function - function in R is an object containing multiple command that are run together in a predefined order every time
+
+Split-apply-combine approach: splitting up a large data structure, operating on each piece, and joining the results back together
+
+Development loop: act, measure, assess, adjust
+
+## Tutorial 1 (09/10/2025)
+
+* **Overview**
+  * Installing and running packages
+  * Variables
+  * Vectors
+  * Seq()
+  * Pipe operator
+  * as.Date()
+  * round()
+  * print()
+  * sqrt()
+  * floor()
+  * class()
+  * Good coding practice
+
+### Tutorial Code
+We run the packages
+```{r, results='hide', message=FALSE, warning=FALSE}
+# Install the packages if necessary
+# install.packages("tidyverse")
+# install.packages("palmerpenguins")
+library(tidyverse)
+library(palmerpenguins)
+```
+
+View part of the palmerpenguins data
+```{r}
+head(penguins)
+```
+
+We can create a vector with c()
+```{r}
+primes <- c(2, 3, 5, 7, 11, 13)
+primes
+```
+
+Basic arithmetic on vectors is applied to every element of the vector
+```{r}
+primes * 2
+primes - 1
+
+primes <- c(primes, 15, 17)
+primes
+```
+
+seq() function creates a vector of a sequence of numbers from x to y by increments of z
+```{r}
+seq(from = 1, to = 10, by = 0.5)
+```
+
+Take care to appropriately format your code (whitespace, comments, indentation, new lines, etc.)
+
+Pipe operator |> (%>% in tidyverse)
+It takes the output of one expression and passes it as the first argument to the next function, making code easier to read.
+```{r}
+# Example:
+#   flights |>
+#     filter(dest == "IAH") |>
+#     group_by(month) |>
+#     summarise(n = n())
+#
+# This is equivalent to:
+#   summarise(group_by(filter(flights, dest == "IAH"), month), n = n())
+```
+
+### Additional Files
+```{r}
+2 + 3
+```
+
+Variables are assigned data through the arrow assignment operator
+```{r}
+x <- 3.14
+print(x)
+```
+
+R can handle dates through the as.Date() function
+```{r The Date type}
+# Messy date data as characters (Dec 7 2022)
+good_day <- "20221207"
+
+# Convert with as.Date
+as.Date(good_day, format = "%Y%m%d")
+
+# Sometimes our date has separators (Aug 18 2023)
+great_day <- "18-08-2023"
+
+# as.Date() can handle that too
+as.Date(great_day, format = "%d-%m-%Y")
+
+```
+
+round() can round numbers
+```{r Functions}
+Pi <- 3.1415926
+
+# Rounding Pi to the nearest whole number
+round(Pi, digits = 2)
+```
+
+Arguments are separated by commas, and the order in which they are passed is
+important (also note whitespace).
+
+print() function allows us to print text or numbers
+```{r The print function}
+
+print(Pi)
+print("Hello World!")
+```
+
+sqrt() function computes square root of number and floor() function rounds down to the nearest integer
+```{r Exercise 3}
+a <- 4
+b <- 3.8
+sqrt(a) # Find the square root of a
+floor(b) # Round down to nearest integer of b
+```
+
+class() function can tell us what type of data a variable holds
+```{r The class function}
+x <- 4
+class(x)
+
+y <- 4.5
+class(y)
+
+z <- "Imperial"
+class(z)
+
+a <- TRUE
+class(a)
+```
+
+## Lecture 2 (13/10/2025)
+
+* **Overview**
+  * Vectors
+  * names()
+  * Data frame
+  * Indexing
+  * If..else statements
+  * For loop
+  * Tidyverse
+  * select()
+  * filter()
+  * mutate()
+  * arrange()
+
+Vector holds same type of data in array (numbers, expressions, logical values, or character strings)
+
+Elements must be comma-separated and created through function c()
+```{r}
+codes <- c(380,124,818)
+codes
+country <- c("Italy", "Canada", "Egypt")
+country
+```
+
+We can create various vectors:
+```{r}
+c(1:10) # integers 1-10
+c(1:5,7,9) # integers 1-5 and 7 and 9
+c(1:5)*2-1 # odd numbers from 1-9
+```
+
+names() function allows you to label or name entries of a vector
+```{r}
+names(codes) <- country
+codes
+```
+
+Data frame is a list of vectors of equal length, used for storing data tables
+
+```{r}
+n = c(2, 3, 5)
+s = c("aa", "bb", "cc")
+b = c(TRUE, FALSE, TRUE)
+df = data.frame(n, s, b)
+df
+```
+
+[Indexing] To access an element of a vector or data frame, we can use square brackets
+
+Index is a position in a vector or data frame, and in R it always starts at 1
+```{r}
+codes[2]
+df[2,2] # retrieves element in 2nd row and 2nd column
+df[,2] # retrieves entirety of 2nd column
+df[2,] # retrieves entirety of 2nd row
+```
+
+If...else statements are conditional statements that take in a condition and run a specific code depending on if that condition is met or now
+
+We can "nest" if...else statements several times
+
+We can also use a for loop to repeatedly apply an operation but just change the index. In this case, we are indexing over the vector x.
+```{r}
+x <- c(25000, 125000, 190000) # input annual income
+for (y in x) {
+  if(y < 37701) {
+    print("This person falls in the basic rate tax band")
+    }
+  else if(y < 125140) {
+    print("This person falls in the higher rate tax band")
+    }
+  else {
+    print("This person falls in the highest tax band")
+    }
+}
+```
+
+Tidyverse is a collection of packages helpful for working with tidy data
+```{r, results='hide', message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+We say a data table is in tidy format if each row represents one observation and columns represent different variables available for each observation
+
+The following is a tidy data table
+```{r}
+fertility_rate <- data.frame (
+  Year = c(1960, 1961, 1962),
+  Fertility_rate_UK = c(2.62, 2.68, 2.75),
+  Fertility_rate_South_Korea = c(6.04, 5.89, 5.75)
+)
+fertility_rate
+```
+
+We can manipulate a data frame using verbs such as select, filter, mutate, and arrange
+
+* select() allows you to select particular columns from a data frame
+```{r}
+subdata <- select(fertility_rate, Year,
+Fertility_rate_South_Korea)
+subdata
+```
+
+* filter() allows you to filter out data that meet a particular criteria (e.g., NA values, values <X, etc.)
+```{r}
+filter(subdata, Fertility_rate_South_Korea < 6)
+```
+
+* mutate() creates new columns that are functions of existing variables. It can also modify (if the name is the same as an existing column) and delete columns (by setting their value to NULL)
+
+lag() is a function that lags a variable by one
+```{r}
+fertility_rate <- 
+  mutate(fertility_rate,rate_change_UK =
+           (Fertility_rate_UK - lag(Fertility_rate_UK))/lag(Fertility_rate_UK)*100)
+fertility_rate
+```
+
+To delete a column using mutate, we use the following:
+```{r}
+fertility_rate<- mutate(fertility_rate, rate_change_UK = NULL)
+```
+
+* arrange allows you to sort a data frame by a particular column (default is low to high)
+```{r}
+arrange(subdata, Fertility_rate_South_Korea)
+```
+
+## Tutorial 2 (16/10/2025)
+
+* **Overview**
+  * Parts of a function
+  * Plotting graph example
+  * setwd()
+  * read.csv()
+  * head()
+  * is.na()
+  * sum()
+  * colSums()
+  * na.omit()
+  * nrow()
+  * Vectorized operations
+  * select()
+  * filter()
+  * mutate()
+  * arrange()
+  * desc()
+  * If..else statement
+  * For loop
+  * Comparison (==,!=,>,<,>=,<=)
+
+### Tutorial Code
+
+Goals:
+* tidyverse: select, filter, mutate, arrange
+* data processing (removing NA values)
+* user-defined functions (if..else, for loops)
+* %>% pipe operator
+
+Parts of a function: name, arguments, and body
+```{r}
+# name <- function(arguments) {
+#   
+# }
+```
+
+Load required library for plotting:
+```{r, results='hide', message=FALSE, warning=FALSE}
+library(plotrix)
+```
+
+
+Explore plotting graphs and making functions
+```{r}
+# Takes in variables x and y, which represent the (x,y) coordinates of the circle's center
+# Vector c(1,0.66,0.33) represents radii of three circles
+# Color of circumference is red
+# c("red","blue","orange") defines colors filling in circles
+# lty=1 defines line types for circumference
+# lwd=1 means line width is 1
+circle <- function(x,y){
+  draw.circle(x,y,c(1,0.66,0.33),border="red",
+col=c("red","blue","orange"),lty=1,lwd=1)
+}
+
+# Defines square plotting region
+par(pty="s")
+
+# creates empty plot
+# 1:5 sequence for x-axis labels
+# seq(1,10,length=5) for y-axis labels
+# No x- and y-axis titles
+# type=n creates empty plot
+# Title of "Test draw.circle"
+plot(1:5, seq(1,10,length=5),
+     type="n", xlab="", ylab="",
+     main="Test draw.circle")
+
+# Draws circle in plot
+circle(3,3)
+```
+
+Question mark shows available arguments
+```{r}
+# ?draw.circle
+```
+
+Create extended version of circle function that has default border and fill colors:
+```{r}
+circle_ext <- function(x,y,
+                       border_colour = 'red', # default border color
+                       colour = c('red', 'blue', 'orange')){ # default fill colors
+  # When circle_ext() is called, this line is executed immediately.
+  # The values of 'border_colour' and 'colour' depend on what was passed
+  # in the function call. If nothing was passed, the default values above are used.
+  draw.circle(x,y,c(1,0.66,0.33),
+              border=border_colour, # border color passed by the user
+              col=colour, # fill colors passed by the user
+              lty=1,
+              lwd=1)
+}
+
+par(pty = "s") # keep the plotting region square-shaped
+
+# Create empty plot again
+plot(1:5, seq(1,10,length=5),
+     type="n", xlab="", ylab="",
+     main="Test draw.circle")
+
+# This is the *function call* — where the function is actually executed.
+# At this moment, R substitutes x=3, y=3, border_colour='black',
+# and colour=c('purple','green','yellow'), and runs the code inside.
+
+circle_ext(3, 3,
+           border_colour = 'black',
+           colour = c("purple", "green", "yellow"))
+
+```
+
+We load the dataset required for next step:
+
+read.csv() reads data stored in a CSV to a data frame
+```{r}
+# Sets working directory
+setwd("C:/Users/slee7/OneDrive - Imperial College London/Introduction to Data Science/Week 2")
+uk_gdp_and_weeklyWage_na <- read.csv("data/uk_gdp_and_weeklyWage_na.csv")
+head(uk_gdp_and_weeklyWage_na)
+```
+
+is.na() function returns vector (TRUE/FALSE) fo the same length and shape as the input
+sum() function adds up values (counts TRUE=1 and FALSE=0)
+Check how many missing values there are in total:
+```{r}
+sum(is.na(uk_gdp_and_weeklyWage_na))
+```
+
+We can use colSums() to sum across the columns:
+```{r}
+colSums(is.na(uk_gdp_and_weeklyWage_na))
+```
+
+na.omit() removes all rows that contain at least one NA value
+```{r}
+uk_gdp_and_weeklyWage_no_NA <- na.omit(uk_gdp_and_weeklyWage_na)
+```
+
+nrow() function returns number of rows in data frame
+
+Check how many rows were removed:
+```{r}
+nrow(uk_gdp_and_weeklyWage_na) - nrow(uk_gdp_and_weeklyWage_no_NA)
+```
+
+Confirm that there are no missing values left:
+```{r}
+sum(is.na(uk_gdp_and_weeklyWage_no_NA))
+```
+
+Exercise 1. Write a function compute_s_n that for any given n computes the sum $S(n) = 1^2 + 2^2 + \dots + n^2$. Report the value of the sum when $n=10$.
+
+
+1. First approach using loops
+```{r}
+compute_s_n <- function(n) {
+  sum_squares <- 0
+  
+  for(i in 1:n){
+    sum_squares <- sum_squares +(i^2)
+  }
+  
+  return(sum_squares)
+}
+
+result <- compute_s_n(10)
+print(result)
+```
+
+2. Second approach using vectorized approach
+```{r}
+compute_s_n <- function(n) {
+  sum_squares <- sum((1:n)^2)
+  
+  return(sum_squares)
+}
+
+# Compute S_n for n = 10
+result <- compute_s_n(10)
+print(result)
+```
+
+#### Exercise 1: Calculating GDP growth rate and classifying weekly wage levels
+
+GDP Growth Rate is calculated using the formula:
+
+$$
+\text{GDP growth rate} = \frac{\text{GDP this year} - \text{GDP last year}}{\text{GDP last year}} \times 100
+$$
+
+```{r}
+# Step 1: Load the dataset
+setwd("C:/Users/slee7/OneDrive - Imperial College London/Introduction to Data Science/Week 2")
+uk_gdp_and_weeklyWage <- read.csv("data/uk_gdp_and_weeklyWage.csv")
+
+# Step 2: Add two new columns
+uk_gdp_and_weeklyWage <- uk_gdp_and_weeklyWage %>% 
+  mutate(
+    # GDP_growth_rate: how much GDP changed since last year, in %
+    # lag(GDP_m) gets the previous year's GDP
+    GDP_growth_rate = (GDP_m - lag(GDP_m)) / lag(GDP_m) * 100,
+         # weeklyWageLevel: TRUE if Weekly_pay > 500, FALSE otherwise
+         weeklyWageLevel = Weekly_pay>500)
+
+head(uk_gdp_and_weeklyWage)
+```
+
+#### Exercise 2: Working with Leap Years
+
+To determine whether a year is a leap year, we use the following rules:
+
+1. The year must be divisible by 4
+→ e.g., 2016, 2020, 2024
+
+2. But if the year is also divisible by 100, it is not a leap year
+→ e.g., 1900, 2100
+
+3. However, if it is divisible by 400, it is a leap year
+→ e.g., 2000, 2400
+
+
+Loop through each row of the dataset and check if leap year
+
+rbind() function stacks two data frames by row
+```{r}
+
+leap_year_subset <- NULL
+for (i in 1:nrow(uk_gdp_and_weeklyWage)) {
+  # Extract year value for current row
+  year_num <- uk_gdp_and_weeklyWage$Year[i]
+  
+  # Check if it is a leap year
+  
+  # If year is divisible by 100, check if it is also divisible by 400
+  if (year_num %% 100 == 0) {
+    
+    # If divisible by 400, it is a leap year
+    if (year_num %% 400 == 0) {
+      leap_year_subset <- rbind(leap_year_subset, uk_gdp_and_weeklyWage[i, ])
+    }
+  }
+  
+  # Otherwise, check if divisible by 4
+  else if (year_num %% 4 == 0) {
+    leap_year_subset <- rbind(leap_year_subset, uk_gdp_and_weeklyWage[i, ])
+  }
+  
+  # If both conditions fail, it is not a leap year
+  else {
+    print(paste(year_num, "is not a leap year"))
+  }
+}
+
+leap_year_subset
+```
+
+### Additional Files
+
+We can compare values and variables. output is either TRUE or FALSE boolean/logical values
+```{r}
+5 == 5
+5 != 5
+5 > 6
+5 >= 5
+4 < 5
+4 <= 5
+```
+
+select() function
+```{r}
+uk_gdp_and_weeklyWage %>%
+  select(Year, Weekly_pay) %>%
+  head()
+```
+
+filter() function
+```{r}
+uk_gdp_and_weeklyWage %>%
+  select(Year, Weekly_pay) %>%
+  filter(Year %% 4 == 0,
+         Year %% 100 != 0 |
+           Year %% 400 ==0 )
+```
+
+mutate() function
+
+```{r}
+uk_gdp_and_weeklyWage <- uk_gdp_and_weeklyWage %>%
+  mutate(GDP_growth_rate =
+           (GDP_m - lag(GDP_m)) / lag(GDP_m) * 100)
+```
+
+arrange() function
+
+Default is sorting in ascending order. To sort by descending order, specify arrange(desc())
+```{r}
+uk_gdp_and_weeklyWage %>%
+  arrange(desc(GDP_growth_rate))
+```
+
+## Lecture 3 (20/10/2025)
+
+* **Overview**
+  * Tidy format
+  * pull() / $
+  * Dot operator
+  * case_when()
+  * between()
+  * group_by()
+  * ungroup()
+  * summarise()
+  * n()
+  * mean()
+  
+Tidy format if:
+
+1. each row represents one observation
+2. each column represents the different variables available for each of these observations
+3. each value is a cell with each cell being a single value
+
+Load required package
+```{r, results='hide', message=FALSE, warning=FALSE}
+library(nycflights13)
+```
+
+We will use the flights dataset within the package.
+
+We can sort first by the year, then within each year by month, then within each month by day, and then from the most delay to the least delay
+```{r}
+flights %>%
+  arrange(year, month, day, desc(dep_delay)) %>%
+  head()
+```
+
+pull() is similar to $, where it gets a specific variable (column) from a data frame
+```{r}
+# Equivalent to head(flights$dep_delay)
+flights %>%
+  pull(dep_delay) %>%
+  head(10)
+```
+
+Dot operator lets the pipe move the value into a specified argument.
+```{r}
+exponent <- function(x,y){
+  x^y
+  }
+x <- 2
+y <- 3
+# Computes 3^2
+y %>% exponent(x)
+
+#Computes 2^3
+y %>% exponent(x,.)
+```
+
+case_when() function outputs any number of values depending on the conditional statement
+```{r}
+x <- c(-2, -1, 0, 1, 2)
+case_when(x < 0 ~ "Negative",
+          x > 0 ~ "Positive",
+          TRUE ~ "Zero")
+```
+
+We can use case_when() with mutate to create new column with data depending on a conditional statement with an existing variable
+```{r}
+flights %>%
+  filter(!is.na(dep_delay)) %>%
+  mutate(group= case_when(
+    dep_delay < 0 ~ "Early departure",
+    dep_delay == 0 ~ "On time",
+    dep_delay > 60 ~ "Delayed more than 1 hour",
+    TRUE ~ "Delayed up to 1 hour")) %>%
+  select(dep_delay,group) %>%
+  head()
+```
+
+between() allows to check if a value falls inside an interval
+
+between(x,a,b) does the same as x >= a & x <= b
+```{r}
+flights %>%
+  filter(!is.na(dep_delay)) %>%
+  mutate(group= case_when(
+    dep_delay < 0 ~ "Early departure",
+    between(dep_delay,0,10)~ "On time up to 10 mins",
+    dep_delay > 10 ~ "Delayed more than 10 mins")) %>%
+  select(dep_delay,group) %>%
+  head()
+```
+
+group_by() allows you to group a data frame by a particular categorical variable
+
+Any subsequent operation conduct will work on the group
+
+It is good practice to ungroup() the data frame after conducting the grouped operation
+
+summarise() creates summary statistics, reducing the data frame to have a single row for each observation (or group if the data frame is grouped)
+
+We can group the data by each date and calculate the average delay by using summarise():
+```{r, message=FALSE, warning=FALSE}
+flights %>%
+  group_by(year, month, day) %>%
+  summarise(avg_delay = mean(dep_delay, na.rm = TRUE)) %>%
+  ungroup() %>%
+  head()
+```
+
+Another useful summary is n(), which returns the number of rows in each group
+```{r}
+flights %>%
+  group_by(month) %>%
+  summarise(
+    avg_delay = mean(dep_delay, na.rm = TRUE),
+    nrows = n()) %>%
+  head()
+```
+
+### Check your understanding
+
+Suppose we have the following data frame:
+```{r}
+df <- data.frame(
+  x = 1:5,
+  y = c("a", "b", "a", "a", "b"),
+  z = c("K", "K", "L", "L", "K")
+)
+df
+```
+
+Visualize what the following outputs might be:
+```{r}
+df %>%
+  group_by(y)
+
+df %>%
+  arrange(y)
+
+df %>%
+  group_by(y) %>%
+  summarise(
+    # mean() calculates the mean of all the values
+    mean_x = mean(x)
+  )
+
+df %>%
+  group_by(y,z) %>%
+  summarise(
+    mean_x = mean(x)
+  )
+
+df %>%
+  group_by(y,z) %>%
+  mutate(
+    mean_x = mean(x)
+  )
+```
+
+## Tutorial 3 (23/10/2025)
+
+* **Overview**
+  * dplyr package
+  * Ways to access columns: $, [[]], [, "col"]
+  * min()
+  * max()
+  * Turn data frame columns into vectors
+  * seq() with dates
+  * format()
+  * quantile()
+  * cut()
+  * sd()
+  * tail()
+  * summary()
+  * parse_number()
+
+### Tutorial Code
+
+Load required package and sample data frame
+```{r, results='hide', message=FALSE, warning=FALSE}
+library(dplyr)
+
+students <- data.frame(
+  name = c("Alice", "Bob", "Chloe", "Daniel", "Emma"),
+  age = c(21, 22, 20, 23, 21),
+  score = c(85, 90, 78, 92, 88)
+)
+```
+
+You can access the column in different ways:
+```{r}
+students$name # Using the $ operator
+
+students[["age"]] 
+
+students[, "score"]
+```
+
+min() function finds the minimum value of the data
+
+max() function finds the maximum value of the data
+```{r}
+students %>%
+  summarise(
+    avg_score = mean(score),
+    min_score = min(score),
+    max_score = max(score)
+)
+```
+
+Sometimes datasets include dates. Here is an example of creating one using seq() and extracting its year using mutate() and format().
+
+format() takes in an object and POSIX-style format codes for Date objects to extract a specific part of the object as a character (string)
+
+* %Y - 4-digit year
+* $m - month(01-12)
+* %d - day
+
+```{r}
+example_dates <- data.frame(
+  Date = seq(as.Date("2020-01-01"),
+             by = "month",
+             length.out = 6)
+)
+
+example_dates %>%
+  mutate(Year = format(Date, "%Y"))
+
+```
+
+You can extract a single column as vector using pull() or the dot operator
+```{r}
+mtcars %>%
+  pull(mpg) %>%
+  head()
+
+mtcars %>%
+  .$mpg %>%
+  head()
+```
+
+### Additional Files
+
+cut() function  used to cut a range of values into bins and specify labels for each bin
+```{r}
+vec <- c(0:100)
+cut(vec,
+    # number of breaks to make or vector of break points
+    c(0,20,40,60,80,100),
+    # whether to include lowest break point
+    include.lowest = TRUE,
+    # labels = NULL produces interval bins,
+    # labels = FALSE produces integer category starting at 1,
+    # and you can also assign your own labels with labels = c()
+    labels = FALSE)
+```
+
+quantile() function produces sample quantiles corresponding to the given probabilities.  The smallest
+observation corresponds to a probability of 0 and the largest to a probability of 1.
+
+```{r}
+vec <- c(0:50)
+quantile(vec,
+         # vector of probabilities
+         # seq(0,1,0.25) = c(0,0.25,0.5,0.75,1)
+         # these are the quartiles (0%, 25%, 50%, 75%, and 100%)
+         probs = seq(0, 1, 0.25), 
+         # types of 1-9 quantile algorithms
+         # default is 7
+         type = 7)
+```
+
+By making the quantiles the break points and combining with cut, we can categorize different numerical values into their respective quartiles.
+
+```{r}
+uk_gdp_and_weeklyWage <- uk_gdp_and_weeklyWage %>%
+  mutate(
+    GDP_growth_rate = (GDP_m - lag(GDP_m)) / lag(GDP_m) * 100
+    )
+
+uk_gdp_and_weeklyWage <- uk_gdp_and_weeklyWage %>%
+  mutate(GDP_growth_rate_Quartile = cut(GDP_growth_rate,
+                                        quantile(GDP_growth_rate,
+                                                 probs = seq(0, 1, 0.25),
+                                                 type = 7,
+                                                 na.rm = T),
+                                        include.lowest = T,
+                                        labels = F)
+)
+
+uk_gdp_and_weeklyWage %>%
+  arrange(GDP_growth_rate) %>%
+  head()
+```
+
+sd() gives the standard deviation of the data
+
+Find mean and standard deviations of data:
+```{r}
+uk_gdp_and_weeklyWage %>%
+  filter(!is.na(GDP_growth_rate_Quartile)) %>%
+  group_by(GDP_growth_rate_Quartile) %>%
+  summarise(mean_GDP = mean(GDP_m),
+            std_GDP = sd(GDP_m),
+            mean_wage = mean(Weekly_pay),
+            std_wage = sd(Weekly_pay),
+            mean_GDPrate = mean(GDP_growth_rate),
+            std_GDPrate = sd(GDP_growth_rate)) %>%
+  ungroup()
+```
+
+tail() gives the last n number of rows of a data frame
+```{r}
+uk_gdp_and_weeklyWage %>%
+  arrange(GDP_growth_rate) %>%
+  tail(10)
+```
+
+summary() gives a generic result summary
+```{r}
+GDP_growth_rate_summary <-
+  uk_gdp_and_weeklyWage %>%
+  summary(GDP_growth_rate, na.rm=T)
+GDP_growth_rate_summary
+```
+
+parse_number() drops any non-numeric characters before and after the first number
+```{r}
+GDP_growth_rate_summary[3,4]
+parse_number(GDP_growth_rate_summary[3,4],
+             # Makes sure " " (spaces) separate thousands, not "," (commas)
+             # parse_number() ignores spaces when parsing
+             locale = locale(grouping_mark = " "))
+```
+
+## Lecture 4 (27/10/2025)
+
+* **Overview**
+  * ggplot2 package
+  * Plot/Geometry types (line, bar, histogram, scatterplot, etc.)
+  * geom_point()
+    * col
+    * size
+  * ggplot() object
+  * aes()
+  * geom_text()
+    * nudge_x
+    * label
+  * geom_label()
+  * Global vs local aesthetic mapping
+  * xlab()
+  * ylab()
+  * ggtitle()
+  * scale_x_continuous()
+  * scale_y_continuous()
+  * scale_x_log10()
+  * scale_y_log10()
+  * Categories as colours
+  
+Install ggplot2 package, designed to work exclusively with data tables in tidy format
+```{r, results='hide', message=FALSE, warning=FALSE}
+library(ggplot2)
+library(dslabs) # US gun homicide dataset
+```
+
+Three main components to using ggplot2
+
+1. Data: a data set
+2. Geometry: the type of plot (e.g., scatterplot, barplot, histogram, smooth densities, qqplot, and boxplot)
+3. Aesthetic mapping: additional visual cues to represent the information in the data set (e.g., the x-axis and y-axis variables and grid sizes, colour, etc.)
+
+First step in creating ggplot2 graph is to define a ggplot object
+```{r}
+# Below renders a black slate since no geomtry is defined
+
+# ggplot(data = murders)
+murders %>% ggplot() # Pipe operator definition
+```
+
+In ggplot2, we create graphs by adding layers. Layers can define geometries, compute summary statistics, define what scales to use, or even change styles.
+
+To add layers, we use the symbol "+"
+
+Geometry function names follow the pattern: "geom_X" where "X" is the name of the geometry
+
+* geom_point() - scatterplot
+* geom_bar() - bar chart
+* geom_histogram() - histogram
+* geom_boxplot() - boxplot
+
+If we add the geometry to the existing ggplot object, it defaults to using the existing data.
+
+Aesthetic mappings describes how properties of the data connect with features of the graph, such as which variables form the x- and y-axes, distance along an axis, size, or colour
+
+aes() function connects data with aesthetic mappings
+
+aes also uses variable names from the object component: we can use population and total without having to call them as murders\$population and murders\$total
+
+```{r}
+murders %>% ggplot() +
+  geom_point(aes(x = population/10^6, y = total))
+```
+
+geom_text() and geom_label() allows use to add text to the plot without and with a rectangle behind the text, respectively
+
+Each geometry function has many arguments other than aes and data, tending to be specific to the function
+
+Whereas mapping use data from specific observations and need to be inside aes(), operations we want to affect all the points the same way do not need to be included inside aes
+
+```{r}
+murders %>% ggplot() +
+  geom_point(aes(x = population/10^6, y = total),
+             # increases size of dots
+             size = 3) +
+  geom_text(aes(population/10^6, total, label = abb),
+            # shifts text slightly to right
+            nudge_x = 1.5)
+```
+
+geom_text(aes(population/10^6, total), label = abb) will give error since abb is not found because it is outside of aes function
+
+Global aesthetic mappings can be defined within the ggplot object
+
+We can rewrite the previous code as follows:
+```{r}
+murders %>% ggplot(aes(x = population/10^6, y = total, label = abb)) +
+  geom_point(size = 3) +
+  geom_text(nudge_x = 1.5)
+```
+
+If necessary, we can override the global mapping by defining a new mapping within a layer
+```{r}
+murders %>% ggplot(aes(x = population/10^6, y = total, label = abb)) +
+  geom_point(size = 3) +
+  # text label overriden
+  geom_text(aes(x = 10,
+  y = 800,
+  label = "Hello there!"))
+```
+
+scale_x_continuous() and scale_y_continuous() allows us to change the scale of the axes
+
+Because log-scale is so common, we can also use scale_x_log10() and scale_y_log10()
+```{r}
+murders %>% ggplot(aes(x = population/10^6, y = total, label = abb)) +
+  geom_point(size = 3) +
+  geom_text(nudge_x = 0.05) +
+  scale_x_continuous(trans = "log10") +
+  scale_y_continuous(trans = "log10")
+```
+
+To change axes labels and add a title, we use xlab(), ylab(), and ggtitle()
+
+We can also assign colour depending on a categorical variable using aes(col=x)
+```{r}
+murders %>% ggplot(aes(x = population/10^6, y = total, label = abb)) +
+  geom_point(aes(
+    # assign color based on geographical region
+    col = region),
+    size = 3
+    ) +
+  geom_text(nudge_x = 0.05) +
+  scale_x_log10() +
+  scale_y_log10() +
+  xlab("Populations in millions (log scale)") +
+  ylab("Total number of murders (log scale)") +
+  ggtitle("US Gun Murders in 2010")
+```
+
+## Tutorial 4 (30/10/2025)
+
+* **Overview**
+  * stringsAsFactors
+  * geom_line()
+    * linetype
+  * scale_colour_manual()
+  * theme_minimal()
+  * theme()
+    * plot.title
+    * legend.title
+    * element_text()
+      * hjust
+      * size
+      * face
+    * element_blank()
+    * axis.line.y.right
+    * axis.ticks.y.right
+    * axis.title.y.right
+    * axis.text.y.right
+  * data()
+  * as.data.frame()
+  * labs()
+  * geom_smooth()
+    * method, se, colour
+  * scale_y_continuous
+    * sec.axis
+      * name
+  * ~
+  * shape
+  * alpha
+  
+)
+
+### Tutorial Code
+
+stringsAsFactors determines whether character strings should be converted to factors (categorical variables)
+```{r}
+setwd("C:/Users/slee7/OneDrive - Imperial College London/Introduction to Data Science/Week 4")
+
+uk_gdp_and_weeklyWage <- read.csv("Tutorial files/uk_gdp_and_weeklyWage_Pop.csv",
+stringsAsFactors = F)
+
+uk_gdp_and_weeklyWage <-   uk_gdp_and_weeklyWage %>%
+  mutate(GDP_growth_rate = (GDP_m - lag(GDP_m)) / lag(GDP_m) * 100,
+         weeklyWageQuantile = cut(Weekly_pay,
+                                  quantile(Weekly_pay,
+                                           probs = seq(0, 1, 0.25), type = 7),
+                                  include.lowest = T, labels = F)
+         )
+
+uk_gdp_and_weeklyWage <- uk_gdp_and_weeklyWage %>%
+  mutate(GDP_growth_rate_Quantile = cut(GDP_growth_rate,
+                                        quantile(GDP_growth_rate,
+                                                 probs = seq(0, 1, 0.25), type = 7, na.rm = T),
+                                        include.lowest = T, labels = F)
+         )
+```
+
+as.factor() converts data as categorical data instead of numeric or character string data
+
+scale_colour_manual() sets manual values for the color categorical factor in terms of a vector of colors
+
+theme_minimal() sets a minimialistic theme with no background annotation to the ggplot object
+
+theme() offers a way to customize the aesthetics of your plot
+
+plot.title sets the title of the plot
+
+legend.title sets the title of the legend
+
+element_text() specifies that the non-data component will be text
+
+hjust sets the horizontal justification between [0,1]
+
+face is the font face ("plain", "italic", "bold", "bold.italic")
+
+element_blank() draws nothing and assigns no space
+```{r}
+uk_gdp_and_weeklyWage %>%
+  mutate(weeklyWageQuantile = as.factor(weeklyWageQuantile)) %>%
+  ggplot(aes(x = Year, y = Weekly_pay, colour = weeklyWageQuantile)) +
+  geom_point(size = 2) +
+  geom_line(aes(group = weeklyWageQuantile)) +
+  xlab("Year") +
+  ylab("Weekly Wage (£)") +
+  ggtitle("Weekly Wage between 2000 and 2022 (UK)") +
+  scale_colour_manual(values = c("blue", "red", "green", "orange")) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 12, face = "bold"),
+    legend.title = element_blank()
+    )
+```
+
+data() leads built-in or package-provided datasets into the current workspace
+
+as.data.frame() coerces object (vector, list, matrix, or array) into a data frame
+```{r}
+data("LifeCycleSavings")
+savings_data <- as.data.frame(LifeCycleSavings)
+```
+
+Data formatting (no new information learned)
+```{r}
+savings_data <- savings_data %>%
+  mutate(savings_category = case_when(
+    sr < 10 ~ "Low Savings",
+    sr >= 10 & sr <= 20 ~ "Moderate Savings",
+    sr > 20 ~ "High Savings"
+    ))
+```
+
+labs() allow for another way to label instead of xlab(), ylab(), ggtitle(), etc.
+
+Since colour mapping produces a legend by default, labs(colour="Title") renames that colour scale legend title
+
+geom_smooth() plots a trend line that follows the method
+
+"lm" method is the linear regression model
+
+se is whether to display a confidence band around the trend line
+```{r}
+savings_data %>%
+  ggplot(aes(x = dpi, y = sr, colour = savings_category)) +
+  geom_point(size = 3) +
+  geom_smooth(method = "lm", se = FALSE, color = "black") +
+  scale_color_manual(values = c("Low Savings" = "blue",
+                                "Moderate Savings" = "orange",
+                                "High Savings" = "red")) +
+  labs(x = "Disposable Income (dpi)",
+       y = "Savings Rate (sr)",
+       title = "Relationship Between Disposable Income and Savings Rate with Trend Line",
+       colour = "Savings Category")
+```
+
+### Additional Files
+
+A scale factor may be estimated using the following but must have further empirical adjustments:
+$$
+\text{scale_factor} = \frac{\max(\text{2nd dataset}) - \min(\text{2nd dataset}))}{(\max(\text{1st dataset}) - \min(\text{1st dataset}))}
+$$
+
+```{r}
+uk_gdp_and_weeklyWage <- uk_gdp_and_weeklyWage %>%
+  mutate(GDP_per_cap = GDP_m/Population*1000000)
+
+scale_factor <- (max(uk_gdp_and_weeklyWage$GDP_per_cap) - min(uk_gdp_and_weeklyWage$GDP_per_cap)) / (max(uk_gdp_and_weeklyWage$Weekly_pay) - min(uk_gdp_and_weeklyWage$Weekly_pay))
+
+scale_factor = scale_factor*2
+```
+
+You can have multiple lines in one plot by just adding more geometries by using "+"
+
+alpha specifies the transparency, ranging from [0,1]
+
+shape modifies the appearance of points
+
+linetype modifies the appearance of lines
+
+Additionally, you can add a second axis on the opposite side to show a different scale. This can be achieved through specifying sec.axis, which defines a one-to-one transformation of the primary scale.
+
+`~` serves to introduce a one-sided formula, applying the transformation that comes afterwards. Since we have `~.*scale_factor`, this means `~` is a `function(x) = x * scale_factor`.
+
+axis.line.y.right is the line along the right y-axis
+
+axis.ticks.y.right are the ticks along the right y-axis
+
+axis.title.y.right is the title of the right y-axis
+
+axis.text.y.right is the text of the right y-axis
+
+```{r}
+uk_gdp_and_weeklyWage %>%
+  ggplot(aes(x=Year)) +
+  geom_point(aes(y=Weekly_pay), size = 2, alpha = 0.7, shape = 19) +
+  geom_line(aes(y=Weekly_pay)) +
+  geom_point(aes(y=GDP_per_cap/scale_factor), size = 2, color = "red", alpha = 0.7, shape = 17) +
+  geom_line(aes(y=GDP_per_cap/scale_factor), color = "red", linetype = "dashed") +
+  labs(title ="Weekly Wage between 2001 and 2022 (UK)",
+       x = "Year",
+       y = "Weekly Wage (£)") +
+  scale_y_continuous(
+    sec.axis = sec_axis(~. *scale_factor, name= "GDP per Capita (£/pp)")) +
+  theme(axis.line.y.right = element_line(colour = "red"),
+        axis.ticks.y.right = element_line(colour = "red"),
+        axis.title.y.right = element_text(colour = "red"),
+        axis.text.y.right = element_text(colour = "red")) +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 12, face = "bold")
+    )
+```
+
+## Lecture 5 (3/11/2025)
+
+* **Overview**
+  * geom_abline()
+  * lty
+  * ggthemes package
+    * theme_economist()
+  * ggrepel package
+    * geom_text_repel()
+    * geom_label_repel()
+  * ggpubr package
+    * ggarrange
+  * geom_histogram()
+  * geom_density
+    * after_stat()
+  * R Markdown
+    * YAML header
+    * Text formatting
+    * Heading
+    * Comments
+    * Lists
+    * Links
+  * Version control
+  * Git workflow
+  
+  
+If we wanted a line to represent the average murder rate by population, since we converted into log scale, $y=rx$ becomes $log(y) = log(r) + log(x)$ where the slope is 1 and the y-intercept is $log(r)$.
+
+geom_abline() draws a line with intercept (a) and slope (b).
+
+lty is the short form for linetype
+
+Instead of labs(colour="Title"), to change the legend, we can do scale_color_discrete(name="Title") or theme(legend.title=element_text("Title"))
+```{r}
+r <- murders %>%
+  summarize(rate = sum(total)/sum(population)*10^6) %>%
+  pull(rate)
+
+murders %>% ggplot(aes(x = population/10^6, y = total, label = abb)) +
+  geom_point(aes(
+    col = region),
+    size = 3
+    ) +
+  geom_abline(intercept = log10(r), lty = 2,) +
+  geom_text(nudge_x = 0.05) +
+  scale_x_log10() +
+  scale_y_log10() +
+  xlab("Populations in millions (log scale)") +
+  ylab("Total number of murders (log scale)") +
+  ggtitle("US Gun Murders in 2010") +
+  scale_color_discrete(name = "Region")
+```
+
+ggthemes gives a powerful way to customize the non-data components of your
+plots: (i.e. titles, labels, fonts, background, gridlines, and legends)
+
+ggrepel package provides geometries for ggplot2 to repel overlapping texts and labels.
+
+geom_text_repel() repels text to avoid overlap
+
+geom_label_repel() does the same, but puts text inside a label box
+
+ggpubr provides easy-to-use functions for creating and customizing ‘ggplot2’- based publication ready plots.
+
+```{r, results='hide', message=FALSE, warning=FALSE}
+library(ggthemes)
+library(ggrepel)
+library(ggpubr)
+```
+
+```{r}
+murders %>% ggplot(aes(x = population/10^6, y = total, label = abb)) +
+  geom_point(aes(
+    col = region),
+    size = 3
+    ) +
+  geom_abline(intercept = log10(r), lty = 2,) +
+  geom_text_repel() +
+  scale_x_log10() +
+  scale_y_log10() +
+  xlab("Populations in millions (log scale)") +
+  ylab("Total number of murders (log scale)") +
+  ggtitle("US Gun Murders in 2010") +
+  scale_color_discrete(name = "Region") +
+  theme_economist()
+```
+
+Histogram divides span of data into non-overlapping bins of the e size. Then, for each bin, it counts the number of values that fall in that interval. The histogram plots these counts as bars with the base of the bar defined by the intervals.
+
+Histograms answer questions such as uni/multimodality, symmetric/asymmetric distribution, 95% value range
+
+after_stat() accesses and maps aesthetics to variables that are calculated after a statistical transformation has been applied to the data
+
+density is the probability density of each bin calculated by the geom_histogram() geometry
+
+geom_density() computes and draws a kernel density estimate, a smoothed version of the histogram
+
+ggarrange() provides method of arranging multiple ggplots on the same page
+
+labels define a list of labels to be added to the plots
+
+vjust adjust the vertical position of each label
+
+ncol defines the number of columns in the plot grid
+
+nrow defines the number of rows in the plot grid
+
+```{r}
+bins_5 <- murders %>%
+  ggplot(aes(x = total, y = after_stat(density))) +
+  geom_histogram(bins = 5) +
+  geom_density()
+
+bins_10 <- murders %>%
+  ggplot(aes(x = total, y = after_stat(density))) +
+  geom_histogram(bins = 10) +
+  geom_density()
+
+bins_20 <- murders %>%
+  ggplot(aes(x = total, y = after_stat(density))) +
+  geom_histogram(bins = 20) +
+  geom_density()
+
+bins_30 <- murders %>%
+  ggplot(aes(x = total, y = after_stat(density))) +
+  geom_histogram(bins = 30) +
+  geom_density()
+
+ggarrange(bins_5, bins_10, bins_20, bins_30, labels=c("5 bins", "10 bins", "20 bins", "30 bins"), vjust=16.5, ncol = 2, nrow = 2)
+```
+
+R Markdown s a simple and easy to use plain text language used to
+combine your R code, results from your data analysis (including plots and
+tables) and written commentary into a single nicely formatted and
+reproducible document.
+
+You can output RMD files into HTML, PDF, or Word
+
+RMD is normally composed of (1) a YAML header, (2) formatted text, and (3) one or more code chunks
+
+YAML header is surrounded before and after by a `---` delimeter on its own line and contains the metadata and options for the entire document such as the author name, date, output format, etc.
+
+A simple YAML header may look like this:
+
+`---`
+
+`title: My first R markdown document`
+
+`author: Jane Doe`
+
+`date: November 04, 2024`
+
+`output: pdf_document` (or html\_document/word\_document)
+
+`---`
+
+RMD can render almost) all the text formatting that you are likely to
+need such as italics, bold, strike-through, superscript and subscript as well
+as bulleted and numbered lists, headers and footers, images, links to other
+documents or web pages and even equations.
+
+You need to "markup" the formatting in the RMD script to be rendered in your output document.
+
+Some of the most common RMD syntax is: bold (`**text**`: **text**), italic (`*text*`: *text*), strikethrough (`~~text~~`: ~~text~~), superscript (`text^2^`: text^2^), and subscript (`text~2~`: text~2~)
+
+RMD generally ignores multiple spaces within the text. If you really want multiple spaces, use `&nbsp`. In PDF output, use `\\` and in HTML, use `<br>` for line breaks.
+
+Headings and subheadings are added by using the \# symbol at the beginning of the line.  You can decrease the size of the headings by simply adding more \# symbols.
+
+If you want to include a comment in your R markdown document outside a
+code chunk which won’t be included in the final rendered document then
+enclose your comment between `<!--` and `-->`.
+
+You can create an unordered list with "-", "+", or "\*" and an ordered list with 1., 2., etc. Sub-items need to be indented.
+
+Enclose the link text between square brackts and URL between round brackets immediately after `[link](https://www.imperial.ac.uk)`.
+
+To make any url links have the distinct blue colour, add “urlcolor: blue” to the YAML header.
+
+Problems with coding include backups, alternate versions (trying things out), rewinding, different versions for different people, merge changes from team, and merge conflicts (incompatible changes)
+
+Version control is a system for tracking and managing changes to files (especially code) over time, allowing developers to revert to past versions, compare changes, and collaborate by merging different work streams safely
+
+The following is the Git workflow:
+
+- Create repository: `git init`
+- Add files: `git add .`
+- Create commit: `git commit -m 'new feature'`
+- Share with remote repository: `git push origin main`
+- Get others' new change: `git pull origin main`
+
+Making branches allow different versions of the repository to exist:
+
+- Make a branch: `git checkout -b new_branch`
+- Switch branches: `git checkout different_branck`
+- Merge branches (inside "this_branch" run): `git merge other_branch` to "this_branch"
+
+Github provides git repository hosting and is a useful online interface for viewing files, branches and merges
