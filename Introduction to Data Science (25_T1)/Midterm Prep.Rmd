@@ -365,8 +365,8 @@ Explore plotting graphs and making functions
 ```{r}
 # Takes in variables x and y, which represent the (x,y) coordinates of the circle's center
 # Vector c(1,0.66,0.33) represents radii of three circles
-# Color of circumference is red
-# c("red","blue","orange") defines colors filling in circles
+# Colour of circumference is red
+# c("red","blue","orange") defines colours filling in circles
 # lty=1 defines line types for circumference
 # lwd=1 means line width is 1
 circle <- function(x,y){
@@ -396,17 +396,17 @@ Question mark shows available arguments
 # ?draw.circle
 ```
 
-Create extended version of circle function that has default border and fill colors:
+Create extended version of circle function that has default border and fill colours:
 ```{r}
 circle_ext <- function(x,y,
-                       border_colour = 'red', # default border color
-                       colour = c('red', 'blue', 'orange')){ # default fill colors
+                       border_colour = 'red', # default border colour
+                       colour = c('red', 'blue', 'orange')){ # default fill colours
   # When circle_ext() is called, this line is executed immediately.
   # The values of 'border_colour' and 'colour' depend on what was passed
   # in the function call. If nothing was passed, the default values above are used.
   draw.circle(x,y,c(1,0.66,0.33),
-              border=border_colour, # border color passed by the user
-              col=colour, # fill colors passed by the user
+              border=border_colour, # border colour passed by the user
+              col=colour, # fill colours passed by the user
               lty=1,
               lwd=1)
 }
@@ -1047,7 +1047,7 @@ murders %>% ggplot(aes(x = population/10^6, y = total, label = abb)) +
 ```
 
 If necessary, we can override the global mapping by defining a new mapping within a layer
-```{r}
+```{r, warning=FALSE}
 murders %>% ggplot(aes(x = population/10^6, y = total, label = abb)) +
   geom_point(size = 3) +
   # text label overriden
@@ -1073,7 +1073,7 @@ We can also assign colour depending on a categorical variable using aes(col=x)
 ```{r}
 murders %>% ggplot(aes(x = population/10^6, y = total, label = abb)) +
   geom_point(aes(
-    # assign color based on geographical region
+    # assign colour based on geographical region
     col = region),
     size = 3
     ) +
@@ -1147,7 +1147,7 @@ uk_gdp_and_weeklyWage <- uk_gdp_and_weeklyWage %>%
 
 as.factor() converts data as categorical data instead of numeric or character string data
 
-scale_colour_manual() sets manual values for the color categorical factor in terms of a vector of colors
+scale_colour_manual() sets manual values for the colour categorical factor in terms of a vector of colours
 
 theme_minimal() sets a minimialistic theme with no background annotation to the ggplot object
 
@@ -1212,8 +1212,8 @@ se is whether to display a confidence band around the trend line
 savings_data %>%
   ggplot(aes(x = dpi, y = sr, colour = savings_category)) +
   geom_point(size = 3) +
-  geom_smooth(method = "lm", se = FALSE, color = "black") +
-  scale_color_manual(values = c("Low Savings" = "blue",
+  geom_smooth(method = "lm", se = FALSE, colour = "black") +
+  scale_colour_manual(values = c("Low Savings" = "blue",
                                 "Moderate Savings" = "orange",
                                 "High Savings" = "red")) +
   labs(x = "Disposable Income (dpi)",
@@ -1265,8 +1265,8 @@ uk_gdp_and_weeklyWage %>%
   ggplot(aes(x=Year)) +
   geom_point(aes(y=Weekly_pay), size = 2, alpha = 0.7, shape = 19) +
   geom_line(aes(y=Weekly_pay)) +
-  geom_point(aes(y=GDP_per_cap/scale_factor), size = 2, color = "red", alpha = 0.7, shape = 17) +
-  geom_line(aes(y=GDP_per_cap/scale_factor), color = "red", linetype = "dashed") +
+  geom_point(aes(y=GDP_per_cap/scale_factor), size = 2, colour = "red", alpha = 0.7, shape = 17) +
+  geom_line(aes(y=GDP_per_cap/scale_factor), colour = "red", linetype = "dashed") +
   labs(title ="Weekly Wage between 2001 and 2022 (UK)",
        x = "Year",
        y = "Weekly Wage (£)") +
@@ -1315,10 +1315,10 @@ geom_abline() draws a line with intercept (a) and slope (b).
 
 lty is the short form for linetype
 
-Instead of labs(colour="Title"), to change the legend, we can do scale_color_discrete(name="Title") or theme(legend.title=element_text("Title"))
+Instead of labs(colour="Title"), to change the legend, we can do scale_colour_discrete(name="Title") or theme(legend.title=element_text("Title"))
 ```{r}
 r <- murders %>%
-  summarize(rate = sum(total)/sum(population)*10^6) %>%
+  summarise(rate = sum(total)/sum(population)*10^6) %>%
   pull(rate)
 
 murders %>% ggplot(aes(x = population/10^6, y = total, label = abb)) +
@@ -1333,7 +1333,7 @@ murders %>% ggplot(aes(x = population/10^6, y = total, label = abb)) +
   xlab("Populations in millions (log scale)") +
   ylab("Total number of murders (log scale)") +
   ggtitle("US Gun Murders in 2010") +
-  scale_color_discrete(name = "Region")
+  scale_colour_discrete(name = "Region")
 ```
 
 ggthemes gives a powerful way to customize the non-data components of your
@@ -1366,7 +1366,7 @@ murders %>% ggplot(aes(x = population/10^6, y = total, label = abb)) +
   xlab("Populations in millions (log scale)") +
   ylab("Total number of murders (log scale)") +
   ggtitle("US Gun Murders in 2010") +
-  scale_color_discrete(name = "Region") +
+  scale_colour_discrete(name = "Region") +
   theme_economist()
 ```
 
@@ -1464,7 +1464,7 @@ You can create an unordered list with "-", "+", or "\*" and an ordered list with
 
 Enclose the link text between square brackts and URL between round brackets immediately after `[link](https://www.imperial.ac.uk)`.
 
-To make any url links have the distinct blue colour, add “urlcolor: blue” to the YAML header.
+To make any url links have the distinct blue colour, add “urlcolour: blue” to the YAML header.
 
 Problems with coding include backups, alternate versions (trying things out), rewinding, different versions for different people, merge changes from team, and merge conflicts (incompatible changes)
 
@@ -1498,7 +1498,7 @@ Github provides git repository hosting and is a useful online interface for view
 
 ### Tutorial Code
 
-fill defines the fill color of the plots
+fill defines the fill colour of the plots
 
 geom_vline draws a vertical line
 
@@ -1519,10 +1519,10 @@ uk_gdp_and_weeklyWage <- read.csv("uk_gdp_and_weeklyWage2.csv",
 
 uk_gdp_and_weeklyWage %>%
   ggplot(aes(x = Weekly_pay, y = after_stat(density))) +
-  geom_histogram(bins = 6, color = "black", fill = "lightblue", linetype = "dashed") +
+  geom_histogram(bins = 6, colour = "black", fill = "lightblue", linetype = "dashed") +
   geom_density(alpha = 0.5, fill = "lightpink") +
   geom_vline(aes(xintercept = mean(Weekly_pay)),
-             color = "blue", linetype = "solid", linewidth = 1) +
+             colour = "blue", linetype = "solid", linewidth = 1) +
   labs(
     title = "Distribution of Weekly Wage",
     x = "Weekly Wage (£)",
@@ -1901,7 +1901,7 @@ new <- nycflights13::flights %>%
 
 new %>%
   ggplot(aes(x = sched_dep_time, after_stat(density))) +
-  geom_freqpoly(aes(color = cancelled), binwidth = 1/4)
+  geom_freqpoly(aes(colour = cancelled), binwidth = 1/4)
 ```
 
 Covariation is the
@@ -2015,7 +2015,7 @@ head(inner_join_data1)
 
 scale_x_continuous() can define the length of the x-axis (limits) and the axis ticks (breaks)
 
-scale_color_manual() sets the mappings from data to color
+scale_colour_manual() sets the mappings from data to colour
 
 scale_shape_manual() sets the mappings from data to shape
 
@@ -2023,11 +2023,11 @@ scale_linetype_manual() sets the mappings from data to linetype
 
 scale_fill_manual() sets the mappings from data to fill
 
-```{r}
+```{r, warning=FALSE}
 inner_join_data1 %>%
   ggplot(aes(x = calendar.years, y = GrowthRate)) +
   geom_point(aes(colour = Geography, shape = Geography), size = 3) +
-  geom_smooth(method = "lm", aes(color = Geography, fill = Geography, lty = Geography)) +
+  geom_smooth(method = "lm", aes(colour = Geography, fill = Geography, lty = Geography)) +
   labs(x = "Year", y = "GDP Growth Rate", title = "GDP Growth Rate over the years") +
   theme_minimal() +
   theme(
@@ -2039,7 +2039,7 @@ inner_join_data1 %>%
   scale_x_continuous(breaks = 2013:2021,
                      limits = c(2013, 2021)
                      ) +
-  scale_color_manual(values = c("England" = "darkorange",
+  scale_colour_manual(values = c("England" = "darkorange",
                                 "Wales" = "darkgreen")) +
   scale_shape_manual(values = c("England" = 16,
                                 "Wales" = 17)) +
@@ -2188,7 +2188,143 @@ head(murders_raw)
 
 To turn the population into numeric value, we use as.numeric()
 
-str_detect() returns TRUE if
+str_detect() returns TRUE if it detects the specified string
 
-any
+any() returns TRUE if at least one the values is true
+
+summarise_all() applies the summary function to every non-grouping column in a data frame
 ```{r}
+murders_raw %>% summarise_all(function(x) any(str_detect(x, ",")))
+```
+
+str_replace_all replaces all occurences of a specified string with another specified string
+```{r}
+test_1 <- str_replace_all(murders_raw$population, ",", "")
+print(head(as.numeric(test_1)))
+```
+
+parse_number() removes non-numeric characters before coercing into numeric value
+
+mutate_at
+```{r}
+murders_new <- murders_raw %>% mutate_at(2:3, parse_number)
+
+head(murders_new)
+```
+
+We will now use the reported_heights dataset:
+```{r}
+data(reported_heights)
+head(reported_heights)
+```
+
+We see that the height is reported in various ways:
+```{r, warning=FALSE}
+reported_heights %>%
+  filter(is.na(as.numeric(height))) %>% head()
+```
+
+suppressWarnings avoids warning message
+
+| is OR operator (true if either x | y is true)
+```{r}
+not_inches <- function(x, smallest = 50, tallest = 84){
+  inches <- suppressWarnings(as.numeric(x))
+  ind <- is.na (inches) | inches < smallest | inches > tallest
+  return(ind)
+}
+
+reported_heights %>%
+  filter(not_inches(height)) %>%
+  pull(height) %>%
+  head(10)
+```
+
+3 patterns emerge:
+
+1. A pattern of the form x'y or x' y'' or x'y" with x and y representing feet and
+inches, respectively.
+2. A pattern of the form x.y or x,y with x feet and y inches.
+3. Entries that were reported in centimeters rather than inches.
+
+Regular expressions (regex)  are a concise and flexible tool for describing patterns in strings.
+
+To express something as a symbol, you use the backslash ("\\")
+
+"\\d" refers to any digit.
+
+You can define other patterns with []. [56] detects 5 or 6 and [4-7] detects values 4 through 7.
+
+Anchors let us define patterns that must start or end at a specific place. \^ represents the beginning and \$ represents the end of a string.
+
+Curly brackets are quantifiers that can specify how many times an element must appear. \{1,3\} means between 1 and 3 times.
+
+\* means zero or more instances of the previous character
+
+\? means zero or one instance of the previous character
+
+\+ means one or more instances of the previous character
+
+str_view() views the underlying HTML rendering of the regular expression match. match specifies if we view the matchs or the non-matches.
+
+To specify patterns that we do not want to detect, we can use the \^ symbol inside square brackets
+
+Groups are defined using parentheses and permits tools to identify specific parts of the pattern so we can extract them.
+
+str_match() extracts the original string and the captured groups and returns a matrix
+```{r}
+yes <- c("5,9", "5,11", "6,", "6,1")
+no <- c("5'9", ",", "2,8", "6.1.1")
+s <- c(yes, no)
+s
+
+pattern_with_groups <- "^([4-7]),(\\d*)$"
+str_match(s, pattern_with_groups)
+```
+
+str_extract() extracts only strings that match a pattern, not the values defined by groups
+```{r}
+str_extract(s, pattern_with_groups)
+```
+
+We will see what still doesn't fit our pattern:
+```{r}
+pattern <- "^[4-7]'\\d{1,2}\"$"
+# Means that digits 4-7 start, then ' symbol, then one or two digits, then " symbol
+problems %>% str_view(pattern, match=FALSE)
+```
+
+str_subset() returns all elements of string where there's at least one match to pattern
+```{r}
+str_subset(problems, "inches")
+str_subset(problems,"''")’
+```
+
+We can now remove the inches symbol
+
+\\s represents white space.
+
+We can improve our pattern by adding \\s* in front of and after the feet symbol to permit space between the feet symbol and numbers
+
+```{r}
+pattern <- "^[4-7]\\s*'\\s*\\d{1,2}$"
+problems %>%
+  str_replace("feet|ft|foot", "'") %>%
+  # replace feet, ft, foot with '
+  str_replace("inches|in|''|\"", "") %>%
+  # remove all inches symbols
+  str_detect(pattern) %>%
+  sum()
+```
+
+Special character for the i-th group is \\i. So \\1 is the value extracted from the first group, \\2 is the value from the second, and so on.
+
+```{r}
+pattern_with_groups <-"^([4-7])\\s*[,\\.\\s+]\\s*(\\d*)$"
+# This finds a string starting with a digit from 4-7, then none or more white space, a space | , symbol | ' symbol, then none or more white space, then none or more digits
+```
+
+## Tutorial 8 ()
+
+* **Overview**
+  *
