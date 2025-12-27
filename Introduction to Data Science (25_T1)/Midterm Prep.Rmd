@@ -2134,7 +2134,51 @@ outliers_NAs <- rbind(outliers, NAs_loc)
 outliers_NAs
 ```
 
-## Lecture 8 ()
+## Lecture 8 (24/11/2025)
+
+* **Overview**
+  * Cambridge Analytica
+  * Word vectorization
+  * ELIZA
+  * Markov chain models
+  * Transformers
+  * Attention
+  * LLM
+  * String processing
+  * stringr package
+  * rvest package
+  * paste0()
+  * paste()
+  * read_html()
+  * html_node()
+  * html_table()
+  * setNames()
+  * str_detect()
+  * any()
+  * summarise_all()
+  * str_replace_all()
+  * parse_number()
+  * mutate_at()
+  * suppressWarnings()
+  * Regular expressions (regex)
+    * \\d
+    * []
+    * ^//$
+    * Quantifiers
+      * \{\}
+      * \*
+      * ?
+      * +
+    * \\s
+    * [^]
+    * Groups
+      * ()
+      * \\i
+  * str_view()
+  * str_replace()
+  * str_extract()
+  * str_match()
+  * str_subset()
 
 Cambridge Analytica showed that a computer only needed to know a couple hundred Facebook likes to know more about the person than themselves, their families, and their spouses.
 
@@ -2197,7 +2241,7 @@ summarise_all() applies the summary function to every non-grouping column in a d
 murders_raw %>% summarise_all(function(x) any(str_detect(x, ",")))
 ```
 
-str_replace_all replaces all occurences of a specified string with another specified string
+str_replace_all() replaces all occurences of a specified string with another specified string
 ```{r}
 test_1 <- str_replace_all(murders_raw$population, ",", "")
 print(head(as.numeric(test_1)))
@@ -2205,7 +2249,7 @@ print(head(as.numeric(test_1)))
 
 parse_number() removes non-numeric characters before coercing into numeric value
 
-mutate_at
+mutate_at() applies a function to a specific subset of columns in a data frame
 ```{r}
 murders_new <- murders_raw %>% mutate_at(2:3, parse_number)
 
@@ -2234,10 +2278,11 @@ not_inches <- function(x, smallest = 50, tallest = 84){
   return(ind)
 }
 
-reported_heights %>%
+problems <- reported_heights %>%
   filter(not_inches(height)) %>%
-  pull(height) %>%
-  head(10)
+  pull(height)
+
+head(problems, 10)
 ```
 
 3 patterns emerge:
@@ -2297,12 +2342,14 @@ problems %>% str_view(pattern, match=FALSE)
 str_subset() returns all elements of string where there's at least one match to pattern
 ```{r}
 str_subset(problems, "inches")
-str_subset(problems,"''")’
+str_subset(problems,"''")
 ```
 
 We can now remove the inches symbol
 
 \\s represents white space.
+
+str_replace() replaces the first match of a pattern
 
 We can improve our pattern by adding \\s* in front of and after the feet symbol to permit space between the feet symbol and numbers
 
@@ -2324,7 +2371,69 @@ pattern_with_groups <-"^([4-7])\\s*[,\\.\\s+]\\s*(\\d*)$"
 # This finds a string starting with a digit from 4-7, then none or more white space, a space | , symbol | ' symbol, then none or more white space, then none or more digits
 ```
 
-## Tutorial 8 ()
+## Tutorial 8 (27/11/2025)
 
 * **Overview**
-  *
+  * str_trim()
+  * str_to_lower()
+  * identical()
+  
+### Tutorial Code
+
+str_trim() removes leading and trailing spaces
+```{r}
+str_trim(" 5'11 ")
+```
+
+str_to_lower() standardises lettercase.
+```{r}
+str_to_lower("Five Feet Eight Inches")
+```
+
+identical() returns TRUE if two objects are exactly equal
+
+### Additional Files
+
+None!
+
+## Lecture 9 (01/12/2025)
+
+* **Overview**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
