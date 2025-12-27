@@ -19,6 +19,7 @@ output:
 ## Lecture 1 (06/10/2025)
 
 * Note: there are multiple setwd() lines in the code that need to be rewritten for the local machine directory path
+* Repeated concepts have been eliminated (for example, if the tutorial repeats some concepts in the lecture, I haven't included it)
 
 * **Overview**
   * Guiding principles for excellence in graphics
@@ -1100,6 +1101,7 @@ murders %>% ggplot(aes(x = population/10^6, y = total, label = abb)) +
       * size
       * face
     * element_blank()
+    * element_line()
     * axis.line.y.right
     * axis.ticks.y.right
     * axis.title.y.right
@@ -1248,6 +1250,8 @@ Additionally, you can add a second axis on the opposite side to show a different
 
 `~` serves to introduce a one-sided formula, applying the transformation that comes afterwards. Since we have `~.*scale_factor`, this means `~` is a `function(x) = x * scale_factor`.
 
+element_line() specifies that the non-data component will be a line
+
 axis.line.y.right is the line along the right y-axis
 
 axis.ticks.y.right are the ticks along the right y-axis
@@ -1281,6 +1285,7 @@ uk_gdp_and_weeklyWage %>%
 
 * **Overview**
   * geom_abline()
+    * intercept
   * lty
   * ggthemes package
     * theme_economist()
@@ -1290,6 +1295,7 @@ uk_gdp_and_weeklyWage %>%
   * ggpubr package
     * ggarrange
   * geom_histogram()
+    * bins
   * geom_density
     * after_stat()
   * R Markdown
@@ -1301,7 +1307,7 @@ uk_gdp_and_weeklyWage %>%
     * Links
   * Version control
   * Git workflow
-  
+  * GitHub
   
 If we wanted a line to represent the average murder rate by population, since we converted into log scale, $y=rx$ becomes $log(y) = log(r) + log(x)$ where the slope is 1 and the y-intercept is $log(r)$.
 
@@ -1367,6 +1373,10 @@ murders %>% ggplot(aes(x = population/10^6, y = total, label = abb)) +
 Histogram divides span of data into non-overlapping bins of the e size. Then, for each bin, it counts the number of values that fall in that interval. The histogram plots these counts as bars with the base of the bar defined by the intervals.
 
 Histograms answer questions such as uni/multimodality, symmetric/asymmetric distribution, 95% value range
+
+geom_histogram() creates a histogram
+
+bins define the number of bins to divide the x-axis into
 
 after_stat() accesses and maps aesthetics to variables that are calculated after a statistical transformation has been applied to the data
 
@@ -1475,3 +1485,710 @@ Making branches allow different versions of the repository to exist:
 - Merge branches (inside "this_branch" run): `git merge other_branch` to "this_branch"
 
 Github provides git repository hosting and is a useful online interface for viewing files, branches and merges
+
+## Tutorial 5 (06/11/2025)
+
+* **Overview**
+  * fill
+  * geom_vline
+    * xintercept
+  * panel.grid.major
+  * panel.grid.minor
+  * legend.position
+
+### Tutorial Code
+
+fill defines the fill color of the plots
+
+geom_vline draws a vertical line
+
+xintercept defines the x-intercept, a single x-value where the vline is located at
+
+linewidth defines the width of the line
+
+panel.grid.major specifies major grid lines (primary divisions on axis)
+
+panel.grid.minor specifies minor grid lines (finer detail between major lines)
+
+legend.position defines the position of the legend
+```{r}
+
+setwd("C:/Users/slee7/OneDrive - Imperial College London/Introduction to Data Science/Week 5")
+uk_gdp_and_weeklyWage <- read.csv("uk_gdp_and_weeklyWage2.csv",
+                                  stringsAsFactors = F)
+
+uk_gdp_and_weeklyWage %>%
+  ggplot(aes(x = Weekly_pay, y = after_stat(density))) +
+  geom_histogram(bins = 6, color = "black", fill = "lightblue", linetype = "dashed") +
+  geom_density(alpha = 0.5, fill = "lightpink") +
+  geom_vline(aes(xintercept = mean(Weekly_pay)),
+             color = "blue", linetype = "solid", linewidth = 1) +
+  labs(
+    title = "Distribution of Weekly Wage",
+    x = "Weekly Wage (£)",
+    y = "Density"
+    ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 1.0, size = 14, face = "italic"),
+    axis.text = element_text(size = 10),
+    axis.title = element_text(size = 12, face = "italic"),
+    panel.grid.major = element_line(colour = "lightgrey"),
+    panel.grid.minor = element_blank(), # Remove minor grid lines
+    legend.position = "none" # Remove legend
+    )
+```
+
+### Additional Files
+
+None!
+
+## Lecture 6 (10/11/2025)
+
+* **Overview**
+  * High-level development loop
+  * Low-level development loop
+  * Data wrangling
+  * Mutating joins
+  * Filtering joins
+  * Primary and foreign keys
+  * count()
+  * left_join()
+    * join_by()
+  * right_join()
+  * full_join()
+  * inner_join()
+  * semi_join()
+  * anti_join()
+  * Wide and long format
+  * system.file()
+  * file.path()
+  * gather()
+    * convert
+      * type.convert()
+  * spread()
+  * separate()
+    * extra
+  * unite()
+  * rename()
+
+High-Level Development Loop: find data, understand data, research question, hypothesis, evaluation
+
+Low-Level Development Loop: make changes to code, run code, results/errors, evaluate/understand, plan next step
+
+Data wrangling is needed to convert data from its raw form to the tidy form
+
+Mutating joins add new variable to one data frame from matching observations in another (left_join, inner_join, right_join, full_join)
+
+Filtering joins filter observations from one data frame based on whether or not they match an observation in another. It does not add new columns from the right table. (semi_join, anti_join)
+
+Every join involves a primary key and a foreign key.
+
+A primary key is a variable or set of variables that uniquely identifies each observation. When more than one variable is needed, the key is called a compound
+key.
+
+A foreign key is a variable (or set of variables)that corresponds to a primary key in another table.
+
+count() lets you count the unique values of one or more variables
+
+Ideally your primary keys should all be unique (`df %>% count(primary_key) %>% filter (n > 1)` gives nothing) and should not contain missing values (`df %>% filter(is.na(primary_key))` gives nothing)
+
+We will be using the nycflights13 package to demonstrate:
+```{r}
+flights2 <- flights %>% select(year, time_hour, origin, dest, tailnum, carrier)
+
+head(flights2)
+
+head(airlines)
+
+head(planes)
+
+head(airports)
+```
+
+All dplyr join functions take a pair of data frames (`x` and `y`) and return a data frame.
+
+By writing `join_by(key)` within, you can specify which key to join the data frames by.
+
+left_join() keeps all rows from the left table and adds matching columns from the right table
+
+When left_join() fails to find a match for a row in the left data frame, it fills the right table variables (on the right) with missing values.
+```{r}
+left_join(flights2,airlines, join_by(carrier)) %>%
+  head()
+```
+
+right_join() keeps all observations in the right table and adds matching columns from the left table
+
+When right_join() fails to find a match for a row in the left data frame, it fills the left table variables (on the left) with missing values.
+
+full_join() keeps all observations that appear in the right or left table.
+
+Every row of the right and left table is included and whenever there isn't a match, the missing table's variable is filled with missing values. As per convention, the output starts with all rows from the left table, followed by the unmatched right table rows.
+
+inner_join() retains rows if and only if the keys are equal. Given there are no NA values in both tables to start, there are o NA values after inner_join.
+
+semi_join() keeps all rows in the left table that have a match in the right table. However, it does not add new columns from the right table.
+```{r}
+semi_join(airports, flights2, join_by(faa == origin))
+```
+
+anti_join() keeps all rows in the left table that does not have a match in the right table. However, it does not add new columns from the right table.
+```{r}
+anti_join(flights2, airports, join_by(dest == faa)) %>%
+  head()
+```
+
+In wide format, one observation has several components, which are in different columns. The observation types are stored in the column titles.
+
+In long format, each component has been split out into its own observation. The observation types are stores in a single column.
+
+
+
+This code loads the data needed. The system.file() is used to find the full file names (paths) of files and directories within installed packages. file.path() is used to construct file paths from individual components to be compatible across different operating systems.
+```{r}
+path <- system.file("extdata", package="dslabs")
+filename <- file.path(path, "life-expectancy-and-fertility-two-countries-example.csv")
+wide_data <- read_csv(filename, show_col_types = FALSE)
+head(wide_data)
+```
+
+gather() reshapes data from a "wide" format to a "long" format.
+
+* The first argument is the data frame.
+
+* The second and third argument will tell gather the column names we want to assign to the column containing the current column names and the column containing the observations, respectively.
+
+* The fourth argument specifies which columns to gather (default is all)
+
+Gather function assumes column names are characters
+
+convert will run the function type.convert() that converts a data object to logical, integer, numeric, complex, character or factor as appropriate.
+
+You can also eliminate a column by putting a hyphen in front ("-country").
+
+```{r}
+new_tidy_data <- gather(wide_data, key, value, `1960_fertility`:`2015_life_expectancy`, convert = TRUE)
+
+# Alternatively do mutate(year = as.numeric(year))
+
+head(new_tidy_data)
+```
+
+Since the raw data contains two variables, we need to separate the variables
+
+The separate function takes three arguments: (1) the name of the column to be separated, (2) the names to be used for the new columns, and (3) the character that separates the variables.
+
+extra = "merge" ensures that the last two variables are merged when there is an extra separation (otherwise, "life" and "expectancy" are broken up).
+
+```{r}
+new_tidy_data2 <- new_tidy_data %>%
+  separate(key, c("year", "variable_name"), "_", extra = "merge")
+head(new_tidy_data2)
+```
+
+We can also do the reverse of separate by uniting two columns into one.
+
+fill="right" tells R to fill with missing values on the right if there are not enough pieces to separate
+```{r}
+new_tidy_data3 <- new_tidy_data %>%
+  separate(key, into = c("year", "first_variable_name", "second_variable_name"), sep = "_", fill = "right")
+
+head(new_tidy_data3)
+
+new_tidy_data4 <- unite(new_tidy_data3, variable_name, first_variable_name, second_variable_name)
+
+# Note how "fertility" and "NA" was joined to "fertility_NA"
+
+head(new_tidy_data4)
+```
+
+Sometimes it is useful to convert long format into wide format. To do this, we use spread.
+
+* The first argument is the data frame.
+
+* The second argument tells which variable will be used as the column names.
+
+* The third argument specifies which variable to use to fill out the cells.
+
+rename(x=y) renames the column y into "x"
+```{r}
+spread(new_tidy_data4, variable_name, value) %>%
+  rename(fertility = fertility_NA) %>%
+  head()
+```
+
+## Tutorial 6 (13/11/2025)
+
+* **Overview**
+  * pivot_longer()
+  * pivot_wider()
+  * rbind()
+  * cbind()
+  
+### Tutorial Code
+
+Create toy dataset
+```{r}
+exam_scores <- data.frame(
+  student = c("Alice", "Bob", "Charlie"),
+  math = c(85, 92, 78),
+  english = c(90, 88, 82),
+  science = c(88, 95, 80)
+  )
+
+exam_scores
+```
+
+pivot_longer() converts data from wide to long format (turns multiple columns into key–value pairs). It does the same thing as gather().
+
+```{r}
+exam_scores_long <- pivot_longer(exam_scores,
+                                 cols = math:science,
+                                 names_to = "subject",
+                                 values_to = "score")
+
+exam_scores_long
+```
+
+pivot_wider() converts data from long to wide format (spread key–value pairs into columns). It does the same thing as spread().
+
+```{r}
+exam_scores_wide <- exam_scores_long %>%
+  pivot_wider(
+    names_from = subject,
+    values_from = score,
+    names_prefix = "score_",
+    values_fill = list(score = NA_real_), # missing combinations
+    values_fn = list(score = ~mean(.x, na.rm = TRUE)) # handle duplicates
+    )
+
+exam_scores_wide
+```
+
+rbind() stacks datasets vertically (rows) with the same columns.
+```{r}
+math_scores <- data.frame(
+  student = c("Alice", "Bob"),
+  score = c(85, 92)
+  )
+
+english_scores <- data.frame(
+  student = c("Charlie", "Diana"),
+  score = c(88, 90)
+  )
+
+all_scores <- rbind(math_scores, english_scores)
+
+all_scores
+```
+
+cbind() combines datasets horizontally (columns) with the same number of rows.
+```{r}
+students <- data.frame(
+  student = c("Alice", "Bob", "Charlie")
+  )
+
+scores <- data.frame(
+  score = c(85, 92, 88)
+  )
+students_scores <- cbind(students, scores)
+
+students_scores
+```
+
+### Additional Files
+
+None!
+
+## Lecture 7 (17/11/2025)
+
+* **Overview**
+  * Exploratory data analysis (EDA)
+  * Variance
+  * Covariance
+  * Subgroups
+  * coord_cartesian()
+    * ylim
+  * Unusual values
+  * geom_freqpoly()
+  * %%
+  * %/%
+  * geom_boxplot()
+    * varwidth
+  * geom_count()
+  * geom_tile()
+  * cut_width()
+  
+  
+Exploratory Data Analysis (EDA) is the terminology used to describe the
+process of exploring data in a systematic way using visualisation and data
+transformation. The process involves:
+
+* Generating questions about the data
+* Searching for answers by visualising, transforming, and modelling your
+data
+* Using what you learn to refine your questions and/or generate new questions
+
+It is a creative process with a goal to develop an understanding of your data. The best way to understand patterns is to visualize the distribution of the variable's values. Two types of questions guide discovery:
+
+* What type of variation occurs within my variables?
+* What type of covariation occurs between my variables?
+
+Variation is the tendency of the values of a variable to change from measurement to measurement.
+
+Visualization can reveal clusters, suggesting subgroups exist within the data. To understand subgroups, ask:
+
+* How are the observations within each subgroup similar to each other?
+* How are the observations in separate clusters different from each other?
+* How can you explain or describe the clusters?
+* Why might the appearance of clusters be misleading?
+
+We will use the ggplot2's diamonds database:
+```{r}
+head(diamonds)
+```
+
+Outliers are observations that are unusual.
+
+Here, the only evidence of
+outliers is the unusually wide limits on the x-axis.
+
+```{r}
+diamonds %>%
+  ggplot(aes(x = y)) +
+  geom_histogram(binwidth = 0.5)
+```
+
+coord_cartesian() sets the x,y clips for the graph
+```{r}
+diamonds %>%
+  ggplot(aes(x = y)) +
+  geom_histogram(binwidth = 0.5) +
+  coord_cartesian(ylim = c(0,50))
+```
+
+We see unusual values at 0, ~30, and ~60.
+We can select them:
+```{r}
+diamonds %>%
+  filter(y < 3 | y > 20) %>%
+  select(price, x, y, z) %>%
+  arrange(y)
+```
+
+Through EDA, we found out possible NA values (0 mm doesn't exist) and possible errors (32mm and 59mm diamonds that are cheap).
+
+If you encounter unusual values in your dataset, you can drop the entire row with the strange values (not recommended) or replace with missing values:
+
+```{r}
+diamonds2 <- diamonds %>%
+  mutate(y = if_else(y < 3 | y > 20, NA, y))
+```
+
+If you plot this data with missing values, ggplot ignores those rows but gives a warning that there are missing values
+
+`%%` indicates `x mod y` and `%/%` indicates integer division.
+
+geom_freqpoly() creates a density plot that connects the middle of a histogram chart with lines
+```{r}
+new <- nycflights13::flights %>%
+  mutate(
+    cancelled = is.na(dep_time),
+    sched_hour = sched_dep_time %/% 100,
+    sched_min = sched_dep_time %% 100,
+    sched_dep_time = sched_hour + (sched_min / 60))
+
+new %>%
+  ggplot(aes(x = sched_dep_time, after_stat(density))) +
+  geom_freqpoly(aes(color = cancelled), binwidth = 1/4)
+```
+
+Covariation is the
+tendency for the values of two or more
+variables to vary together in a related way.
+
+geom_boxplot() gives a box and whiskers plot depicting the range, Q1, median, Q3, and outliers
+```{r}
+ggplot(diamonds2, aes(x = price, y = cut)) +
+  geom_boxplot()
+```
+
+geom_count() gives the number of observations at each location, then maps the count to the size of the points
+```{r}
+ggplot(diamonds2, aes(x = cut, y = color)) +
+  geom_count()
+```
+
+geom_tile() creates a tiled heat map
+```{r}
+diamonds2 %>%
+  count(color, cut) %>%
+  ggplot(aes(x = cut, y = color)) +
+  geom_tile(aes(fill = n))
+```
+
+cut_width() discretizes a continuous numeric variable into a categorical one by creating bins
+
+aes group makes the geometry plot graphs for each group
+
+varwidth makes the width of the boxplot proportional to the number of points
+```{r}
+diamonds2 %>%
+  filter(carat < 3) %>%
+  ggplot(aes(x = carat, y = price)) +
+  geom_boxplot(aes(group = cut_width(carat, 0.1)),
+               varwidth = TRUE)
+```
+
+## Tutorial 7 (20/11/2025)
+
+* **Overview**
+  * as.numeric()
+  * colnames()
+  * Multiple by= in joins
+  * scale_x_continuous()
+    * limits
+    * breaks
+  * scale_colour_manual()
+  * scale_shape_manual()
+  * scale_linetype_manual()
+  * scale_fill_manual()
+  * rowid_to_column()
+  * drop_na()
+  * distinct()
+  * colSums()
+  * which()
+  * apply()
+    * arr.ind
+  * add_column()
+  
+### Tutorial Code
+
+Load required datasets
+```{r}
+setwd("C:/Users/slee7/OneDrive - Imperial College London/Introduction to Data Science/Week 7")
+
+Eng_population <- read.csv("./data2/ONS-England_population.csv", stringsAsFactors = F)
+
+Wales_population <- read.csv("./data2/ONS-Wales_population.csv", stringsAsFactors = F)
+
+Eng_Wales_GDP_GR <- read.csv("./data2/ONS-England-Wales_GDP_GrowthRate.csv", stringsAsFactors = F)
+```
+
+as.numeric() converts object into numeric type
+
+colnames() retrieves or sets the column names of matrix-like objects such as data frames and matrices
+
+We correct the data as follows:
+```{r}
+Eng_population <- Eng_population[8:58,]
+colnames(Eng_population) <- c("Year", "Population")
+Eng_population <- Eng_population %>%
+  mutate(Year = as.numeric(Year),
+         Population = as.numeric(Population),
+         Region = "England")
+
+Wales_population <- Wales_population[8:58,] 
+colnames(Wales_population) <- c("Year", "Population")
+Wales_population <- Wales_population %>%
+  mutate(Year = as.numeric(Year),
+         Population = as.numeric(Population),
+         Region = "Wales")
+
+Eng_Wales_population <- rbind(Eng_population, Wales_population)
+
+head(Eng_Wales_population)
+```
+
+
+We can specify multiple columns to join by through c("column1 from x" = "column1 from y", "column2 from x" = "column2 from y"...). Only the columns from the x data frame remains.
+```{r}
+inner_join_data1 <- Eng_Wales_GDP_GR %>%
+  inner_join(Eng_Wales_population,
+             by = c("calendar.years" = "Year",
+                    "Geography" = "Region")
+             )
+
+head(inner_join_data1)
+```
+
+scale_x_continuous() can define the length of the x-axis (limits) and the axis ticks (breaks)
+
+scale_color_manual() sets the mappings from data to color
+
+scale_shape_manual() sets the mappings from data to shape
+
+scale_linetype_manual() sets the mappings from data to linetype
+
+scale_fill_manual() sets the mappings from data to fill
+
+```{r}
+inner_join_data1 %>%
+  ggplot(aes(x = calendar.years, y = GrowthRate)) +
+  geom_point(aes(colour = Geography, shape = Geography), size = 3) +
+  geom_smooth(method = "lm", aes(color = Geography, fill = Geography, lty = Geography)) +
+  labs(x = "Year", y = "GDP Growth Rate", title = "GDP Growth Rate over the years") +
+  theme_minimal() +
+  theme(
+    axis.title = element_text(size = 12, face = "bold"),
+    axis.text = element_text(size = 10),
+    plot.title = element_text(hjust = 0.5, size = 15, face = "bold"),
+    legend.title = element_text(size = 12, face = "bold")
+    ) +
+  scale_x_continuous(breaks = 2013:2021,
+                     limits = c(2013, 2021)
+                     ) +
+  scale_color_manual(values = c("England" = "darkorange",
+                                "Wales" = "darkgreen")) +
+  scale_shape_manual(values = c("England" = 16,
+                                "Wales" = 17)) +
+  scale_linetype_manual(values = c("England" = "dashed",
+                                   "Wales" = "dotted")) +
+  scale_fill_manual(values = c("England" = "orange",
+                               "Wales" = "lightgreen"))
+```
+
+### Additional Files
+
+We will use the airquality dataset
+```{r}
+data("airquality")
+
+head(airquality)
+```
+
+rowid_to_column() converts row numbers into an explicit column 
+
+drop_na() removes rows with any NA in any column and can be restricted to looking at specific columns
+```{r}
+airquality <- airquality %>%
+  rowid_to_column("Index") %>%
+  drop_na(Ozone) # Only looks for NA in Ozone column
+
+boxplot(airquality$Ozone,
+        main = "Boxplot of Ozone Levels",
+        ylab = "Ozone Levels",
+        col = "lightblue")
+```
+
+distinct() only keeps unique/distinct rows in a data frame
+```{r}
+ozone_with_outliers <- airquality %>%
+  mutate(
+    Q1 = quantile(Ozone, 0.25),
+    Q3 = quantile(Ozone, 0.75),
+    IQR = Q3 - Q1,
+    Lower_Bound = Q1 - 1.5 * IQR,
+    Upper_Bound = Q3 + 1.5 * IQR,
+    Is_Outlier = if_else(Ozone < Lower_Bound | Ozone > Upper_Bound, "Outlier", "Not outlier")
+    )
+
+ozone_with_outliers %>%
+  select(Q1, Q3, IQR, Lower_Bound, Upper_Bound) %>%
+  distinct()
+```
+
+```{r}
+setwd("C:/Users/slee7/OneDrive - Imperial College London/Introduction to Data Science/Week 7")
+
+uk_gdp_and_weeklyWage <- read.csv("data/uk_gdp_and_weeklyWage.csv", stringsAsFactors = F)
+```
+
+colSums() calculate the sum of each column
+
+which() returns the position of values that meet a specific logical condition
+```{r}
+uk_gdp_and_weeklyWage %>% select(which(colSums(is.na(.)) > 0))
+```
+
+The following function detects outliers (1.5 times IQR)
+```{r}
+detect_outlier <- function(x) {
+  Q1 <- quantile(x, probs=.25, na.rm = T)
+  Q3 <- quantile(x, probs=.75, na.rm = T)
+  IQR = Q3-Q1
+  result <- x > Q3 + (IQR*1.5) | x < Q1 - (IQR*1.5)
+  return(result)
+}
+```
+
+apply() returns values obtained by applying a function to a specified margin (1 is rows, 2 is columns, and c(1,2) is rows and columns).
+
+arr.ind returns row and column index instead of a linear index
+
+add_column() adds a column with name-value pairs
+```{r}
+NAs_loc <- which(uk_gdp_and_weeklyWage %>%
+apply(., MARGIN = 2, is.na) , arr.ind = T)
+
+outliers <- data.frame(rows=c(), cols=c())
+outliers <- outliers %>% add_column(rows = NA, cols = NA)
+
+outliers <- which(uk_gdp_and_weeklyWage %>%
+apply(., MARGIN = 2, detect_outlier), arr.ind = T) %>%
+  data.frame()
+
+outliers_NAs <- rbind(outliers, NAs_loc)
+
+outliers_NAs
+```
+
+## Lecture 8 ()
+
+Cambridge Analytica showed that a computer only needed to know a couple hundred Facebook likes to know more about the person than themselves, their families, and their spouses.
+
+Words can be represented as points in a multidimensional space as multidimensional vectors
+
+ELIZA was an early chatbot
+
+WordNet showed semantic relations between words linking synonyms
+
+Markov chain models are sequences of events where the probability of the next event (state) depends only on the current state, not the entire past history (the Markov Property).
+
+Transformers use multi-headed attention models that pay attention to specific words
+
+LLMs learn by scanning enormous
+amounts of training data. During training, they learn patterns in the training text by learning to predict the next word. They are then able to produce new passages of text in response to a question from the user.
+
+String processing includes extracting numbers from strings, removing unwanted characters from text, finding and replacing characters, extracting specific parts of strings, and splitting strings into multiple values.
+
+ In general, string processing tasks can be divided into detecting, locating, extracting, and replacing patterns in strings.
+
+stringr package has functions starting with "str_" and has the string being processed as the first argument
+
+rvest library makes it easier to scrape web pages
+```{r, results='hide', message=FALSE, warning=FALSE}
+library(stringr)
+library(rvest)
+```
+
+
+paste0()=paste(,sep = "") concatenates multiple R objects into a single character string with no separator
+
+read_html() reads the HTML content from the URL
+
+html_node() extracts a specific HTML element
+
+html_table() parses an HTML tablee into a data frame
+
+setNames() sets the column names of a data frame
+
+Constructing the murders data set:
+```{r}
+url <- paste0("https://en.wikipedia.org/w/index.php?title=","Gun_violence_in_the_United_States_by_state","&direction=prev&oldid=810166167")
+
+murders_raw <- read_html(url) %>%
+html_node("table") %>%
+html_table() %>%
+setNames(c("state", "population", "total", "murder_rate"))
+
+head(murders_raw)
+```
+
+To turn the population into numeric value, we use as.numeric()
+
+str_detect() returns TRUE if
+
+any
+```{r}
