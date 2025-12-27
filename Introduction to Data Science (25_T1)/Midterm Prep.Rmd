@@ -2400,6 +2400,40 @@ None!
 
 * **Overview**
 
+* Graphical excellence is the well-designed presentation of interesting data: a matter of substance, statistics and design
+* Graphical excellence consists of complex ideas communicated with clarity,
+precision and efficiency
+* Graphical excellence gives the viewer the greatest number of ideas in the shortest time with the least ink in the smallest space
+  * $$\text{Data-ink ratio} = \frac{\text{Data-ink}}{\text{Total "ink" used to produce the graphic}}$$
+  * The closer a graphic’s data-ink ratio to 1, the more information-dense
+* Graphical excellence is nearly always multivariate
+* Graphical excellence requires telling the truth about the data
+
+8 Guiding principles for excellence in graphics
+
+1. Substance: induce the viewer to think about the substance rather than about other things
+  * Time series are graphs with time (marked on a regular rhythm of seconds, minutes, hours, days, etc.) on one dimension
+  * Relational graphics link at least two variables, and encourage/implore the viewer to observe a possible causal relationship between the two variables
+2. No distortion: avoid distorting what the data have to say
+  * Bar charts should always start at zero
+  * $$\text{Lie Factor} = \frac{\text{Size of effect in graphic}}{\text{Size of effect in data}}$$
+  * Weary of graphics with Lie Factors greater than 1.05 and less than 0.95
+  * Graphics should display data variation, not design variation
+  * In time-series displays of money, deflated and standardized units should
+be used
+  * The number of variable dimensions should not exceed the number of dimensions in the data
+  * Graphics should not quote data out of context
+3. Information-dense: present many numbers in a small space
+  * Graphical elegance is often found in simplicity of design and complexity of the data
+  * Attractive graphical design:
+    * Have a properly chosen format and design
+    * Use words, numbers and drawings together
+    *  Reflect a balance, a proportion, a sense of relevant scale
+4. Coherence: make large data sets coherent
+5. Encourage comparisons: encourage the eye to compare different pieces of data
+6. Broad-to-fine details: reveal the data at several levels of detail, from a broad overview to the fine structure
+7. Clear purpose: serve a reasonably clear purpose
+8. Alignment with verbal descriptions: be aligned with the verbal descriptions accompanying the graph
 
 
 
